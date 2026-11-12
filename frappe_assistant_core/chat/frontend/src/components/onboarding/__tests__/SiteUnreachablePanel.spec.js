@@ -23,7 +23,7 @@ describe("SiteUnreachablePanel", () => {
 		const cta = w.find('[data-test="unreachable-mcp-cta"]');
 		expect(cta.exists()).toBe(true);
 		expect(cta.attributes("href")).toBe(
-			"https://docs.assistantcore.cloud/getting-started/quick-start"
+			"https://docs.thinknxg.com/thinknxgassistantcore/getting-started/quick-start"
 		);
 		// Opening docs must never replace the half-finished onboarding screen.
 		expect(cta.attributes("target")).toBe("_blank");
@@ -48,7 +48,7 @@ describe("SiteUnreachablePanel", () => {
 		expect(steps.text()).toContain("site_config.json");
 		expect(steps.text()).toContain("clear-cache");
 		expect(steps.find('[data-test="unreachable-local-docs"]').attributes("href")).toBe(
-			"https://docs.assistantcore.cloud/fac-chat/local-sites"
+			"https://docs.thinknxg.com/thinknxgassistantcore/fac-chat/local-sites"
 		);
 	});
 

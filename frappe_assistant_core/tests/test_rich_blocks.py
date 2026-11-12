@@ -153,7 +153,7 @@ class TestMetricJsonArray(unittest.TestCase):
         self.assertIn("note", out)
 
     def test_metrics_fence_renders_the_same_row(self):
-        # The model also names the fence `metrics` for a KPI row (filming FAC Ep.13).
+        # The model also names the fence `metrics` for a KPI row (filming TAC Ep.13).
         out = render(
             '```metrics\n[{"label":"Total Revenue","value":"9,38,720"},{"label":"Invoices","value":"16"}]\n```'
         )

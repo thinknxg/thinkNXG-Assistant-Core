@@ -58,4 +58,4 @@ def inject_widget(response, request) -> None:
             return
         response.set_data(html[:at] + _script_tag() + html[at:])
     except Exception:
-        frappe.logger("frappe_assistant_core").warning("FAC widget embed skipped", exc_info=True)
+        frappe.logger("frappe_assistant_core").warning("TAC widget embed skipped", exc_info=True)

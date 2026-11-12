@@ -10,17 +10,17 @@ def send_fac_admin_invite():
     must render with plain frappe.sendmail and never depend on
     assistant_runtime being installed here.
 
-    It is deliberately NOT gated on the FAC Chat gate. `enable_fac_chat`
+    It is deliberately NOT gated on the TAC Chat gate. `enable_fac_chat`
     defaults to 0 and nothing enables it during `after_install` — the only
     writer is the `toggle_chat` admin action — so gating this on the gate would
     suppress the email on every install rather than only on BYO-LLM ones. The
-    copy instead describes what is true at install time and points at FAC
+    copy instead describes what is true at install time and points at TAC
     Admin, which is reachable whether or not chat is on; `/copilot/` raises
     PageDoesNotExistError until an administrator enables chat.
     """
     recipients = _get_system_manager_emails()
     if not recipients:
-        frappe.log_error("No System Manager users found for FAC invite", "FAC Invite Hook")
+        frappe.log_error("No System Manager users found for TAC invite", "TAC Invite Hook")
         return
 
     admin_url = frappe.utils.get_url("/app/fac-admin")
@@ -34,7 +34,7 @@ def send_fac_admin_invite():
                 delayed=True,
             )
         except Exception:
-            frappe.log_error("Failed to send FAC welcome email", "FAC Invite Hook")
+            frappe.log_error("Failed to send TAC welcome email", "TAC Invite Hook")
 
 
 def _get_system_manager_emails():

@@ -18,7 +18,7 @@
 
 The dispatcher fires on every doc save site-wide (``doc_events = {"*": ...}``),
 including the DocType saves thinkNXG performs during ``bench migrate``. It must
-check the migrate/install/patch flags BEFORE reading the FAC Chat gate —
+check the migrate/install/patch flags BEFORE reading the TAC Chat gate —
 otherwise, when upgrading from a build that predates ``enable_fac_chat``, the
 gate read raises mid-migration and crashes every doc save.
 """

@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""Per-user MCP connection management for the FAC Chat SPA."""
+"""Per-user MCP connection management for the TAC Chat SPA."""
 
 import frappe
 from frappe import _
@@ -23,7 +23,7 @@ def _client():
 
 
 def _assert_chat_access() -> None:
-    """Refuse the action outright if FAC Chat is off or the caller isn't a
+    """Refuse the action outright if TAC Chat is off or the caller isn't a
     FACO member — mirrors voice.py's gate exactly. These are account-
     management actions, not display endpoints, so there is no soft-degrade
     path: an ungated user must not be able to add or remove a connection.
@@ -31,7 +31,7 @@ def _assert_chat_access() -> None:
     from frappe_assistant_core.chat.api.settings.access import _is_faco_member
 
     if not is_chat_enabled():
-        frappe.throw(_("FAC Chat is disabled."), frappe.PermissionError)
+        frappe.throw(_("TAC Chat is disabled."), frappe.PermissionError)
     if not _is_faco_member(frappe.session.user):
         frappe.throw(_("You are not enabled for FACO."), frappe.PermissionError)
 
@@ -52,7 +52,7 @@ def list_connections() -> dict:
 
 
 def _assert_removable(server_name: str, action: str = "removed") -> None:
-    """The FAC connection is provisioned automatically and cannot be removed
+    """The TAC connection is provisioned automatically and cannot be removed
     or disabled.
 
     AR enforces this too; failing here keeps the round trip cheap and the

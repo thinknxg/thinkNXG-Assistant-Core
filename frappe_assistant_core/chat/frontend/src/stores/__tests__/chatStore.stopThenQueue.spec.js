@@ -5,9 +5,9 @@ import { useChatStore } from "@/stores/chatStore";
 import { CANCEL_HOLD_MS } from "@/stores/chat/streamManager";
 import { api } from "@/api/client";
 
-// Stop turns isStreaming off at once, but FAC clears a session's
+// Stop turns isStreaming off at once, but TAC clears a session's
 // cancel flag when it accepts a turn. A next message accepted just
-// before the Stop reached FAC was stopped too; one accepted just after it
+// before the Stop reached TAC was stopped too; one accepted just after it
 // cleared the flag before the stopped turn's relay had read it. The next
 // message therefore waits until the Stop's cancel_stream has been answered.
 vi.mock("@/api/client", () => ({

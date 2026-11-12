@@ -1,8 +1,8 @@
-/* FAC Admin Page Styles */
+/* TAC Admin Page Styles */
 /* Auto-extracted from fac_admin.js */
 
 .fac-admin-container {
-    /* FAC teal accent — local page-scoped vars (no shared token plumbing). */
+    /* TAC teal accent — local page-scoped vars (no shared token plumbing). */
     --fac-accent: #0F6E5C;
     --fac-accent-soft: rgba(15, 110, 92, 0.12);
     max-width: 1400px;

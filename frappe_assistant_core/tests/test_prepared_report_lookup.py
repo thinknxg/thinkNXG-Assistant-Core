@@ -5,7 +5,7 @@
 """generate_report reuses only a completed Prepared Report, on every thinkNXG version.
 
 thinkNXG 16 replaced ``get_completed_prepared_report`` with ``get_last_processed_prepared_report``
-(October 2026), which also returns reports that failed, so FAC looks the row up itself.
+(October 2026), which also returns reports that failed, so TAC looks the row up itself.
 """
 
 import frappe

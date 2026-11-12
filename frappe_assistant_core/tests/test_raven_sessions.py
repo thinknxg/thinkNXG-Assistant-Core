@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Each thinkNXG Raven conversation is a FAC Chat session of its own, owned by the asker."""
+"""Each thinkNXG Raven conversation is a TAC Chat session of its own, owned by the asker."""
 
 from unittest.mock import patch
 

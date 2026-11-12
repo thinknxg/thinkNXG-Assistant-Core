@@ -40,7 +40,7 @@ class TestFacoPlugin(BaseAssistantTest):
 
     def test_plugin_get_tools_returns_registered_tools(self):
         tools = FacoPlugin().get_tools()
-        # send_email moved to the core plugin: it needs nothing from FAC Chat, so
+        # send_email moved to the core plugin: it needs nothing from TAC Chat, so
         # restricting the faco plugin must not take it away from other clients.
         self.assertNotIn("send_email", tools)
         self.assertIn("generate_document", tools)
@@ -82,7 +82,7 @@ class TestFacoPlugin(BaseAssistantTest):
 
 class TestFacoToolDiscovery(BaseAssistantTest):
     def test_send_email_tool_module_importable(self):
-        """send_email lives in the core plugin — it has no FAC Chat dependency."""
+        """send_email lives in the core plugin — it has no TAC Chat dependency."""
         from frappe_assistant_core.plugins.core.tools import send_email
 
         self.assertTrue(hasattr(send_email, "SendEmail"))

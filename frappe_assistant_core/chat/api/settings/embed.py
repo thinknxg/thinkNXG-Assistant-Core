@@ -26,7 +26,7 @@ from frappe_assistant_core.chat.widget_boot import widget_entry
 
 def _require_chat_admin() -> None:
     if not frappe.has_permission("Assistant Core Settings", "write"):
-        frappe.throw(_("You do not have permission to manage FAC Chat."), frappe.PermissionError)
+        frappe.throw(_("You do not have permission to manage TAC Chat."), frappe.PermissionError)
 
 
 @frappe.whitelist(methods=["GET"])

@@ -26,7 +26,7 @@ import { formatCredits } from "@/composables/useFormatters";
 import { __ } from "@/utils/i18n";
 
 // The same words wherever the personal limit stops a chat: the Desk widget's composer, and the
-// banner a refused turn (user_limit_reached) shows in both FAC Chat and the widget.
+// banner a refused turn (user_limit_reached) shows in both TAC Chat and the widget.
 defineProps({
 	isAdmin: { type: Boolean, default: false },
 	used: { type: Number, default: 0 },

@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""FAC Bot is opt-in: an administrator switches it on in FAC Admin, which creates the bot."""
+"""TAC Bot is opt-in: an administrator switches it on in TAC Admin, which creates the bot."""
 
 import unittest
 
@@ -67,7 +67,7 @@ class TestRavenBotSwitch(BaseAssistantTest):
             set_raven_bot_enabled(True)
 
     def test_raven_is_not_offered_the_widget(self):
-        # thinkNXG Raven is a chat app with FAC Bot inside it; a floating chat widget on top is redundant.
+        # thinkNXG Raven is a chat app with TAC Bot inside it; a floating chat widget on top is redundant.
         from frappe_assistant_core.chat.embed.apps import discover_spa_apps
 
         self.assertNotIn("raven", [app["app"] for app in discover_spa_apps()])

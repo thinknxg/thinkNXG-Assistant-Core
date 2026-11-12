@@ -48,7 +48,7 @@ const stubs = { ChatInterface: true, InputArea: true, CreditMeter: true, Spotlig
 const SendStub = { template: "<i />" };
 
 describe("router shim", () => {
-	it("opens FAC Chat for any route a shared component pushes", async () => {
+	it("opens TAC Chat for any route a shared component pushes", async () => {
 		const open = vi.spyOn(window, "open").mockImplementation(() => null);
 		const router = createRouterShim();
 		await router.push("/settings/billing?tab=plans");
@@ -59,13 +59,13 @@ describe("router shim", () => {
 });
 
 describe("router shim named routes", () => {
-	it("resolves a push by route name to FAC Chat's path (WorkflowCreatedBlock's button)", async () => {
+	it("resolves a push by route name to TAC Chat's path (WorkflowCreatedBlock's button)", async () => {
 		const open = vi.spyOn(window, "open").mockImplementation(() => null);
 		await createRouterShim().push({ name: "agent-builder", params: { id: "wf-1" } });
 		expect(open).toHaveBeenCalledWith("/copilot/agents/wf-1", "_blank", "noopener");
 	});
 
-	it("knows every named route FAC Chat's router has, so a rename there cannot silently break Desk", async () => {
+	it("knows every named route TAC Chat's router has, so a rename there cannot silently break Desk", async () => {
 		const real = (await import("@/router/index.js")).default;
 		const shim = createRouterShim();
 		for (const r of real.getRoutes().filter((r) => r.name)) {
@@ -149,7 +149,7 @@ describe("widget panel", () => {
 		]);
 	});
 
-	it("asks the launcher to close, and hands the session to FAC Chat on expand", async () => {
+	it("asks the launcher to close, and hands the session to TAC Chat on expand", async () => {
 		const emit = vi.spyOn(bridge, "emit");
 		const assign = vi.fn();
 		const original = Object.getOwnPropertyDescriptor(window, "location");
@@ -594,7 +594,7 @@ describe("widget panel", () => {
 			getQuotaStatus.mockResolvedValue(overage);
 			const w = mount(WidgetPanel, { global: { stubs } });
 			await flushPromises();
-			expect(w.text()).toContain("Your monthly credits are used up — FAC Chat is now drawing on your prepaid credits (1.5K left).");
+			expect(w.text()).toContain("Your monthly credits are used up — TAC Chat is now drawing on your prepaid credits (1.5K left).");
 			await w.find('[data-test="overage-dismiss"]').trigger("click");
 			expect(w.find('[data-test="overage"]').exists()).toBe(false);
 
@@ -711,8 +711,8 @@ describe("panel bootstrap", () => {
 	});
 	afterEach(() => resetSurface());
 
-	it("routes automatically in memory and leaves FAC Chat's saved model choice alone", async () => {
-		// A FAC Chat user who picked a model, then opens the widget on Desk (same localStorage).
+	it("routes automatically in memory and leaves TAC Chat's saved model choice alone", async () => {
+		// A TAC Chat user who picked a model, then opens the widget on Desk (same localStorage).
 		// A real catalogue answers: restoreAllMocks would otherwise reset getAvailable to undefined
 		// and send loadModels down its error branch, which never touches the saved choice.
 		api.models.getAvailable.mockResolvedValue({
@@ -770,7 +770,7 @@ describe("panel bootstrap", () => {
 		expect(useModelStore().currentModelId).toBe("auto");
 	});
 
-	it("does not clear FAC Chat's saved model when it has been retired", async () => {
+	it("does not clear TAC Chat's saved model when it has been retired", async () => {
 		api.models.getAvailable.mockResolvedValue({
 			models: [{ model_id: "other", tier: "Standard", tier_rank: 1 }],
 			max_tier_rank: 3,
@@ -855,7 +855,7 @@ describe("widget Spotlight placement", () => {
 	const panelStubs = { ChatInterface: true, InputArea: true, CreditMeter: true, SpotlightHost: true };
 
 	it("loads announcements itself, so the widget's Spotlight has something to show", async () => {
-		// FAC Chat loads notifications through NotificationHost; the panel never mounted it, so the
+		// TAC Chat loads notifications through NotificationHost; the panel never mounted it, so the
 		// widget's store stayed empty and an active announcement never reached Spotlight.
 		const announcement = { id: "n1", display_style: "modal", title: "Agents", dismissible: true };
 		api.notifications.get.mockResolvedValue({ user: "u@x.test", notifications: [announcement] });

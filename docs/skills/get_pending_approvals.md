@@ -8,7 +8,7 @@ Results are limited to documents the user can open. A document hidden from the u
 
 A document whose only step left is a cancel (for example an approved, submitted Purchase Order) is not pending approval, so it is skipped even though thinkNXG keeps its Workflow Action open. Each document appears once.
 
-`total_pending` counts every pending document, up to 200, and matches the count on the FAC Chat home page. When it is larger than `limit`, the result also carries `listed`: report the total, and say you are showing the newest `listed`.
+`total_pending` counts every pending document, up to 200, and matches the count on the TAC Chat home page. When it is larger than `limit`, the result also carries `listed`: report the total, and say you are showing the newest `listed`.
 
 ## Parameters
 

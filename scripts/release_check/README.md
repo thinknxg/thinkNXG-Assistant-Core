@@ -2,7 +2,7 @@
 
 ## What this is for
 
-A release gate. Before every FAC release, a fixed set of business questions
+A release gate. Before every TAC release, a fixed set of business questions
 is put to the assistant on two test sites, and each answer is scored against
 the number the site's own data gives. The owner requires it because unit tests
 mock the boundaries the assistant crosses; only real questions against real
@@ -133,7 +133,7 @@ Python with thinkNXG installed.
 
 ## Running the check
 
-One run asks every question of one site's profile through FAC Chat with one fixed model and
+One run asks every question of one site's profile through TAC Chat with one fixed model and
 writes a results file. Use the same model every time, or the comparison measures the model.
 
 ```bash

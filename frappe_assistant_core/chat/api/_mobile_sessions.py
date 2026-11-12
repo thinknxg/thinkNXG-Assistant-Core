@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""Server-side sign-out state for the FAC mobile app (spec §8.3).
+"""Server-side sign-out state for the TAC mobile app (spec §8.3).
 
 thinkNXG inserts a new OAuth Bearer Token row on every refresh and never revokes
 the previous one, and ``create_web_session`` plants a desk ``sid`` in the app's
@@ -21,7 +21,7 @@ from frappe.sessions import delete_session, get_expiry_in_seconds
 from frappe_assistant_core.utils.mcp_caller import presented_bearer_token
 
 MOBILE_APP_NAME = "FACO Mobile"
-SIGN_OUT_REASON = "Signed out of the FAC mobile app"
+SIGN_OUT_REASON = "Signed out of the TAC mobile app"
 
 
 def _web_sessions_key(user: str) -> str:
@@ -36,7 +36,7 @@ def _presented_bearer() -> str:
 
 
 def mobile_client_of_request(require_active: bool = True) -> str:
-    """The FAC mobile OAuth client whose bearer token authenticated this request.
+    """The TAC mobile OAuth client whose bearer token authenticated this request.
 
     API keys, session cookies and every other OAuth client are refused, the
     FAC Cloud integration client included. Sign-out passes
@@ -81,7 +81,7 @@ def end_web_sessions(user: str, client: str) -> int:
         recorded = frappe.cache.hgetall(key)
     except redis.exceptions.RedisError as exc:
         frappe.log_error(
-            title="FAC mobile sign-out: desk sessions not ended (cache unavailable)",
+            title="TAC mobile sign-out: desk sessions not ended (cache unavailable)",
             message=f"{type(exc).__name__} while reading the recorded desk sessions; the tokens were revoked.",
             reference_doctype="OAuth Client",
             reference_name=client,

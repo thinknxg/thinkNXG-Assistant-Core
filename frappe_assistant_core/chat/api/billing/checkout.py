@@ -82,7 +82,7 @@ def initiate_plan_upgrade(
         if payment_method and payment_method not in ("upi", "card"):
             return {"error": "Invalid payment_method. Use 'upi' or 'card'"}
 
-        # Defense in depth: AR also rejects this. Short-circuit here so FAC
+        # Defense in depth: AR also rejects this. Short-circuit here so TAC
         # callers get a clear error before any gateway session is created.
         try:
             status = client.get_subscription_status() or {}

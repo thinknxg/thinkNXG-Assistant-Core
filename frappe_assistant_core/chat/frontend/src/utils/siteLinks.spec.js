@@ -2,7 +2,7 @@ import { describe, it, expect, afterEach } from "vitest";
 import { localizeSiteLink } from "./siteLinks";
 import { renderMarkdown } from "./markdown";
 
-// Redmine #34378: FAC Chat installed from 127.0.0.1:8011 got a Desk link on the site's
+// Redmine #34378: TAC Chat installed from 127.0.0.1:8011 got a Desk link on the site's
 // host_name (localhost:8000); iOS opened it in an in-app browser with no login.
 const SITE = "http://localhost:8000";
 const APP = "http://127.0.0.1:8011";
@@ -41,7 +41,7 @@ describe("answer links", () => {
 		delete window.site_url;
 	});
 
-	it("open on the address FAC Chat is on", () => {
+	it("open on the address TAC Chat is on", () => {
 		// www/copilot.html writes every boot key onto window, site_url among them.
 		window.site_url = "http://erp.example.com";
 		const html = renderMarkdown("[Open a new Sales Invoice](http://erp.example.com/desk/sales-invoice/new)");

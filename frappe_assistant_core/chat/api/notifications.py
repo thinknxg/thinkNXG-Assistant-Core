@@ -4,7 +4,7 @@
 # MIT License
 
 """
-Notification endpoints for the FAC Chat SPA.
+Notification endpoints for the TAC Chat SPA.
 
 Notifications are fetched live from AR (source of truth) with a 60s
 per-user cache. AR handles all filtering: is_active, valid date range,
@@ -67,7 +67,7 @@ def get_notifications() -> dict:
             if isinstance(fetched, list):
                 notifications = fetched
     except Exception as e:
-        frappe.log_error(title="FAC Notifications", message=f"Failed to fetch notifications from AR: {e!s}")
+        frappe.log_error(title="TAC Notifications", message=f"Failed to fetch notifications from AR: {e!s}")
 
     degraded = notifications is None
     if degraded:
@@ -102,7 +102,7 @@ def _fallback_notifications() -> list:
             if isinstance(parsed, list):
                 return [_normalize_fallback_notification(n) for n in parsed if isinstance(n, dict)]
     except Exception as e:
-        frappe.log_error(title="FAC Notifications", message=f"Corrupt cached_notifications blob: {e!s}")
+        frappe.log_error(title="TAC Notifications", message=f"Corrupt cached_notifications blob: {e!s}")
     return []
 
 
@@ -141,7 +141,7 @@ def dismiss_notification(notification_id: str | None = None) -> dict:
             client.dismiss_notification(notification_id=notification_id, user_id=user, timeout=5)
             status = "dismissed"
     except Exception as e:
-        frappe.log_error(title="FAC Notifications", message=f"Failed to dismiss notification on AR: {e!s}")
+        frappe.log_error(title="TAC Notifications", message=f"Failed to dismiss notification on AR: {e!s}")
 
     frappe.cache.delete_value(_cache_key(user))
     return {"status": status, "notification_id": notification_id}

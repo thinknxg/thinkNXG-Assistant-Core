@@ -2,7 +2,7 @@
  * Message tools — tools that send a message to someone — and how their approval card reads them.
  *
  * AR pauses these like any write tool; the card shows the draft as a message instead of a
- * field table. Names are exact: AR never prefixes the managed FAC server's tools, so a BYO
+ * field table. Names are exact: AR never prefixes the managed TAC server's tools, so a BYO
  * server's `x_send_email` is not ours. A new channel adds one entry here.
  *
  * Each entry: `sendLabel` for the approve button, `previewArgs(input)` for

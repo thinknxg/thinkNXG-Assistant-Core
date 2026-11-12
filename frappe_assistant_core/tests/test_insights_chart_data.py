@@ -239,7 +239,7 @@ INSIGHTS_TOOLS = ("list_insights_dashboards", "get_insights_dashboard", "get_ins
 
 
 class TestInsightsToolsShipWithFaco(BaseAssistantTest):
-    """The Insights tools serve FAC Chat's widget, so they come with the faco plugin, not their own."""
+    """The Insights tools serve TAC Chat's widget, so they come with the faco plugin, not their own."""
 
     def test_the_faco_plugin_carries_the_insights_tools(self):
         import importlib.util

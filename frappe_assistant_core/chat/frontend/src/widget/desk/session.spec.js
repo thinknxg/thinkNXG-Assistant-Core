@@ -204,7 +204,7 @@ describe("resolveWidgetSession", () => {
 		globalThis.frappe = { session: { user: OWNER } };
 	});
 
-	it("consumes the FAC Chat hand-off once and persists what it adopted", async () => {
+	it("consumes the TAC Chat hand-off once and persists what it adopted", async () => {
 		sessionStorage.setItem("faco_widget_session", FACOWidgetSession.encode("faco_from_spa", OWNER));
 		const out = await FACOWidgetSession.resolveWidgetSession({ isClaimed: async () => false });
 		expect(out).toEqual({ session_id: "faco_from_spa", restored: true });

@@ -23,7 +23,7 @@ describe("widget-only styles under preflight", () => {
 		expect(rule(style("WidgetPanel.vue"), "\\.wp-actions button")).toMatch(/color:\s*var\(--ql-text-secondary\)/);
 	});
 
-	// FAC Chat loads robot.css from its own entry, so a shared FacoRobot in the panel draws nothing without it.
+	// TAC Chat loads robot.css from its own entry, so a shared FacoRobot in the panel draws nothing without it.
 	it("loads the robot's stylesheet for the welcome masthead", () => {
 		const entry = readFileSync(resolve(__dirname, "main.js"), "utf8");
 		expect(entry).toMatch(/import\s+["']@\/styles\/robot\.css["']/);

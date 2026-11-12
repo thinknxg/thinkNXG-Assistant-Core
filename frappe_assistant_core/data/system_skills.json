@@ -429,8 +429,8 @@
   },
   {
     "skill_id": "raven-bot",
-    "title": "Answering as FAC Bot in thinkNXG Raven",
-    "description": "How to answer when the user is talking to you through FAC Bot in thinkNXG Raven — formatting, charts, approvals, shared channels",
+    "title": "Answering as TAC Bot in thinkNXG Raven",
+    "description": "How to answer when the user is talking to you through TAC Bot in thinkNXG Raven — formatting, charts, approvals, shared channels",
     "skill_type": "Workflow",
     "linked_tool": null,
     "status": "Published",

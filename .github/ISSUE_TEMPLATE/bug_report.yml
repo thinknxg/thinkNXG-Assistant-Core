@@ -11,7 +11,7 @@ body:
   - type: input
     id: fac-version
     attributes:
-      label: FAC Version
+      label: TAC Version
       description: "Which version of thinkNXG Assistant Core are you using? (Check in `pyproject.toml` or run `bench version`)"
       placeholder: "e.g., 2.3.2"
     validations:

@@ -20,14 +20,14 @@ from frappe_assistant_core.tests.base_test import BaseAssistantTest
 
 
 class TestFACChatTab(BaseAssistantTest):
-    """The FAC Chat configuration UI uses a dedicated tab with an explainer."""
+    """The TAC Chat configuration UI uses a dedicated tab with an explainer."""
 
     def test_fac_chat_tab_break_exists(self):
         meta = frappe.get_meta("Assistant Core Settings")
         field = meta.get_field("fac_chat_tab")
         self.assertIsNotNone(field, "fac_chat_tab field must exist")
         self.assertEqual(field.fieldtype, "Tab Break")
-        self.assertEqual(field.label, "FAC Chat")
+        self.assertEqual(field.label, "TAC Chat")
 
     def test_fac_chat_description_html_exists_before_toggle(self):
         meta = frappe.get_meta("Assistant Core Settings")

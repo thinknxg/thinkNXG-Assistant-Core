@@ -123,7 +123,7 @@ const { items, lensLabel, area, company, loaded, failed, dismiss, hide, hideFail
 	cap: computed(() => (isForm.value ? NEEDS_YOU_CAP_ON_FORM : NEEDS_YOU_CAP)),
 });
 
-// The widget has no pages of its own: signal links open FAC Chat.
+// The widget has no pages of its own: signal links open TAC Chat.
 function openInChat(href) {
 	window.open("/copilot" + href, "_blank", "noopener");
 }
@@ -149,7 +149,7 @@ onMounted(async () => {
 	gap: 16px;
 	padding: 22px 18px 16px;
 }
-/* FAC Chat's masthead is sized for a page; its clamp() reads the browser viewport, not the panel. */
+/* TAC Chat's masthead is sized for a page; its clamp() reads the browser viewport, not the panel. */
 .ww :deep(.hh-greeting) {
 	font-size: 22px;
 }

@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Finish FAC Bot replies whose worker died mid-turn, so none is left streaming forever."""
+"""Finish TAC Bot replies whose worker died mid-turn, so none is left streaming forever."""
 
 import time
 

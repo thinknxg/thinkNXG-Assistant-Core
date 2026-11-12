@@ -48,7 +48,7 @@ class TestFACChatSettingsDoctype(BaseAssistantTest):
 
     def test_old_faco_settings_name_not_used(self):
         """A safety check: the old FACO Settings DocType name must NOT resolve
-        in a FAC-only environment. Skipped when frappe_assistant_copilot is
+        in a TAC-only environment. Skipped when frappe_assistant_copilot is
         installed on the same site (FACO registers its own DocType legitimately).
         """
         import frappe.utils

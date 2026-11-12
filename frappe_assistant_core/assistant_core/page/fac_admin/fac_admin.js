@@ -1,7 +1,7 @@
 frappe.pages['fac-admin'].on_page_load = function(wrapper) {
     var page = frappe.ui.make_app_page({
         parent: wrapper,
-        title: 'FAC Admin',
+        title: 'TAC Admin',
         single_column: true
     });
 
@@ -34,7 +34,7 @@ frappe.pages['fac-admin'].on_page_load = function(wrapper) {
                 <div class="fac-page-header">
                     <div class="fac-page-title">
                         <span id="server-status-icon" class="fac-status-indicator"></span>
-                        <span id="server-status-text">FAC</span>
+                        <span id="server-status-text">TAC</span>
                         <span id="server-status-pill" class="fac-status-pill" role="status" aria-live="polite"></span>
                     </div>
                     <div class="fac-page-actions">
@@ -55,7 +55,7 @@ frappe.pages['fac-admin'].on_page_load = function(wrapper) {
                     <div class="fac-card fac-registry-card">
 
                         <!-- Top-Level Tab Navigation -->
-                        <div class="fac-top-tabs" role="tablist" aria-label="FAC Admin sections">
+                        <div class="fac-top-tabs" role="tablist" aria-label="TAC Admin sections">
                             <button class="fac-top-tab active" data-tab="tools" role="tab" id="tab-tools" aria-selected="true" aria-controls="tab-panel-tools" tabindex="0">
                                 ${ns.icon('wrench')}
                                 Tools
@@ -187,12 +187,12 @@ frappe.pages['fac-admin'].on_page_load = function(wrapper) {
                             </div>
                         </div>
 
-                        <!-- FAC Chat card -->
+                        <!-- TAC Chat card -->
                         <div class="fac-card fac-sidebar-card" id="fac-chat-card">
                             <div class="fac-sidebar-row">
                                 <div class="fac-sidebar-title">
                                     ${ns.icon('messages-square')}
-                                    FAC Chat
+                                    TAC Chat
                                     <span id="fac-chat-status-pill" class="fac-status-pill" role="status" aria-live="polite"></span>
                                 </div>
                             </div>
@@ -287,7 +287,7 @@ frappe.pages['fac-admin'].on_page_load = function(wrapper) {
                 frappe.set_route('Form', 'Assistant Core Settings');
             });
 
-            // FAC Chat toggle
+            // TAC Chat toggle
             $('#toggle-fac-chat').on('click', ns.toggleFacChat);
 
             // Copy MCP endpoint URL to clipboard

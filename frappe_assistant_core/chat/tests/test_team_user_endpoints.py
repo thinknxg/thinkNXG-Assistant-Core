@@ -32,7 +32,7 @@ class TestTeamUserEndpoints(BaseAssistantTest):
         with patch("frappe_assistant_core.chat.fac_cloud_client.get_fac_cloud_client", return_value=client):
             result = users_api.invite_user(user_id="x@e.com", user_role="Admin")
         self.assertTrue(result["success"])
-        # FAC must pass invited_by = acting user's AR identity (email), since AR
+        # TAC must pass invited_by = acting user's AR identity (email), since AR
         # keys its owner/admin authority check by email.
         kwargs = client.invite_user.call_args.kwargs
         self.assertEqual(kwargs.get("invited_by"), _ar_user_id("Administrator"))

@@ -40,7 +40,7 @@
                 return;
             }
             this.$body.html(`
-                <p class="fac-settings-note">${__('Show the FACO widget inside these apps as well as Desk. Only System Users with FAC access see it.')}</p>
+                <p class="fac-settings-note">${__('Show the FACO widget inside these apps as well as Desk. Only System Users with TAC access see it.')}</p>
                 <div class="fac-embed-apps">
                     ${apps.map((app) => `
                         <label class="fac-embed-app">
@@ -53,7 +53,7 @@
             this.loadRavenBot();
         }
 
-        // FAC Bot in thinkNXG Raven: the bot in thinkNXG Raven's conversations, distinct from the widget on its pages.
+        // TAC Bot in thinkNXG Raven: the bot in thinkNXG Raven's conversations, distinct from the widget on its pages.
         loadRavenBot() {
             frappe.call({
                 method: 'frappe_assistant_core.chat.api.settings.raven_bot.get_raven_bot',
@@ -68,10 +68,10 @@
                 <div class="fac-embed-apps fac-raven-bot">
                     <label class="fac-embed-app">
                         <input type="checkbox" data-raven-bot ${enabled ? 'checked' : ''}>
-                        <span>${__('FAC Bot in thinkNXG Raven')}</span>
+                        <span>${__('TAC Bot in thinkNXG Raven')}</span>
                         <code>${__('DMs and @mentions')}</code>
                     </label>
-                    <p class="fac-settings-note">${__('Each answer runs as the person asking and uses their FACO credits. Add FAC Bot to a channel to use @mentions there.')}</p>
+                    <p class="fac-settings-note">${__('Each answer runs as the person asking and uses their FACO credits. Add TAC Bot to a channel to use @mentions there.')}</p>
                 </div>`);
             this.$body.find('input[data-raven-bot]').on('change', (e) => this.toggleRavenBot($(e.currentTarget)));
         }
@@ -86,7 +86,7 @@
                 callback: () => {
                     $input.prop('disabled', false);
                     frappe.show_alert({
-                        message: enabled ? __('FAC Bot switched on') : __('FAC Bot switched off'),
+                        message: enabled ? __('TAC Bot switched on') : __('TAC Bot switched off'),
                         indicator: enabled ? 'green' : 'orange',
                     });
                 },

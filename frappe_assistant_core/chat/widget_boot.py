@@ -77,4 +77,4 @@ def extend_bootinfo(bootinfo, manifest_path: str | None = None) -> None:
         if entry:
             bootinfo.fac_widget = entry
     except Exception:
-        frappe.logger("frappe_assistant_core").warning("FAC widget boot info skipped", exc_info=True)
+        frappe.logger("frappe_assistant_core").warning("TAC widget boot info skipped", exc_info=True)

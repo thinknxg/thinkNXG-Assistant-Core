@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""FAC's hosted-checkout endpoint: the seat-purchase `invited_by` stamp.
+"""TAC's hosted-checkout endpoint: the seat-purchase `invited_by` stamp.
 
 AR validates `invited_by` against the tenant owner and its Active Admins,
 so a client-supplied value is an authority claim. This endpoint must

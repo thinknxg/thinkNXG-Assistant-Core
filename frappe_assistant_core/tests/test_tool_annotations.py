@@ -15,12 +15,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """
-Tests for MCP tool annotation hints derived from FAC tool categories.
+Tests for MCP tool annotation hints derived from TAC tool categories.
 
 MCP clients (e.g. Claude Desktop) group tools and pick default approval
-behavior from the annotation hints in the tools/list response. FAC previously
+behavior from the annotation hints in the tools/list response. TAC previously
 emitted no annotations, so every tool landed in a single "Other tools" bucket.
-The FAC tool category (FAC Tool Configuration.tool_category, admin-overridable)
+The TAC tool category (FAC Tool Configuration.tool_category, admin-overridable)
 is now translated into readOnlyHint / destructiveHint, so the client grouping
 matches the admin page — one source of truth.
 """
@@ -43,7 +43,7 @@ from frappe_assistant_core.utils.tool_category_detector import (
 
 
 class TestCategoryToAnnotations(BaseAssistantTest):
-    """category_to_annotations maps the 4 FAC categories to MCP hints."""
+    """category_to_annotations maps the 4 TAC categories to MCP hints."""
 
     def test_read_only(self):
         self.assertEqual(category_to_annotations("read_only"), {"readOnlyHint": True})

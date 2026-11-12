@@ -162,17 +162,17 @@ def register_tenant(
     promotion_token: str | None = None,
 ) -> dict[str, Any]:
     """
-    Register this FAC installation as a tenant with FAC Cloud.
+    Register this TAC installation as a tenant with FAC Cloud.
 
     Args:
         site_url: This site's URL (e.g., https://mysite.thinknxgcloud.com)
-        fac_mcp_endpoint: Optional FAC MCP server endpoint URL
+        fac_mcp_endpoint: Optional TAC MCP server endpoint URL
         terms_accepted: Must be True to register
         terms_version: Version of terms being accepted
         accepted_by: User email/username who accepted the terms
         fac_cloud_url: FAC Cloud server URL. If None, resolves from site_config.
         application_id: AR Application this tenant registers under. Always "faco"
-            for FAC — the application never changes.
+            for TAC — the application never changes.
 
     Returns:
         Registration result with tenant_id and tenant_secret, or error

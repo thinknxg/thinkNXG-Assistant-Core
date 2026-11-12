@@ -71,7 +71,7 @@ describe("fac_page_index", () => {
 		expect(root.querySelector(".fac-page-index-item")).toBeNull();
 	});
 
-	it("links to FAC Chat only when given a chat link", () => {
+	it("links to TAC Chat only when given a chat link", () => {
 		expect(render({ pages: [shared] }).querySelector(".fac-page-index-chat")).toBeNull();
 		const link = render({ pages: [shared], chat_url: "/copilot/pages" }).querySelector(".fac-page-index-chat");
 		expect(link.getAttribute("href")).toBe("/copilot/pages");

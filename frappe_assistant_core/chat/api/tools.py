@@ -6,7 +6,7 @@
 Tool Permissions API — list tools and manage per-user approval preferences.
 
 Bridges the FACO settings UI to:
-- FAC's local tool registry (for the tool catalog shown in the UI)
+- TAC's local tool registry (for the tool catalog shown in the UI)
 - AR's AR Tool Trust DocType (for Block / Ask / Always Allow preferences)
 
 Each FACO session corresponds to a user on the local thinkNXG site, so
@@ -32,10 +32,10 @@ _DEFAULT_APPROVAL_TOOLS = frozenset(
 
 
 def _tool_to_ui_dict(tool_meta: dict, read_only: bool = False) -> dict:
-    """Project a FAC tool metadata dict down to the fields the UI needs.
+    """Project a TAC tool metadata dict down to the fields the UI needs.
 
     ``read_only`` mirrors the tool's MCP ``readOnlyHint`` (resolved from the
-    same FAC category source the MCP endpoint uses). The UI defaults read-only
+    same TAC category source the MCP endpoint uses). The UI defaults read-only
     tools to "always allow" and write tools to "ask" — matching what AR's
     approval hook actually does at runtime, so the displayed default is truthful.
     """
@@ -79,7 +79,7 @@ def list_available_tools():
     """
     List all tools the current user can access on this thinkNXG site.
 
-    Reads directly from FAC's tool registry (same-site Python call — no
+    Reads directly from TAC's tool registry (same-site Python call — no
     MCP round-trip) so category / description come from the source of truth.
 
     Returns:

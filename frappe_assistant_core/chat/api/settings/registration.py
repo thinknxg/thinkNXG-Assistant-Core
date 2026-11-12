@@ -15,7 +15,7 @@ from ...cloud_url import get_fac_cloud_url
 from .._helpers import _not_registered_error, _safe_error
 from .._rate_limits import ip_only, rate_limit
 
-# FAC always registers under the "faco" AR Application — the application never
+# TAC always registers under the "faco" AR Application — the application never
 # changes, so it is hardcoded rather than exposed as a settings field.
 AR_APPLICATION_ID = "faco"
 
@@ -122,7 +122,7 @@ def validate_partner_code(referral_code: str | None = None) -> dict:
         return sdk_validate(ar_url=get_fac_cloud_url(), referral_code=referral_code)
     except Exception as e:
         frappe.log_error(
-            title="FAC Partner Validation Error", message=f"Partner code validation failed: {e!s}"
+            title="TAC Partner Validation Error", message=f"Partner code validation failed: {e!s}"
         )
         return {"valid": False, "error": _safe_error(e, "FAC Chat Settings Error")}
 
@@ -230,7 +230,7 @@ def register_with_ar(
         # let one System Manager nominate somebody else as owner.
         accepted_by = registrant
 
-        # FAC MCP endpoint on this site (for reference - actual OAuth tokens are per-user)
+        # TAC MCP endpoint on this site (for reference - actual OAuth tokens are per-user)
         fac_endpoint = f"{site_url}/api/method/frappe_assistant_core.api.fac_endpoint.handle_mcp"
 
         # Register with AR - NO OAuth tokens (per-user model)
@@ -448,7 +448,7 @@ def get_registration_state() -> dict:
             "local_status": settings.registration_status or "",
         }
     except Exception as e:
-        frappe.log_error(title="FAC get_registration_state", message=str(e))
+        frappe.log_error(title="TAC get_registration_state", message=str(e))
         return {"exists": False, "suggested_owner_email": suggested}
 
 
@@ -517,7 +517,7 @@ def reset_registration() -> dict:
             "success": True,
             "previous_tenant_id": previous_tenant_id,
             "message": _(
-                "Registration cleared. Open FAC Chat to register this site again — "
+                "Registration cleared. Open TAC Chat to register this site again — "
                 "you will be asked to accept the Terms and Conditions."
             ),
         }
@@ -622,10 +622,10 @@ def complete_email_verification(verification_token: str) -> dict:
                     "Request a new one, and check the email address it goes to."
                 ),
             }
-        frappe.log_error(title="FAC Email Verification", message=str(e))
+        frappe.log_error(title="TAC Email Verification", message=str(e))
         return {"success": False, "error": _translate_registration_error(str(e))}
     except _requests.exceptions.RequestException as e:
-        frappe.log_error(title="FAC Email Verification", message=str(e))
+        frappe.log_error(title="TAC Email Verification", message=str(e))
         return {"success": False, "error": _translate_registration_error(str(e))}
 
     # The link names the tenant it verified. A site whose local tenant_id was
@@ -663,7 +663,7 @@ def resend_owner_verification() -> dict:
     """Re-send the pending link. Never clears the secret or marks an error.
 
     Returns ``reconnect_required`` when a resend cannot be the answer: this
-    site holds no pending token (registered by an older FAC, or reconnecting an
+    site holds no pending token (registered by an older TAC, or reconnecting an
     already-verified tenant), or AR reports the tenant already verified. The
     screen then re-runs the reconnect, which mails the stored owner a link.
     """
@@ -683,7 +683,7 @@ def resend_owner_verification() -> dict:
             "owner_email_masked": result.get("owner_email_masked") or "",
         }
     if result.get("error"):
-        frappe.log_error(title="FAC Resend Verification", message=str(result["error"]))
+        frappe.log_error(title="TAC Resend Verification", message=str(result["error"]))
         return {"success": False, "error": _pending_action_error(result)}
     return result
 
@@ -710,7 +710,7 @@ def change_pending_owner_email(owner_email: str) -> dict:
 
     result = change(site_url=frappe.utils.get_url(), owner_email=owner_email, pending_token=token) or {}
     if result.get("error"):
-        frappe.log_error(title="FAC Change Owner Email", message=str(result["error"]))
+        frappe.log_error(title="TAC Change Owner Email", message=str(result["error"]))
         return {"success": False, "error": _pending_action_error(result)}
     return result
 

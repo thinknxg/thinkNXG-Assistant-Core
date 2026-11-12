@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# FAC Chat — REST and streaming API endpoints.
+# TAC Chat — REST and streaming API endpoints.
 
 """
-API endpoints for FAC Chat.
+API endpoints for TAC Chat.
 
 This package was refactored from a single ``api.py`` monolith into
 feature-based modules for maintainability.  Every public function is

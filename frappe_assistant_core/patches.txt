@@ -46,20 +46,20 @@ frappe_assistant_core.patches.v3_0.widen_credits_used_to_float
 # creation; this Single already existed when the field was added)
 frappe_assistant_core.patches.v3_0.backfill_browser_diagnostics_default
 
-# Version 3.0.0 - Bind FAC Workflow Triggers to the AR workflow docname instead
+# Version 3.0.0 - Bind TAC Workflow Triggers to the AR workflow docname instead
 # of the mutable display name (a rename used to orphan every trigger silently)
 frappe_assistant_core.patches.v3_0.backfill_workflow_trigger_docname
 
-# Version 3.1.0 - Tool renamed submit_document -> document_action: rename its FAC Tool
+# Version 3.1.0 - Tool renamed submit_document -> document_action: rename its TAC Tool
 # Configuration row so its settings survive (after_migrate would otherwise replace them
 # with defaults), and re-detect its category (privileged: it can cancel) unless overridden
 frappe_assistant_core.patches.v3_1.rename_submit_document_to_document_action
 
-# Version 3.1.0 - send_email moved faco -> core: correct the stored plugin on its FAC Tool
+# Version 3.1.0 - send_email moved faco -> core: correct the stored plugin on its TAC Tool
 # Configuration row (bulk_toggle_tools_by_category filters on it), and where the faco plugin
 # was disabled keep the tool off, since the core plugin cannot be disabled
 frappe_assistant_core.patches.v3_1.move_send_email_to_core_plugin
 
-# Version 3.2.0 - chat history & projects: give every existing session a FAC Chat
+# Version 3.2.0 - chat history & projects: give every existing session a TAC Chat
 # Conversation row (new messages maintain their own row from here on)
 frappe_assistant_core.patches.v3_2.backfill_fac_chat_conversations

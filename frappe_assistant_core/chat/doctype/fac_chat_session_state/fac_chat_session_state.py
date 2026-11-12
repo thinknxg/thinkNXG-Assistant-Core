@@ -17,7 +17,7 @@
 """FAC Chat Session State — the single client-held session blob per session.
 
 Zero-retention conversations: AR keeps nothing in its DB; the only copy of
-conversation state lives in this row as an opaque, signed, gzipped blob. FAC
+conversation state lives in this row as an opaque, signed, gzipped blob. TAC
 stores and round-trips it but NEVER parses it (``state_blob`` / ``state_sig``
 are handled opaquely). The blob is deleted together with its messages — there
 is no separate TTL — by ``archive_session``, ``archive_all_conversations`` and
@@ -36,9 +36,9 @@ class FACChatSessionState(Document):
         """Persist the latest signed session blob for ``session_id``.
 
         ``wire`` is the opaque AR wire form ``{blob, sig, format_version}``.
-        The signed envelope carries an inner ``turn_seq``, but FAC must not
+        The signed envelope carries an inner ``turn_seq``, but TAC must not
         parse the blob to read it — so we only trust a top-level ``turn_seq``
-        when AR surfaces one, and otherwise fall back to a FAC-side monotonic
+        when AR surfaces one, and otherwise fall back to a TAC-side monotonic
         counter (relay writes for a session are serialized, so stored + 1 is a
         correct last-writer-wins ordering). A stale write (turn_seq <= stored)
         is dropped so an out-of-order relay cannot regress state.
@@ -93,7 +93,7 @@ class FACChatSessionState(Document):
             FACChatSessionState.upsert(session_id, user, wire, has_pending_interrupt=has_pending_interrupt)
         except Exception:
             frappe.log_error(
-                title="FAC zero-retention blob persist failed",
+                title="TAC zero-retention blob persist failed",
                 message=f"session_id={session_id}",
             )
 

@@ -6,7 +6,7 @@
 
 AR stores skipped_actions_detail as JSON text and AR releases before the
 overhaul send neither field. The amber "N actions skipped" badge reads an int
-and a list, so FAC normalises both on the way through.
+and a list, so TAC normalises both on the way through.
 """
 
 import json

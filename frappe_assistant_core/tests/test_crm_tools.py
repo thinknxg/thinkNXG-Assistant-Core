@@ -40,7 +40,7 @@ def make_lead(**extra):
             "first_name": "Priya",
             "last_name": "Raman",
             "email": LEAD_EMAIL,
-            "organization": "Acme FAC Test Retail",
+            "organization": "Acme TAC Test Retail",
             "job_title": "Head of Operations",
             "lead_owner": OWNER,
             **extra,
@@ -252,7 +252,7 @@ class TestConvertCrmLead(CrmTestCase):
         deal = frappe.get_doc("CRM Deal", out["deal"])
         self.assertEqual(deal.lead, self.lead.name)
         self.assertEqual(deal.next_step, "Send proposal")
-        self.assertEqual(deal.organization, "Acme FAC Test Retail")
+        self.assertEqual(deal.organization, "Acme TAC Test Retail")
         self.assertTrue(frappe.db.exists("Contact", {"email_id": LEAD_EMAIL}))
 
     def test_converting_twice_returns_the_same_deal(self):
@@ -282,7 +282,7 @@ class TestConvertCrmLead(CrmTestCase):
         self.assertFalse(out["success"])
         frappe.set_user("Administrator")
         self.assertFalse(frappe.db.exists("Contact", {"email_id": LEAD_EMAIL}))
-        self.assertFalse(frappe.db.exists("CRM Organization", "Acme FAC Test Retail"))
+        self.assertFalse(frappe.db.exists("CRM Organization", "Acme TAC Test Retail"))
         self.assertEqual(frappe.db.count("CRM Deal", {"lead": self.lead.name}), 0)
         self.assertEqual(frappe.db.get_value("CRM Lead", self.lead.name, "converted"), 0)
 

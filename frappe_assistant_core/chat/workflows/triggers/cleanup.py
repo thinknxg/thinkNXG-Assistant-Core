@@ -18,7 +18,7 @@ PER_TRIGGER_CAP = 1000
 
 def prune_trigger_logs() -> None:
     """Scheduled daily job — keep logs bounded."""
-    # Master gate: no logs accumulate when FAC Chat is off, so skip the
+    # Master gate: no logs accumulate when TAC Chat is off, so skip the
     # delete/sql sweep entirely.
     from frappe_assistant_core.chat.gate import is_chat_enabled
 

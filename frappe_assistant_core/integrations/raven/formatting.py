@@ -30,18 +30,18 @@ TITLE = re.compile(r'title="([^"]*)"')
 MENTION_ATTRS = ("data-type", "data-id")
 DRAWN = {"chart": "📊", "mermaid": "🔀"}
 
-SWITCHED_OFF = _lt("FAC Bot is switched off on this site.")
-NOT_A_MEMBER = _lt("Add FAC Bot to this channel to ask it here.")
+SWITCHED_OFF = _lt("TAC Bot is switched off on this site.")
+NOT_A_MEMBER = _lt("Add TAC Bot to this channel to ask it here.")
 INTERRUPTED = _lt("I was interrupted before I finished. Please ask again.")
 STOPPED = _lt("Stopped.")
 STILL_WORKING = _lt("I'm still answering your previous message. Send this again once that answer is done.")
 QUOTA = _lt(
     "Your workspace has used all of this month's credits. Ask your workspace admin to upgrade or "
-    "buy credits. Your administrator can add credits in FAC Chat → Billing."
+    "buy credits. Your administrator can add credits in TAC Chat → Billing."
 )
-UNREGISTERED = _lt("This site isn't connected to FAC Cloud. An administrator can connect it in FAC Admin.")
+UNREGISTERED = _lt("This site isn't connected to FAC Cloud. An administrator can connect it in TAC Admin.")
 UNREACHABLE = _lt("I couldn't reach FAC Cloud just now. Please try again.")
-CHAT_OFF = _lt("FAC Chat is switched off on this site. An administrator can turn it on in FAC Admin.")
+CHAT_OFF = _lt("TAC Chat is switched off on this site. An administrator can turn it on in TAC Admin.")
 NOT_YET = _lt("You can't use FACO yet. Ask your administrator.")
 
 
@@ -50,7 +50,7 @@ def _fence(match: re.Match, session_url: str) -> str:
     if kind in DRAWN:
         title = TITLE.search(attrs)
         label = html.escape(title.group(1)) if title else _("Chart")
-        return f"\n\n{DRAWN[kind]} {label} — [{_('view in FAC Chat')}]({session_url})\n\n"
+        return f"\n\n{DRAWN[kind]} {label} — [{_('view in TAC Chat')}]({session_url})\n\n"
     return f"\n\n{body.strip()}\n\n"
 
 
@@ -96,10 +96,10 @@ def handoff_html(tool_name: str, tool_input: dict, session_url: str) -> str:
     if tool_name == "ask_user" and tool_input.get("question"):
         lines = [tool_input["question"], tool_input.get("description")]
         body = "".join(f"<p>{html.escape(line)}</p>" for line in lines if line)
-        label = html.escape(_("Answer in FAC Chat →"))
+        label = html.escape(_("Answer in TAC Chat →"))
     else:
         body = f"<p>{html.escape(_describe(tool_name, tool_input))}.</p>"
-        label = html.escape(_("Review and approve in FAC Chat →"))
+        label = html.escape(_("Review and approve in TAC Chat →"))
     return f'{body}<p><a href="{link}">{label}</a></p>'
 
 

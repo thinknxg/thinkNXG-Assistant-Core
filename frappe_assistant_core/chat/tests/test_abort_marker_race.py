@@ -19,7 +19,7 @@ These tests pin both directions of the race:
 
 cancel.py's read-merge-write runs inside a locking read
 (``_update_faco_message_merged`` in relay.py, ``for_update=True``), so
-``TestAbortPendingInteractionsMarkerRace`` below runs against real FAC Chat
+``TestAbortPendingInteractionsMarkerRace`` below runs against real TAC Chat
 Message rows rather than a fully-mocked ``frappe`` module: the read+write
 spans cancel.py (locates the row) and relay.py (the locked read and the
 write), and a whole-module mock of ``cancel_mod.frappe`` does not reach

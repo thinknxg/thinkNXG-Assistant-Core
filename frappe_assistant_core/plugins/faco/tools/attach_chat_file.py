@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """
-Attach Chat File Tool — attaches a file the user uploaded in FAC Chat to a document.
+Attach Chat File Tool — attaches a file the user uploaded in TAC Chat to a document.
 
 Asked to "attach this receipt to the Purchase Invoice", the model used to search the File list
 and re-point some File's attachment fields with update_document, which moved an unrelated file

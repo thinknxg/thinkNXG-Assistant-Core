@@ -44,7 +44,7 @@ calculation failed. Do not retype or estimate the totals.
 | `statistics` | statistics | ✅ mean, median, stdev |
 | `random` | random | ✅ random, randint, choice |
 | `datetime` | datetime module | ⚠️ Use carefully — see datetime section |
-| `tools` | FAC tools API | ✅ All methods now work — see tools section |
+| `tools` | TAC tools API | ✅ All methods now work — see tools section |
 | `collections`, `itertools`, `functools` | stdlib | ✅ Counter, defaultdict, groupby, reduce, … |
 | `heapq`, `bisect`, `copy`, `string` | stdlib | ✅ |
 
@@ -80,7 +80,7 @@ are **not** available — see Security Blocks below.
 
 ## tools.* API — All Working (Tested)
 
-All FAC tool methods now work inside `run_python_code`. Data comes back as plain
+All TAC tool methods now work inside `run_python_code`. Data comes back as plain
 Python dicts — pass directly to `pd.DataFrame()` with no conversion needed.
 
 ### tools.get_documents() ✅

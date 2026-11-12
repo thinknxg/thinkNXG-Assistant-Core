@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""Per-user FAC Chat home-page preferences, read without creating a row.
+"""Per-user TAC Chat home-page preferences, read without creating a row.
 
 Everything is on by default, so a user with no preferences row (or an unset field)
 reads the defaults below.

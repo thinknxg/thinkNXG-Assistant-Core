@@ -84,7 +84,7 @@ def sync_subscription_status():
 
 def scheduled_sync_subscription():
     """Scheduled task to sync subscription status from AR."""
-    # Master gate: nothing to sync if FAC Chat is disabled.
+    # Master gate: nothing to sync if TAC Chat is disabled.
     from frappe_assistant_core.chat.gate import is_chat_enabled
 
     if not is_chat_enabled():

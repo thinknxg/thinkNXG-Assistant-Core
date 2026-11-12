@@ -22,7 +22,7 @@ describe("widget_embed.js", () => {
 	});
 
 	it("starts on an app page whose shell sets its own frappe.boot (thinkNXG Raven)", () => {
-		// raven/www/raven.html sets frappe.boot to thinkNXG's full boot payload, which carries FAC's
+		// raven/www/raven.html sets frappe.boot to thinkNXG's full boot payload, which carries TAC's
 		// own fac_widget key (extend_bootinfo) — but there is no Desk router or widget_loader.js.
 		window.frappe = { boot: { sitename: "site", fac_widget: { entry: "/assets/x.js", css: [] } } };
 		runLoader();

@@ -199,7 +199,7 @@ export async function resolveWidgetSession({ isClaimed = makeClaimProbe() } = {}
 	return { session_id: outcome.session_id, restored: outcome.restored };
 }
 
-/** Same-tab hand-off read by FAC Chat when "Open full assistant" is clicked. */
+/** Same-tab hand-off read by TAC Chat when "Open full assistant" is clicked. */
 export function handOffToFullPage(sessionId) {
 	try {
 		sessionStorage.setItem(ACTIVE_KEY, encode(sessionId, currentUser()));

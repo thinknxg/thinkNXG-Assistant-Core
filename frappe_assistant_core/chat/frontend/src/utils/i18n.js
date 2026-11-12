@@ -1,5 +1,5 @@
 /**
- * Translation marker for the FAC Chat SPA.
+ * Translation marker for the TAC Chat SPA.
  *
  * Same contract as the Desk widget's `t` (widget/panel/i18n.js): thinkNXG's
  * `window.__` when the page has loaded it, otherwise the English source with

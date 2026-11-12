@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Raven Message hooks: decide whether FAC Bot was addressed, then hand off to a job.
+"""Raven Message hooks: decide whether TAC Bot was addressed, then hand off to a job.
 
 Every thinkNXG Raven message on the site passes here (thinkNXG Raven has no hook for external bots), so the checks
 run cheapest first and an ordinary channel message costs no database query.
@@ -34,7 +34,7 @@ TURN_JOB = "frappe_assistant_core.integrations.raven.turn.run"
 
 
 def addressed(doc) -> Literal["dm", "mention"] | None:
-    """How FAC Bot was addressed by this message, if at all. A switched-off bot is still
+    """How TAC Bot was addressed by this message, if at all. A switched-off bot is still
     addressed, so it can say it is off; a site that never created it skips everything."""
     flags = frappe.flags
     if flags.in_install or flags.in_migrate or flags.in_patch or flags.in_import:
@@ -96,7 +96,7 @@ def _enqueue(doc, kind: str) -> None:
             typed_by_person=True,
         )
     except RedisConnectionError:
-        frappe.logger("fac_raven").warning(f"Redis is down; FAC Bot skipped message {doc.name}")
+        frappe.logger("fac_raven").warning(f"Redis is down; TAC Bot skipped message {doc.name}")
 
 
 def _within_rate(owner: str) -> bool:
@@ -120,7 +120,7 @@ def on_insert(doc, method=None) -> None:
     if doc.message_batch_id:
         frappe.flags[f"fac_raven_batch:{doc.message_batch_id}"] = True
     if not _within_rate(doc.owner):
-        frappe.logger("fac_raven").info(f"FAC Bot rate limit: skipped message {doc.name} from {doc.owner}")
+        frappe.logger("fac_raven").info(f"TAC Bot rate limit: skipped message {doc.name} from {doc.owner}")
         return
     _enqueue(doc, kind)
 
@@ -136,7 +136,7 @@ def on_update(doc, method=None) -> None:
 
 
 def on_trash(doc, method=None) -> None:
-    """thinkNXG Raven has no Stop button: deleting FAC Bot's reply while it streams stops the turn."""
+    """thinkNXG Raven has no Stop button: deleting TAC Bot's reply while it streams stops the turn."""
     if not doc.is_bot_message or doc.bot != bot.BOT_NAME:
         return
     from frappe_assistant_core.chat.api.chat.cancel import mark_cancelled

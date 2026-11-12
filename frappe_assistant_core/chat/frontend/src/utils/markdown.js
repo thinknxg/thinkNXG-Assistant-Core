@@ -92,7 +92,7 @@ function configure() {
 	if (configured) return;
 	configured = true;
 	// marked 5+ dropped the `highlight` option; it is silently ignored by
-	// setOptions, which is how FAC Chat shipped with no highlighting at all.
+	// setOptions, which is how TAC Chat shipped with no highlighting at all.
 	marked.use(
 		markedHighlight({
 			langPrefix: "hljs language-",

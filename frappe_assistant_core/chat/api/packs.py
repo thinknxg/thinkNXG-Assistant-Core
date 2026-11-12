@@ -206,7 +206,7 @@ def list_pack_purchases():
         return {"purchases": result.get("purchases", [])}
     except Exception as e:
         frappe.log_error(
-            title="FAC Pack Purchases Error",
+            title="TAC Pack Purchases Error",
             message=f"list_pack_purchases: {e!s}",
         )
-        return {"purchases": [], "error": _safe_error(e, "FAC Pack Purchases Error")}
+        return {"purchases": [], "error": _safe_error(e, "TAC Pack Purchases Error")}

@@ -4,7 +4,7 @@
  * A result reaches the SPA in several shapes: the object a tool returned; a JSON string
  * (a persisted turn, or a truncated SSE payload); or the MCP content parts the runtime
  * streams and stores, `[{"text": "<json>"}]` (Strands) or `[{"type": "text", "text": "<json>"}]`
- * (the FAC MCP server), optionally inside a `{content, isError, structuredContent}` wrapper.
+ * (the TAC MCP server), optionally inside a `{content, isError, structuredContent}` wrapper.
  * All of them unwrap to the tool's own object; anything that is not a parseable JSON object
  * counts as having no fields.
  */

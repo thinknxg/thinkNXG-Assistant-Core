@@ -1,6 +1,6 @@
 """AR refusing a knowledge-base upload is a permission answer, not a crash.
 
-AR answers 403 when the tenant's plan excludes the knowledge base. FAC used to
+AR answers 403 when the tenant's plan excludes the knowledge base. TAC used to
 wrap that as ``Error: ...`` in a ValidationError, which the SPA received as
 HTTP 417 with a message about a server error rather than about the plan.
 """

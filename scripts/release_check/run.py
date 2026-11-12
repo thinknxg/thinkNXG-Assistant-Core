@@ -1,10 +1,10 @@
-"""Ask the release-check questions through FAC Chat with one fixed model and score the answers.
+"""Ask the release-check questions through TAC Chat with one fixed model and score the answers.
 
     python scripts/release_check/run.py --site realistic.test --profile realistic \\
         --url http://localhost:8000 --model <model_id> --out results/<version>.json
 
 Questions go over HTTP to the site's real web workers (so the Socket.IO relay runs exactly as it does
-for the SPA); expected answers are read in-process from --site, and (with --ar-site) AR Turn Usage from the FAC
+for the SPA); expected answers are read in-process from --site, and (with --ar-site) AR Turn Usage from the TAC
 Cloud site, so the script needs the bench Python and `sites/` as the working directory. Credentials come from the environment:
 RELEASE_CHECK_API_KEY and RELEASE_CHECK_API_SECRET (a user's API key and secret).
 
@@ -92,7 +92,7 @@ def correct_for(question: dict, answer: str, expected_value) -> bool:
 
 
 class ChatClient:
-    """FAC Chat over HTTP with API-key auth (no CSRF token needed)."""
+    """TAC Chat over HTTP with API-key auth (no CSRF token needed)."""
 
     def __init__(self, url: str, key: str, secret: str, timeout: int):
         import requests
@@ -144,7 +144,7 @@ class ChatClient:
 def fetch_usage(session_ids: list) -> dict:
     """session_id -> tool_calls, credits, input_tokens summed over the turn's cycles, from AR Turn Usage.
 
-    Runs on the FAC Cloud (assistant_runtime) site, where AR writes one row per cycle keyed by FAC's
+    Runs on the FAC Cloud (assistant_runtime) site, where AR writes one row per cycle keyed by TAC's
     session_id; the runner creates every session fresh, so the session id alone identifies the turn. A session with no row (yet) is left out.
     """
     import frappe

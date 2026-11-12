@@ -47,7 +47,7 @@ const props = defineProps({
 	// The host draws its own heading and tally (the Desk widget's plan strip).
 	bare: { type: Boolean, default: false },
 	// The user pressed Stop (the message's `aborted` flag). AR closes the rows it
-	// was still working on only after the stream has ended, so FAC never receives
+	// was still working on only after the stream has ended, so TAC never receives
 	// them: every row still running or pending is presented as stopped.
 	stopped: { type: Boolean, default: false },
 });

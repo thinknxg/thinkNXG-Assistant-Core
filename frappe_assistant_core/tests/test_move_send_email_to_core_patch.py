@@ -22,7 +22,7 @@ optional and disabling it took send_email away; the core plugin cannot be disabl
 so without this patch the upgrade would quietly let an assistant send mail from the
 site's own Email Account on a site whose administrator had declined that.
 
-The stored plugin matters too: `bulk_toggle_tools_by_category` filters FAC Tool
+The stored plugin matters too: `bulk_toggle_tools_by_category` filters TAC Tool
 Configuration on `plugin_name`, so a row left saying "faco" is toggled by the wrong
 bulk action in both directions.
 """
@@ -180,7 +180,7 @@ class TestMoveSendEmailToCorePatch(BaseAssistantTest):
         self.assertTrue(self._row().enabled)
 
     def test_unreadable_legacy_json_keeps_the_tool_off(self):
-        """Unable to tell: grant nothing. An admin can switch it on in FAC Admin."""
+        """Unable to tell: grant nothing. An admin can switch it on in TAC Admin."""
         self._tool_row(enabled=1)
         self._no_plugin_row()
         frappe.db.set_single_value("Assistant Core Settings", "enabled_plugins_list", "{not json")

@@ -28,9 +28,9 @@ from frappe_assistant_core.plugins.core.tools.metadata_tools import MetadataTool
 from frappe_assistant_core.tests.base_test import BaseAssistantTest
 from frappe_assistant_core.tests.ddl_fixtures import committing_ddl
 
-BOOKING = "FAC Topic Booking"
-BOOKING_LINE = "FAC Topic Booking Line"
-BOOKING_SETTINGS = "FAC Topic Booking Settings"
+BOOKING = "TAC Topic Booking"
+BOOKING_LINE = "TAC Topic Booking Line"
+BOOKING_SETTINGS = "TAC Topic Booking Settings"
 TODO_CUSTOM_FIELD = "fac_topic_probe"
 FIXTURE_DOCTYPES = (BOOKING_LINE, BOOKING_SETTINGS, BOOKING)
 HAS_ERPNEXT = "erpnext" in frappe.get_installed_apps()
@@ -173,12 +173,12 @@ class TestDoctypeTopicSearch(BaseAssistantTest):
 
     def test_assistant_user_does_not_see_a_wholly_admin_only_doctype(self):
         user = self.make_throwaway_user("topic-assistant", roles=("Assistant User",))
-        # nosemgrep: frappe-setuser — the skip depends on the acting user's FAC role
+        # nosemgrep: frappe-setuser — the skip depends on the acting user's TAC role
         frappe.set_user(user)
         self.addCleanup(frappe.set_user, "Administrator")
         self.assertIsNotNone(_doctype_row("todo", "ToDo"), "ToDo must be readable to this role")
 
-        # FAC ships ADMIN_ONLY_FIELDS entries of "*" (Email Domain, System Settings, ...); adding
+        # TAC ships ADMIN_ONLY_FIELDS entries of "*" (Email Domain, System Settings, ...); adding
         # ToDo to that same dict gives the Assistant User exactly what a shipped entry does.
         with patch.dict(ADMIN_ONLY_FIELDS, {"ToDo": "*"}):
             self.assertIsNone(_doctype_row("todo", "ToDo"))

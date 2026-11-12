@@ -525,7 +525,7 @@ def is_doctype_accessible(
     doctype: str, user_role: str, perm_type: str = "read", user: Optional[str] = None
 ) -> bool:
     """
-    Check whether a role may perform ``perm_type`` on ``doctype`` at the FAC layer.
+    Check whether a role may perform ``perm_type`` on ``doctype`` at the TAC layer.
 
     This is a coarse guard that runs *before* thinkNXG's own permission check, so it may
     only ever deny something thinkNXG would allow - never the reverse. It exists for one
@@ -542,7 +542,7 @@ def is_doctype_accessible(
         user: The user asking, the session user when omitted
 
     Returns:
-        bool: True if FAC allows the operation to proceed to the thinkNXG permission check
+        bool: True if TAC allows the operation to proceed to the thinkNXG permission check
     """
     if user_role == "System Manager":
         return True  # System Manager is trusted at this layer
@@ -600,7 +600,7 @@ def validate_document_access(
         # Get user's primary role (includes Default for non-assistant users)
         primary_role = get_user_primary_role(user)
 
-        # FAC-level guard: blocks writes to code-execution / schema DocTypes only.
+        # TAC-level guard: blocks writes to code-execution / schema DocTypes only.
         # Reads fall straight through to the thinkNXG permission check below.
         if not is_doctype_accessible(doctype, primary_role, perm_type, user):
             return {

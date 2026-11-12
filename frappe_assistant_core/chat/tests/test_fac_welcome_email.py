@@ -16,9 +16,9 @@
 
 """The install welcome email must be FAC Cloud onboarding, not the OSS one.
 
-Also guards the defect this file was rewritten for: FAC runs on the
+Also guards the defect this file was rewritten for: TAC runs on the
 customer's own site, `assistant_runtime` (the SaaS server) runs on a separate
-deployment, and FAC only ever depends on `assistant_runtime_sdk`. Nothing
+deployment, and TAC only ever depends on `assistant_runtime_sdk`. Nothing
 under the `frappe_assistant_core` package may import `assistant_runtime` at
 module scope, or a real customer install ImportErrors — and since this exact
 email used to be sent from an install hook, it would fail the install itself.
@@ -44,12 +44,12 @@ RETIRED_CONTENT = (
     "erp.promantia.in",
     "ai-support@promantia.com",
     "b-cdn.net",
-    "FAC Starter",
-    "FAC Pro",
+    "TAC Starter",
+    "TAC Pro",
     "ask Claude",
 )
 
-# Claims the email used to make that are untrue the moment it is sent. FAC Chat is
+# Claims the email used to make that are untrue the moment it is sent. TAC Chat is
 # off on every fresh install (`enable_fac_chat` defaults to 0 and only the
 # `toggle_chat` admin action turns it on), so a workspace the admin is told to open
 # does not exist yet and `/copilot/` raises PageDoesNotExistError.
@@ -160,7 +160,7 @@ class TestFacWelcomeEmail(BaseAssistantTest):
                 self.assertNotIn(claim, subject)
 
     def test_cta_opens_fac_admin(self):
-        """FAC Admin is reachable with chat off; /copilot/ 404s until chat is on."""
+        """TAC Admin is reachable with chat off; /copilot/ 404s until chat is on."""
         with patch(
             "frappe_assistant_core.utils.email_invite._get_system_manager_emails",
             return_value=["admin@acme.com"],
@@ -178,8 +178,8 @@ class TestFacWelcomeEmail(BaseAssistantTest):
             send_fac_admin_invite()
 
         message = _rendered_message(sendmail)
-        self.assertIn("FAC Chat", message)
-        self.assertIn("FAC Admin", message)
+        self.assertIn("TAC Chat", message)
+        self.assertIn("TAC Admin", message)
 
     def test_package_never_imports_assistant_runtime_at_module_scope(self):
         self.assertEqual(_assistant_runtime_import_violations(), [])

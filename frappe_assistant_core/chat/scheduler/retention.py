@@ -38,7 +38,7 @@ def cleanup_old_messages() -> dict:
     Returns a dict summarising the deletion counts — useful for the operator
     audit trail written to Error Log.
     """
-    # Master gate: nothing to clean up if FAC Chat has never been enabled
+    # Master gate: nothing to clean up if TAC Chat has never been enabled
     # (and turning it off shouldn't trigger surprise mass deletes).
     from frappe_assistant_core.chat.gate import is_chat_enabled
 

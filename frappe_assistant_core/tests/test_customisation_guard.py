@@ -34,7 +34,7 @@ from frappe_assistant_core.utils.customisation import (
 )
 
 SCRIPTS_ENABLED = "frappe_assistant_core.utils.customisation.server_scripts_enabled"
-SCRIPT_NAME = "FAC Guard Probe Script"
+SCRIPT_NAME = "TAC Guard Probe Script"
 
 
 def _script_data(**overrides) -> dict:
@@ -237,12 +237,12 @@ class TestWriteResultLinks(BaseAssistantTest):
             frappe.delete_doc("Custom Field", TEST_FIELD_NAME, force=True, ignore_permissions=True)
         if frappe.db.exists("FAC Page", "fac-link-probe-page"):
             frappe.delete_doc("FAC Page", "fac-link-probe-page", force=True, ignore_permissions=True)
-        for name in frappe.get_all("ToDo", filters={"description": "FAC link probe"}, pluck="name"):
+        for name in frappe.get_all("ToDo", filters={"description": "TAC link probe"}, pluck="name"):
             frappe.delete_doc("ToDo", name, force=True, ignore_permissions=True)
         super().tearDown()
 
     def _create_todo(self) -> dict:
-        return DocumentCreate().execute({"doctype": "ToDo", "data": {"description": "FAC link probe"}})
+        return DocumentCreate().execute({"doctype": "ToDo", "data": {"description": "TAC link probe"}})
 
     def test_create_result_has_url(self):
         result = self._create_todo()
@@ -283,7 +283,7 @@ class TestWriteResultLinks(BaseAssistantTest):
         name = self._create_todo()["name"]
 
         result = DocumentUpdate().execute(
-            {"doctype": "ToDo", "name": name, "data": {"description": "FAC link probe"}}
+            {"doctype": "ToDo", "name": name, "data": {"description": "TAC link probe"}}
         )
 
         self.assertTrue(result["success"], result)
@@ -332,7 +332,7 @@ class TestPlainLanguageErrors(BaseAssistantTest):
         self.assertIn("does not check mandatory fields", description)
 
 
-REPORT_NAME = "FAC Warning Probe Report"
+REPORT_NAME = "TAC Warning Probe Report"
 SCRIPT_REPORT_WARNING = (
     "Server scripts are switched off on this site, so this report will show an error when "
     "someone runs it until an administrator switches them on (on thinkNXG Cloud this needs a "

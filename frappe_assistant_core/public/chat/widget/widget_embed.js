@@ -34,6 +34,6 @@
 			});
 		})
 		.catch(function (err) {
-			console.warn("[FAC widget] failed to start", err);
+			console.warn("[TAC widget] failed to start", err);
 		});
 })();

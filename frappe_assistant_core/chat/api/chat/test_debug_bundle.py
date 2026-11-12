@@ -5,7 +5,7 @@
 """Tests for the System-Manager-only debug bundle export.
 
 Uses plain ``unittest.TestCase`` (not ``FrappeTestCase``) to match the rest of
-the FAC suite: this is an thinkNXG ERP site and ``FrappeTestCase.setUpClass`` can
+the TAC suite: this is an thinkNXG ERP site and ``FrappeTestCase.setUpClass`` can
 crash on fiscal-year fixtures. Each test cleans up its own rows in tearDown.
 """
 

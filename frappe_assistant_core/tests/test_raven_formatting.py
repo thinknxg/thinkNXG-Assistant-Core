@@ -54,14 +54,14 @@ class TestRavenFormatting(BaseAssistantTest):
         )
         self.assertIn("Delete ToDo tt8ko48kuj?", html)
         self.assertIn("This is permanent.", html)
-        self.assertIn("Answer in FAC Chat", html)
+        self.assertIn("Answer in TAC Chat", html)
 
     def test_a_build_plan_hands_off_with_its_change_count(self):
-        # thinkNXG Raven cannot draw the plan card, so it says what is waiting and links FAC Chat.
+        # thinkNXG Raven cannot draw the plan card, so it says what is waiting and links TAC Chat.
         changes = [{"doctype": "Custom Field"}, {"doctype": "Workspace"}, {"doctype": "Client Script"}]
         html = formatting.handoff_html("propose_build_plan", {"summary": "x", "changes": changes}, URL)
         self.assertIn("FACO has a build plan for you to review (3 changes)", html)
-        self.assertIn("in FAC Chat", html)
+        self.assertIn("in TAC Chat", html)
         self.assertIn(URL, html)
 
     def test_out_of_credits_reads_like_the_widget(self):
@@ -81,7 +81,7 @@ class TestRavenFormatting(BaseAssistantTest):
     def test_chat_switched_off_is_said_plainly(self):
         # can_use_faco answers chat_module_disabled with a status and no reason.
         text = formatting.refusal_text({"can_use": False, "status": "chat_module_disabled"})
-        self.assertIn("FAC Chat is switched off", text)
+        self.assertIn("TAC Chat is switched off", text)
 
     def test_model_text_cannot_mention_people(self):
         # thinkNXG Raven turns this markup into a real mention that notifies anyone named, member or not.

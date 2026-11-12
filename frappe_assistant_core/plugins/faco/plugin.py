@@ -50,8 +50,8 @@ class FacoPlugin(BasePlugin):
     by Assistant Core Settings.enable_fac_chat.
 
     These tools reach FAC Cloud only. Each of them needs something no other
-    MCP client can supply: the browser tools run inside the FAC Chat page over
-    Socket.IO, and generate_document renders through FAC Chat's rich-block
+    MCP client can supply: the browser tools run inside the TAC Chat page over
+    Socket.IO, and generate_document renders through TAC Chat's rich-block
     renderer. Offered to Claude Desktop, a browser tool would publish a
     realtime request nobody is listening for and fail only after the 30 second
     timeout, so they are hidden from every caller that is not FAC Cloud —
@@ -64,8 +64,8 @@ class FacoPlugin(BasePlugin):
             "name": "faco",
             "display_name": "FACO Tools",
             "description": (
-                "Document generation, browser automation and thinkNXG Insights reading for FAC Chat. "
-                "These tools run inside the FAC Chat page, so they are "
+                "Document generation, browser automation and thinkNXG Insights reading for TAC Chat. "
+                "These tools run inside the TAC Chat page, so they are "
                 "available to FAC Cloud only and stay hidden from other MCP "
                 "clients such as Claude Desktop."
             ),

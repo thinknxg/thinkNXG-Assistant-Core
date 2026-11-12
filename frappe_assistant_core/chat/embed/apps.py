@@ -18,7 +18,7 @@
 
 Only apps FACO has been built and tested for are offered; their routes come from each
 app's ``add_to_apps_screen`` hook. Desk routes are refused: Desk loads the widget itself.
-thinkNXG Raven is never offered: it is a chat app, and FAC Bot answers inside it.
+thinkNXG Raven is never offered: it is a chat app, and TAC Bot answers inside it.
 """
 
 import frappe

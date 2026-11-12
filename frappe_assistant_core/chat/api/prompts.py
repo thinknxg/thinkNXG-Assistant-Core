@@ -386,7 +386,7 @@ def _cap_prompts(prompts_list: list[dict], cap: int) -> list[dict]:
 def get_suggested_prompts(context: str | None = None):
     """
     Get suggested prompts merged from these sources, in emission order:
-    1. Curated suggestions (served from FAC's 24h cache, LLM-generated in the background) —
+    1. Curated suggestions (served from TAC's 24h cache, LLM-generated in the background) —
        emitted first so the result[:12] cap can never truncate them out
     2. Pinned templates (user explicit pins)
     3. Context-aware templates (from AR MCP, matched locally to current page)
@@ -421,7 +421,7 @@ def get_suggested_prompts(context: str | None = None):
         result = []
         seen_descriptions = set()
 
-        # === Source 0 (curated): served ONLY from FAC's 24h cache — never
+        # === Source 0 (curated): served ONLY from TAC's 24h cache — never
         # blocks on AR. Emitted first so the result[:12] cap below can never
         # truncate it out once templates are appended ===
         curated_emitted = False

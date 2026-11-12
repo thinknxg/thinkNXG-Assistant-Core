@@ -1,6 +1,6 @@
 name: Pre-build assets
 
-# Publishes the built FAC Chat SPA and widget for each commit on main, as the
+# Publishes the built TAC Chat SPA and widget for each commit on main, as the
 # thinkNXG Marketplace requires: its get-app check fails a release whose commit
 # has no prebuilt assets. The chore(release) commit is pushed with RELEASE_PAT,
 # so it triggers this workflow too.

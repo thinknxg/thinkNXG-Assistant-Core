@@ -19,11 +19,11 @@ list_documents must not let a field the user cannot read narrow a query.
 
 A filter, a sort key or a selected expression on such a field gives its value away one query
 at a time, from which records match. thinkNXG v15 does not refuse a filter above the user's
-permlevel, and neither thinkNXG version knows FAC's SENSITIVE_FIELDS. get_doctype_info must not
+permlevel, and neither thinkNXG version knows TAC's SENSITIVE_FIELDS. get_doctype_info must not
 list those fields either.
 
 thinkNXG v16 refuses a permlevel filter itself, so on v16 the permlevel tests below fail without the
-fix only on FAC's message; the v15 CI run is where they show the leak.
+fix only on TAC's message; the v15 CI run is where they show the leak.
 """
 
 from unittest.mock import patch

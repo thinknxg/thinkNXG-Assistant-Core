@@ -15,10 +15,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """
-Tests for the FAC DocType access guard (issue #249).
+Tests for the TAC DocType access guard (issue #249).
 
 Reads defer entirely to frappe.has_permission(); only writes to code-execution and
-schema/permission DocTypes are hard-blocked at the FAC layer.
+schema/permission DocTypes are hard-blocked at the TAC layer.
 """
 
 from unittest.mock import patch

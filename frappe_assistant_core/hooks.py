@@ -175,7 +175,7 @@ override_whitelisted_methods = {
 # Custom Page Renderers
 # ----------------------
 
-# Handle .well-known OAuth endpoints with custom renderer, and serve FAC Chat's
+# Handle .well-known OAuth endpoints with custom renderer, and serve TAC Chat's
 # service worker at /copilot/sw.js (in scope for the SPA; see chat/service_worker.py)
 page_renderer = [
     "frappe_assistant_core.api.oauth_wellknown_renderer.WellKnownRenderer",
@@ -304,7 +304,7 @@ assistant_tool_configs = {
 }
 
 
-# --- FAC Chat: unconditional registration with runtime gates ---
+# --- TAC Chat: unconditional registration with runtime gates ---
 #
 # All chat hooks below are registered at every worker boot regardless of the
 # `Assistant Core Settings.enable_fac_chat` toggle. Each consumer checks the
@@ -318,7 +318,7 @@ assistant_tool_configs = {
 #   - Permission hooks: cheap to keep registered; only invoked when querying
 #     chat DocTypes, which doesn't happen meaningfully when chat is off
 #
-# This eliminates the boot-time gate entirely so toggling FAC Chat from the
+# This eliminates the boot-time gate entirely so toggling TAC Chat from the
 # admin UI takes effect immediately across all workers without `bench restart`.
 
 # Widget assets ship unhashed and thinkNXG serves /assets with `max-age=43200`, so
@@ -398,9 +398,9 @@ website_route_rules = [
 # Apps-screen entry. `can_use_faco` enforces the chat gate at request time.
 add_to_apps_screen = [
     {
-        "name": "FAC",
+        "name": "TAC",
         "logo": "/assets/frappe_assistant_core/images/FAC_mark.svg",
-        "title": "FAC",
+        "title": "TAC",
         "route": "/desk/fac-admin",
         "has_permission": "frappe_assistant_core.chat.api.settings.access.can_use_faco",
     }
@@ -412,13 +412,13 @@ after_install.append("frappe_assistant_core.chat.hooks.install.after_install")
 # Refresh the read-only fac_cloud_url mirror from site_config, and log loudly
 # if a registered site is being repointed (see chat/cloud_url.py).
 after_migrate.append("frappe_assistant_core.chat.cloud_url.sync_cloud_url_mirror")
-# FAC Bot in thinkNXG Raven: create the bot on migrate once switched on; the cached on/off state follows
+# TAC Bot in thinkNXG Raven: create the bot on migrate once switched on; the cached on/off state follows
 # FAC Chat Settings.
 after_migrate.append("frappe_assistant_core.integrations.raven.bot.ensure_bot_after_migrate")
 doc_events.setdefault("FAC Chat Settings", {})["on_update"] = (
     "frappe_assistant_core.integrations.raven.bot.clear_state_cache"
 )
-# FAC Bot answers thinkNXG Raven DMs and @mentions; dormant unless thinkNXG Raven is installed and the bot exists.
+# TAC Bot answers thinkNXG Raven DMs and @mentions; dormant unless thinkNXG Raven is installed and the bot exists.
 doc_events["Raven Message"] = {
     "after_insert": "frappe_assistant_core.integrations.raven.triggers.on_insert",
     "on_update": "frappe_assistant_core.integrations.raven.triggers.on_update",
@@ -477,7 +477,7 @@ has_permission = {
 
 # Wildcard doc_events dispatcher.
 #
-# WHY A WILDCARD: FAC Chat lets an admin attach a workflow to any DocType on
+# WHY A WILDCARD: TAC Chat lets an admin attach a workflow to any DocType on
 # their own site, including custom ones that do not exist when this file is
 # read. The set of watched DocTypes is therefore only knowable at runtime, so
 # there is no finite `doc_events` map that could express it. thinkNXG's own

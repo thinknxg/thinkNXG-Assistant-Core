@@ -2,13 +2,13 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""FAC must never call an SDK symbol absent from the version FAC pins.
+"""TAC must never call an SDK symbol absent from the version TAC pins.
 
 This is a pure file/attribute read — no database, no thinkNXG context — so it is
 plain unittest, not FrappeTestCase.
 
 What it does catch: a forgotten pin bump, a `>=` floor sneaking back in, and a
-connect method FAC's proxy calls that the installed SDK does not define.
+connect method TAC's proxy calls that the installed SDK does not define.
 
 What it CANNOT catch: whether 1.9.0 is actually on PyPI. In local dev the SDK
 is installed editable (`pip install -e apps/assistant_runtime_sdk`), so this
@@ -49,7 +49,7 @@ class TestSDKPin(unittest.TestCase):
             requirement,
             r"^assistant_runtime_sdk==\d+\.\d+\.\d+",
             f"pin must be ==X.Y.Z, got {requirement!r}. A >= floor lets pip resolve an "
-            "older published version missing the methods FAC calls.",
+            "older published version missing the methods TAC calls.",
         )
 
     def test_the_pinned_version_is_the_one_installed(self):
@@ -57,8 +57,8 @@ class TestSDKPin(unittest.TestCase):
         self.assertEqual(pinned, assistant_runtime_sdk.__version__)
 
     def test_the_installed_sdk_defines_every_connect_method_fac_calls(self):
-        # FAC's own tests mock the SDK with MagicMock, which answers any
-        # attribute. This is the only assertion in FAC that touches the real class.
+        # TAC's own tests mock the SDK with MagicMock, which answers any
+        # attribute. This is the only assertion in TAC that touches the real class.
         from assistant_runtime_sdk.client import AssistantRuntimeClient
 
         for name in CONNECT_METHODS:

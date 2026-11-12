@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""FAC Chat — after_install hook.
+"""TAC Chat — after_install hook.
 
 Seeds FAC Chat Settings defaults on a fresh install so the Form UI reflects
 the correct values immediately without requiring the admin to save once.

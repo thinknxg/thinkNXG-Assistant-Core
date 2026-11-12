@@ -26,7 +26,7 @@ from frappe_assistant_core.tests.base_test import BaseAssistantTest
 
 SESSIONS_MODULE = "frappe_assistant_core.chat.api.chat.sessions"
 LOG_HELPER = "frappe_assistant_core.chat.api._helpers._log"
-BOOT_LOG_TITLE = "FAC Chat boot: conversation list unavailable"
+BOOT_LOG_TITLE = "TAC Chat boot: conversation list unavailable"
 GATE_READY = {"can_use": True, "status": "ready", "show_widget": True, "is_admin": False, "preferences": {}}
 AUTH_READY = {
     "user_exists": True,

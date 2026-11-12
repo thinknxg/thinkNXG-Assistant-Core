@@ -137,7 +137,7 @@ def get_conversation_analytics(days: int = 30, limit: int = 50, offset: int = 0)
 
     Sourced from local FAC Chat Message rows, which are authoritative under
     zero retention — AR stores no conversations, so the SDK has nothing to
-    return. FAC mirrors every turn locally regardless of the app's retention
+    return. TAC mirrors every turn locally regardless of the app's retention
     mode, so this works uniformly. Aggregates across all users (admin view).
 
     Args:

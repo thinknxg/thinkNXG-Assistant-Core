@@ -245,7 +245,7 @@ export function useStreaming() {
 	/**
 	 * Handler for AR-emitted lifecycle events ("ar_interrupt_event").
 	 * Distinct channel from `faco_message_stream` so AR doesn't have to
-	 * know FAC's wire format. Payload: `{kind, session_id}`.
+	 * know TAC's wire format. Payload: `{kind, session_id}`.
 	 *
 	 * Future-proof: ignore unknown `kind` values silently.
 	 */

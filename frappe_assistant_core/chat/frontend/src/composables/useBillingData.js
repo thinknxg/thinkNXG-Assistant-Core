@@ -375,7 +375,7 @@ export function useBillingData() {
 		if (planId === currentPlan.value.toLowerCase()) return;
 
 		if (planId === "enterprise") {
-			window.open("mailto:sales@frappe.io?subject=FACO Enterprise Inquiry", "_blank");
+			window.open("mailto:sales@kreatao.com?subject=FACO Enterprise Inquiry", "_blank");
 			return;
 		}
 

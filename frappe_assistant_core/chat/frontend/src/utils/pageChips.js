@@ -1,5 +1,5 @@
 /**
- * The FAC Pages a conversation wrote, read from its persisted tool_call blocks, so a reload
+ * The TAC Pages a conversation wrote, read from its persisted tool_call blocks, so a reload
  * shows the same chips without a block type of its own.
  */
 import { isDryRun, toolFailed, toolResult } from "@/utils/toolResult";

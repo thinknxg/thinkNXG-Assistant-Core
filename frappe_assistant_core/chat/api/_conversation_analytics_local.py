@@ -6,7 +6,7 @@
 
 Under Zero Data Retention the AR side stores no conversations, so the
 per-conversation breakdown is reconstructed from the local FAC Chat Message
-rows that FAC mirrors every turn. These helpers are pure (no DB / frappe
+rows that TAC mirrors every turn. These helpers are pure (no DB / frappe
 calls) so they are unit-testable; the endpoint layer fetches the rows.
 """
 

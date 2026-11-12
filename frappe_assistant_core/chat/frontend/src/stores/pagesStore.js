@@ -22,7 +22,7 @@ export const usePagesStore = defineStore("pages", () => {
 			error.value = false;
 			loaded.value = true;
 		} catch (err) {
-			logger.error("FAC Pages could not be listed", err);
+			logger.error("TAC Pages could not be listed", err);
 			// The earlier list stays, and `loaded` stays as it was so ensureLoaded tries again.
 			if (request === latestRequest) error.value = true;
 		}

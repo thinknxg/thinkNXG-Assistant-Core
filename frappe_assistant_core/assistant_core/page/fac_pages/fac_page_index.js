@@ -2,7 +2,7 @@
 // fac_pages.js inlines the file through thinkNXG's render_include from a line that starts with "//".
 //
 // It lists what list_pages returns, which is what get_page would open, so the user only sees pages
-// that open. Desk is the one place a user without FAC Chat can find a page shared with them. Every
+// that open. Desk is the one place a user without TAC Chat can find a page shared with them. Every
 // title and role is the page author's text, so it is set as text, never as html. Tested by
 // chat/frontend/src/widget/desk/facPageIndex.spec.js.
 
@@ -14,7 +14,7 @@ function fac_page_index({ pages, href, updated, chat_url } = {}) {
 	if (chat_url) {
 		const link = fac_page_index_el("a", "btn btn-default btn-sm fac-page-index-chat", "align-self:flex-end;");
 		link.href = chat_url;
-		link.textContent = __("Open in FAC Chat");
+		link.textContent = __("Open in TAC Chat");
 		root.append(link);
 	}
 	const mine = (pages || []).filter((page) => page.visibility !== "Shared");

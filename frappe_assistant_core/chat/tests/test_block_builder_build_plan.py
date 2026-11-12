@@ -4,7 +4,7 @@
 
 """A build plan card is saved with its plan and with the decision the user made.
 
-On reload FAC Chat draws the turn from the saved blocks, so the plan must survive in them
+On reload TAC Chat draws the turn from the saved blocks, so the plan must survive in them
 and the decision must read back as approved or as the feedback the user typed instead.
 """
 

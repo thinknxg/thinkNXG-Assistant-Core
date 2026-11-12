@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""FAC Admin endpoints for the "FAC Bot in thinkNXG Raven" switch."""
+"""TAC Admin endpoints for the "TAC Bot in thinkNXG Raven" switch."""
 
 import frappe
 from frappe import _
@@ -25,12 +25,12 @@ from frappe_assistant_core.integrations.raven import bot
 
 def _require_chat_admin() -> None:
     if not frappe.has_permission("Assistant Core Settings", "write"):
-        frappe.throw(_("You do not have permission to manage FAC Chat."), frappe.PermissionError)
+        frappe.throw(_("You do not have permission to manage TAC Chat."), frappe.PermissionError)
 
 
 @frappe.whitelist(methods=["GET"])
 def get_raven_bot() -> dict:
-    """Whether thinkNXG Raven is installed here, and whether FAC Bot answers in it."""
+    """Whether thinkNXG Raven is installed here, and whether TAC Bot answers in it."""
     _require_chat_admin()
     return {
         "available": "raven" in frappe.get_installed_apps(),
@@ -40,7 +40,7 @@ def get_raven_bot() -> dict:
 
 @frappe.whitelist(methods=["POST"])
 def set_raven_bot_enabled(enabled: bool) -> dict:
-    """Switch FAC Bot on or off. Switching on creates the bot; switching off keeps it."""
+    """Switch TAC Bot on or off. Switching on creates the bot; switching off keeps it."""
     _require_chat_admin()
     if "raven" not in frappe.get_installed_apps():
         frappe.throw(_("thinkNXG Raven is not installed on this site."))

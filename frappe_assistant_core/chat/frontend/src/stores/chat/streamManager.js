@@ -17,7 +17,7 @@ const STREAM_ACTIVITY_TIMEOUT_MS = 180000; // 180 seconds - reset on each event 
 
 // A Stop's cancel_stream holds the send queue until it is answered, and for
 // this long at most: baseCall has no timeout, and a hung cancel must not hold
-// the queue forever. FAC's own AR client and the phone's cancel request both
+// the queue forever. TAC's own AR client and the phone's cancel request both
 // give up after 30 s too.
 export const CANCEL_HOLD_MS = 30000;
 
@@ -229,9 +229,9 @@ export function createStreamManager({
 		graceRaisedDot = false;
 	}
 
-	// Hold the send queue while a Stop's cancel_stream is in flight: FAC clears
+	// Hold the send queue while a Stop's cancel_stream is in flight: TAC clears
 	// the session's cancel flag when it accepts the next turn, so that turn must
-	// not reach FAC before the Stop has. Returns the release, which is
+	// not reach TAC before the Stop has. Returns the release, which is
 	// idempotent and also runs by itself after CANCEL_HOLD_MS.
 	function holdQueueWhileCancelling() {
 		cancelsInFlight += 1;
@@ -305,8 +305,8 @@ export function createStreamManager({
 		if (sessionId) {
 			const release = holdQueueWhileCancelling();
 			// The bubble's request id goes as message_id, as before, and as
-			// client_turn_id: FAC then keeps this Stop even when it arrives before
-			// FAC has accepted that send, Continue or resume.
+			// client_turn_id: TAC then keeps this Stop even when it arrives before
+			// TAC has accepted that send, Continue or resume.
 			const requestId = lastMsg?._requestId || null;
 			try {
 				await api.chat.cancelStream(sessionId, requestId, requestId);

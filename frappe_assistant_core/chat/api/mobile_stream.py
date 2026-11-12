@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""Mobile API — bearer-authenticated helpers for the FAC mobile app.
+"""Mobile API — bearer-authenticated helpers for the TAC mobile app.
 
 The Socket.IO session lookup, the WebView session bridge and private-file
 download. Chat itself goes through the same endpoints as the SPA.
@@ -54,7 +54,7 @@ def create_web_session() -> Response:
 
     Uses GET: the mobile WebView reaches this via a top-level page navigation,
     which can only issue GET. CSRF is a non-concern — the caller is authenticated
-    solely by the OAuth Bearer header (cross-checked to a FAC mobile client in
+    solely by the OAuth Bearer header (cross-checked to a TAC mobile client in
     ``mobile_client_of_request``); no ambient cookie is trusted on the way in.
 
     Mobile WebView calls this URL with Authorization header. The response

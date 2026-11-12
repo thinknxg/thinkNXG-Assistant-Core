@@ -10,14 +10,14 @@ it. So on essentially every customer site the Administrator account carries a
 placeholder address that no one can receive mail at (example.com is reserved by
 RFC 2606).
 
-`_ar_user_id` faithfully returned it, and FAC then registered the tenant owner
+`_ar_user_id` faithfully returned it, and TAC then registered the tenant owner
 on AR under that address: production's only tenant has
 `owner_user_id = "admin@example.com"` beside a real, verified
 `owner_email = "hari.madhavan@promantia.com"`.
 
 Nothing is hardcoded here — the value is thinkNXG's, and the defect is that a
 shared placeholder became a durable identity. The moment anyone gives
-Administrator a real address, `_ar_user_id` returns something new: FAC creates
+Administrator a real address, `_ar_user_id` returns something new: TAC creates
 a *second* AR Tenant User (a second billed seat), the placeholder seat stays
 Active as an orphan, and `_is_tenant_owner` stops matching — locking the real
 owner out of their own tenant.

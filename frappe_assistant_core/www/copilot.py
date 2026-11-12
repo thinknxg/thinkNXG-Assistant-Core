@@ -10,7 +10,7 @@ def get_context(context):
     """
     Context provider for the thinkNXG Assistant Copilot Vue.js frontend
     """
-    # Runtime gate: when FAC Chat is disabled the SPA route returns 404.
+    # Runtime gate: when TAC Chat is disabled the SPA route returns 404.
     # The route itself is registered unconditionally so toggling chat on
     # makes it live immediately without a worker restart.
     if not is_chat_enabled():

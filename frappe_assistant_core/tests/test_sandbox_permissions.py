@@ -56,7 +56,7 @@ class TestSandboxPermissions(BaseAssistantTest):
                     {
                         "doctype": "User",
                         "email": email,
-                        "first_name": "FAC Sandbox",
+                        "first_name": "TAC Sandbox",
                         "roles": [{"role": role} for role in roles],
                     }
                 ).insert(ignore_permissions=True)
@@ -371,7 +371,7 @@ class TestRunDatabaseQueryAccess(BaseAssistantTest):
                 {
                     "doctype": "User",
                     "email": NO_ROLE_USER,
-                    "first_name": "FAC No Role",
+                    "first_name": "TAC No Role",
                     "send_welcome_email": 0,
                 }
             ).insert(ignore_permissions=True)

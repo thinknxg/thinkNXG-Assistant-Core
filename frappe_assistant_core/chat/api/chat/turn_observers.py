@@ -47,4 +47,4 @@ def notify(session_id: str, data: dict) -> None:
     try:
         callback(data)
     except Exception:
-        frappe.log_error(title="FAC turn observer failed", message=frappe.get_traceback())
+        frappe.log_error(title="TAC turn observer failed", message=frappe.get_traceback())

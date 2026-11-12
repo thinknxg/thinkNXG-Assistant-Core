@@ -64,7 +64,7 @@
 	};
 
 	// The pages the user can open, for anyone a page is shared with, whether or not they can use
-	// FAC Chat. The chat link shows only to those who can.
+	// TAC Chat. The chat link shows only to those who can.
 	function show_index(page, is_latest) {
 		dispose_shown();
 		page.set_title(__("Pages"));

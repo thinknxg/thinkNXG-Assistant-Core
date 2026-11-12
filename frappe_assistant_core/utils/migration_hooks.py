@@ -238,8 +238,8 @@ def before_app_uninstall(app_name: str):
     Hook fired before any app is uninstalled (``before_app_uninstall``).
 
     Removes ``FAC Skill`` rows registered by that app via the
-    ``assistant_skills`` hook. FAC's own system skills are left alone —
-    FAC's ``after_uninstall`` handles full teardown when FAC itself is
+    ``assistant_skills`` hook. TAC's own system skills are left alone —
+    TAC's ``after_uninstall`` handles full teardown when TAC itself is
     removed.
     """
     if app_name == "frappe_assistant_core":
@@ -388,7 +388,7 @@ def _install_system_prompt_templates():
     """
     Install system prompt templates from fixtures.
 
-    These are reference templates that come with FAC and demonstrate
+    These are reference templates that come with TAC and demonstrate
     best practices for creating prompt templates.
 
     System templates have is_system=1 and cannot be deleted by users.
@@ -509,7 +509,7 @@ def _install_system_skills():
     """
     Install system skills from manifest.
 
-    These are reference skills that come with FAC and provide guidance
+    These are reference skills that come with TAC and provide guidance
     on how to use tools effectively.
 
     System skills have is_system=1 and cannot be deleted by users.
@@ -658,7 +658,7 @@ def _install_app_skills():
         returns — e.g. ``.../my_app/my_app/``). Do not prefix paths with
         the app name.
 
-    The manifest JSON has the same structure as FAC's system_skills.json.
+    The manifest JSON has the same structure as TAC's system_skills.json.
 
     Skills installed via this hook have ``is_system=1`` and ``source_app``
     set to the app name for lifecycle management and cleanup.

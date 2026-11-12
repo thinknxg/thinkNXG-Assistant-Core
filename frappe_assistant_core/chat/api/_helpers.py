@@ -115,7 +115,7 @@ def _redact_upstream_internals(text: str) -> str:
     out = _UPSTREAM_TABLE_BARE_RE.sub("[internal table]", out)
     out = _UPSTREAM_MODULE_RE.sub("[service]", out)
     out = _RECORD_CHANGED_RE.sub("Record has changed since last read", out)
-    out = out.replace("AR stream_error", "FAC Chat stream error")
+    out = out.replace("AR stream_error", "TAC Chat stream error")
     return out
 
 
@@ -148,7 +148,7 @@ def _log(title: str, detail: str | None = None, *, message: str | None = None) -
     import sys
 
     try:
-        safe_title = _redact_upstream_internals(title or "FAC Chat Error")[:_ERROR_LOG_TITLE_MAX]
+        safe_title = _redact_upstream_internals(title or "TAC Chat Error")[:_ERROR_LOG_TITLE_MAX]
         message = (detail if detail is not None else message) or ""
         # If we're inside an `except` block, sys.exc_info() returns the
         # active triple. Append the traceback unless the caller already

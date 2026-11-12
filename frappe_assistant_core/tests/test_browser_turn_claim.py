@@ -5,7 +5,7 @@
 """Open Full Assistant hands a running turn's browser calls to the chat app (#34535).
 
 A turn the Desk widget started keeps asking for the widget's browser tools after the user expands
-to the chat app, and the widget is gone: the page screenshot timed out with "The FAC widget did not
+to the chat app, and the widget is gone: the page screenshot timed out with "The TAC widget did not
 respond". claim_live_turn retypes the conversation's browser calls for the chat app until the next
 message starts a new turn.
 """

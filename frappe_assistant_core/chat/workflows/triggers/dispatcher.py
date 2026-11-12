@@ -85,7 +85,7 @@ def _dispatch_inner(doc, method):
     ):
         return
 
-    # Master gate: FAC Chat off → workflow triggers don't fire. Cheap (per-
+    # Master gate: TAC Chat off → workflow triggers don't fire. Cheap (per-
     # request `frappe.local` cache), and the dominant hot-path case on
     # MCP-only sites is "chat is off forever," so this avoids loading the
     # trigger map at all.

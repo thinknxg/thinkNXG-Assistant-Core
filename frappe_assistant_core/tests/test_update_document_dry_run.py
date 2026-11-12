@@ -153,7 +153,7 @@ class TestUpdateDryRunWithBeforeSaveScript(BaseAssistantTest):
         frappe.get_doc(
             {
                 "doctype": "Server Script",
-                "name": f"FAC Dry Update {self.tag}",
+                "name": f"TAC Dry Update {self.tag}",
                 "script_type": "DocType Event",
                 "reference_doctype": "ToDo",
                 "doctype_event": "Before Save",
@@ -166,7 +166,7 @@ class TestUpdateDryRunWithBeforeSaveScript(BaseAssistantTest):
         self.addCleanup(
             frappe.delete_doc,
             "Server Script",
-            f"FAC Dry Update {self.tag}",
+            f"TAC Dry Update {self.tag}",
             force=True,
             ignore_permissions=True,
         )
@@ -243,7 +243,7 @@ class TestUpdateDryRunOnSubmittedRecord(BaseAssistantTest):
         super().setUp()
         if not frappe.db.exists("DocType", SUBMITTABLE_DOCTYPE):
             self.skipTest(f"{SUBMITTABLE_DOCTYPE} not available (thinkNXG ERP not installed)")
-        self.call_type = f"_Test FAC {frappe.generate_hash(length=8)}"
+        self.call_type = f"_Test TAC {frappe.generate_hash(length=8)}"
         doc = frappe.get_doc({"doctype": SUBMITTABLE_DOCTYPE, "call_type": self.call_type}).insert()
         doc.submit()
         self.name = doc.name

@@ -15,7 +15,7 @@ export const bridge = {
 			try {
 				fn(payload);
 			} catch (err) {
-				logger.error("[FAC widget]", event, err);
+				logger.error("[TAC widget]", event, err);
 			}
 		}
 	},

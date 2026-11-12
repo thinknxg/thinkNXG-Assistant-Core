@@ -165,7 +165,7 @@ export const useModelStore = defineStore("models", () => {
 
 	// Actions
 
-	// Hold `modelId` in memory only; FAC Chat's saved selection is left exactly as it is.
+	// Hold `modelId` in memory only; TAC Chat's saved selection is left exactly as it is.
 	function pinModel(modelId = null) {
 		isPinned.value = true;
 		pinned.value = modelId;

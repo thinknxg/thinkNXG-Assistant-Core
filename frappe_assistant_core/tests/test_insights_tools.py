@@ -43,7 +43,7 @@ class TestInsightsTools(BaseAssistantTest):
             raise unittest.SkipTest("thinkNXG Insights is not installed")
         frappe.set_user("Administrator")
         cls.ds = frappe.get_all("Insights Data Source v3", filters={"is_site_db": 1}, pluck="name")[0]
-        cls.wb = frappe.get_doc({"doctype": "Insights Workbook", "title": "FAC tools test"}).insert()
+        cls.wb = frappe.get_doc({"doctype": "Insights Workbook", "title": "TAC tools test"}).insert()
         cls.base = cls._query("ToDo rows", "select name, status, priority from `tabToDo`")
         cls.fresh_chart = cls._chart("ToDos by status", cls.base.name, fresh=True)
         cls.raw_chart = cls._chart("Raw ToDos", cls.base.name, fresh=False)
@@ -53,7 +53,7 @@ class TestInsightsTools(BaseAssistantTest):
         cls.dashboard = frappe.get_doc(
             {
                 "doctype": "Insights Dashboard v3",
-                "title": "FAC tools dashboard",
+                "title": "TAC tools dashboard",
                 "workbook": cls.wb.name,
                 "items": json.dumps(
                     [
@@ -241,13 +241,13 @@ class TestInsightsTools(BaseAssistantTest):
     def test_list_shows_only_readable_dashboards(self):
         names = [
             d["name"]
-            for d in self._tool("list_insights_dashboards").execute({"search": "FAC tools"})["dashboards"]
+            for d in self._tool("list_insights_dashboards").execute({"search": "TAC tools"})["dashboards"]
         ]
         self.assertIn(self.dashboard.name, names)
         frappe.set_user(INSIGHTS_USER)
         names = [
             d["name"]
-            for d in self._tool("list_insights_dashboards").execute({"search": "FAC tools"})["dashboards"]
+            for d in self._tool("list_insights_dashboards").execute({"search": "TAC tools"})["dashboards"]
         ]
         self.assertNotIn(self.dashboard.name, names)
 

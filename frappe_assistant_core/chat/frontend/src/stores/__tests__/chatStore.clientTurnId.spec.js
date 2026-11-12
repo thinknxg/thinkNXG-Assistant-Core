@@ -3,17 +3,17 @@ import { setActivePinia, createPinia } from "pinia";
 import { useChatStore } from "@/stores/chatStore";
 import { api } from "@/api/client";
 
-// FAC clears a session's cancel flag when it accepts a send, Continue
-// or resume, so a Stop that reached FAC while that request was still
+// TAC clears a session's cancel flag when it accepts a send, Continue
+// or resume, so a Stop that reached TAC while that request was still
 // on its way was erased by the request's own accept. Each request now carries a
-// client turn id, the bubble keeps it as _requestId, and a Stop names it: FAC
+// client turn id, the bubble keeps it as _requestId, and a Stop names it: TAC
 // keeps a Stop that names the request it is accepting.
 vi.mock("@/api/client", () => ({
 	api: { chat: { send: vi.fn(), continueResponse: vi.fn(), cancelStream: vi.fn() } },
 }));
 vi.mock("frappe-ui", () => ({ call: vi.fn() }));
 
-// A POST FAC has not answered yet.
+// A POST TAC has not answered yet.
 const onItsWay = () => new Promise(() => {});
 
 describe("a Stop names the request it stops", () => {

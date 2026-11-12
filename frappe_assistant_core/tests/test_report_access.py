@@ -33,7 +33,7 @@ ALLOWED_REF_DOCTYPE = "Role"  # System Manager has "report" permission on it
 
 class TestReportAccess(BaseAssistantTest):
     def _make_report(self, ref_doctype: str, roles: tuple = (), **overrides) -> str:
-        name = f"FAC Access {frappe.generate_hash(length=8)}"
+        name = f"TAC Access {frappe.generate_hash(length=8)}"
         doc = frappe.get_doc(
             {
                 "doctype": "Report",
@@ -124,7 +124,7 @@ class TestReportAccess(BaseAssistantTest):
         self.assertEqual(report_origin("Any", "Accounts", "No"), "custom")
 
     def test_report_from_a_non_standard_app_is_custom(self):
-        # "Assistant Core" is FAC's own module, owned by app frappe_assistant_core.
+        # "Assistant Core" is TAC's own module, owned by app frappe_assistant_core.
         self.assertEqual(report_origin("Any", "Assistant Core", "Yes"), "custom")
 
     def test_frappe_report_is_standard(self):

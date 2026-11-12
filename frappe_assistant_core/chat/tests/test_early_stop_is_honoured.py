@@ -12,7 +12,7 @@ while the SPA already showed it stopped. On a resume, the approved tool ran.
 Each endpoint now clears the flag as it accepts the turn, the relay checks the
 flag before it contacts AR, and nothing else clears it.
 
-A Stop can also reach FAC before the accept, while its request is still on
+A Stop can also reach TAC before the accept, while its request is still on
 its way. The client then names the request by the same client turn
 id on both calls, and the accept keeps a flag that names the request it is
 accepting. A flag that names another request, or none, is still cleared.
@@ -279,7 +279,7 @@ class TestAnEarlyStopIsHonoured(BaseAssistantTest):
 
     def test_a_stop_that_names_the_request_stops_it_before_ar(self):
         """A Stop pressed while the send, resume or Continue was still on its way
-        reaches FAC before the accept. It names that request, so the
+        reaches TAC before the accept. It names that request, so the
         accept keeps it, and the relay stops the turn before AR runs or bills it."""
         for endpoint, kwargs, events in ENDPOINTS:
             with self.subTest(endpoint=endpoint):

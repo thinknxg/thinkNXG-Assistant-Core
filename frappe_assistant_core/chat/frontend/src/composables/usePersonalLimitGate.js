@@ -3,10 +3,10 @@ import { useUserStore } from "@/stores/userStore";
 import { personalLimitBlock } from "@/utils/personalLimit";
 
 /**
- * The user's own monthly limit, as the composer must honour it in the Desk widget and FAC Chat.
+ * The user's own monthly limit, as the composer must honour it in the Desk widget and TAC Chat.
  *
  * AR refuses a member at their limit before it looks at the team's credits, so a send would only
- * come back as user_limit_reached. The status is read on mount (FAC Chat remounts the chat after a
+ * come back as user_limit_reached. The status is read on mount (TAC Chat remounts the chat after a
  * visit to Settings, Users), and again whenever the window regains focus: from Desk the "Change
  * limit" link opens Settings in another tab, and the hold lifts once the user comes back.
  */

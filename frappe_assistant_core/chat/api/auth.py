@@ -47,7 +47,7 @@ def _get_or_create_ar_oauth_client():
     # never auto-delete live rows.
     #
     # The id is shared with the MCP endpoint, which recognises FAC Cloud by it to
-    # keep FAC-Cloud-only tools away from other clients. Two literals would drift.
+    # keep TAC-Cloud-only tools away from other clients. Two literals would drift.
     CLIENT_ID = FAC_CLOUD_OAUTH_CLIENT_ID
 
     existing = frappe.db.get_value("OAuth Client", {"client_id": CLIENT_ID}, "name")
@@ -246,7 +246,7 @@ def _runtime_ar_user_id(runtime_user: str | None) -> str:
 def _is_tenant_owner(ar_user_id):
     """True if `ar_user_id` is this tenant's owner per AR.
 
-    AR is the source of truth for ownership; FAC reads it from get_tenant_info
+    AR is the source of truth for ownership; TAC reads it from get_tenant_info
     and compares. Used to break the connect chicken-and-egg: the owner may
     self-provision before any seat exists, whereas a plain non-member must be
     added by an admin first.
@@ -740,7 +740,7 @@ def connect_fac_mcp_server() -> dict:
         }
 
     except Exception as e:
-        frappe.log_error(title="FACO MCP Connection Error", message=f"Error connecting FAC MCP server: {e!s}")
+        frappe.log_error(title="FACO MCP Connection Error", message=f"Error connecting TAC MCP server: {e!s}")
         error_msg = getattr(e, "message", None) or str(e)
         response = {"success": False, "error": error_msg}
         # AR sets tenant_owner_user_id on frappe.local.response when blocking
@@ -758,13 +758,13 @@ def connect_fac_mcp_server() -> dict:
 def verify_site_connection() -> dict:
     """Have FAC Cloud call this site back as the user who just connected.
 
-    Connecting only proves the site answers `frappe.ping`. Chat needs FAC
+    Connecting only proves the site answers `frappe.ping`. Chat needs TAC
     Cloud's authenticated MCP request to succeed, and a firewall that blocks
     FAC Cloud refuses that request while the ping still passes. AR's
     `test_mcp_server` makes the real request, so the refusal surfaces now,
     with the site's own reason, instead of on the user's first message.
 
-    Called by the browser after connect returns, never from inside it: FAC
+    Called by the browser after connect returns, never from inside it: TAC
     Cloud's call back needs a free worker on this site, and the connect
     request is holding one.
 
@@ -1089,7 +1089,7 @@ def register_mobile_client(redirect_uri: str | None = None, device_id: str | Non
             }
     """
     try:
-        # Check if FAC Chat is enabled first (master gate)
+        # Check if TAC Chat is enabled first (master gate)
         if not is_chat_enabled():
             return {"success": False, "faco_enabled": False, "error": _("FACO is not enabled on this site")}
 

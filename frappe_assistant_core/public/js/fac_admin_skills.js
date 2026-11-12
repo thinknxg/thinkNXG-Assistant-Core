@@ -1,5 +1,5 @@
 // fac_admin_skills.js
-// Skills management for FAC Admin page.
+// Skills management for TAC Admin page.
 // Extracted from fac_admin.js lines 2198-2377
 
 (function() {

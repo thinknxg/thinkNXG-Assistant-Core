@@ -262,11 +262,11 @@ def detect_tool_category(tool_instance) -> str:
 
 def category_to_annotations(category: str) -> dict:
     """
-    Translate a FAC tool category into MCP tool annotation hints.
+    Translate a TAC tool category into MCP tool annotation hints.
 
     MCP clients (e.g. Claude Desktop) group tools and choose default approval
     behavior from these behavioral hints in the tools/list response. Without
-    them every tool lands in a single "Other tools" bucket. The FAC category
+    them every tool lands in a single "Other tools" bucket. The TAC category
     (stored on FAC Tool Configuration, admin-overridable) is the single source
     of truth, so the admin page and the client stay in sync.
 

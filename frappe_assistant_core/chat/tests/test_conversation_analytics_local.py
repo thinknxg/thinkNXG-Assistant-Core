@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""Tests for FAC-local conversation analytics aggregation and endpoints.
+"""Tests for TAC-local conversation analytics aggregation and endpoints.
 
 Under Zero Data Retention the AR side stores no conversations, so the usage
 page reconstructs per-conversation analytics from local FAC Chat Message rows.
@@ -220,7 +220,7 @@ from frappe_assistant_core.tests.base_test import BaseAssistantTest  # noqa: E40
 
 
 class TestAnalyticsEndpointsLocal(BaseAssistantTest):
-    """The admin analytics endpoints read team-wide from local FAC Chat
+    """The admin analytics endpoints read team-wide from local TAC Chat
     Message rows (authoritative under zero retention), not from AR/SDK.
 
     Uses BaseAssistantTest (IntegrationTestCase) so the inserts run inside a

@@ -44,8 +44,8 @@ from frappe_assistant_core.plugins.core.tools.document_action import DocumentAct
 from frappe_assistant_core.tests.base_test import BaseAssistantTest
 
 DOCTYPE = "Bank Transaction"
-APPROVE = "FAC Test Approve"
-CANCEL = "FAC Test Cancel"
+APPROVE = "TAC Test Approve"
+CANCEL = "TAC Test Cancel"
 
 
 class RealWorkflowTestCase(BaseAssistantTest):
@@ -55,12 +55,12 @@ class RealWorkflowTestCase(BaseAssistantTest):
             self.skipTest(f"{DOCTYPE} not available (thinkNXG ERP not installed)")
         self.tool = DocumentAction()
         tag = frappe.generate_hash(length=6)
-        self.states = {k: f"FAC Test {tag} {k}" for k in ("Draft", "Approved", "Cancelled")}
+        self.states = {k: f"TAC Test {tag} {k}" for k in ("Draft", "Approved", "Cancelled")}
 
     def tearDown(self):
         frappe.set_user("Administrator")
         for name in frappe.get_all("Workflow", filters={"document_type": DOCTYPE}, pluck="name"):
-            if name.startswith("FAC Test "):
+            if name.startswith("TAC Test "):
                 frappe.delete_doc("Workflow", name, force=True, ignore_permissions=True)
         self.forget_workflow()
         super().tearDown()
@@ -82,7 +82,7 @@ class RealWorkflowTestCase(BaseAssistantTest):
         frappe.get_doc(
             {
                 "doctype": "Workflow",
-                "workflow_name": f"FAC Test {st['Draft'].split()[2]}",
+                "workflow_name": f"TAC Test {st['Draft'].split()[2]}",
                 "document_type": DOCTYPE,
                 "is_active": 1,
                 "workflow_state_field": "reference_number",
@@ -114,7 +114,7 @@ class RealWorkflowTestCase(BaseAssistantTest):
 
     def make_transaction(self):
         return frappe.get_doc(
-            {"doctype": DOCTYPE, "date": frappe.utils.nowdate(), "deposit": 10, "description": "FAC test"}
+            {"doctype": DOCTYPE, "date": frappe.utils.nowdate(), "deposit": 10, "description": "TAC test"}
         ).insert()
 
     def db_state(self, name):
@@ -168,7 +168,7 @@ class TestSubmitUnderWorkflow(RealWorkflowTestCase):
         result = DocumentCreate().execute(
             {
                 "doctype": DOCTYPE,
-                "data": {"date": frappe.utils.nowdate(), "deposit": 10, "description": "FAC test"},
+                "data": {"date": frappe.utils.nowdate(), "deposit": 10, "description": "TAC test"},
                 "submit": True,
             }
         )

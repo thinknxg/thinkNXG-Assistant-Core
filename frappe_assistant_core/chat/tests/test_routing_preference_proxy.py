@@ -1,4 +1,4 @@
-"""The FAC proxy. This is the hop where "which member" is established.
+"""The TAC proxy. This is the hop where "which member" is established.
 
 AR authenticates the workspace, not the member, so a payload-supplied user_id
 would be a claim. Every method here derives it from frappe.session.user.

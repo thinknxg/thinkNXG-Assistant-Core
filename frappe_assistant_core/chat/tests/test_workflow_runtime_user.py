@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""A workflow runs as its runtime user; FAC must hand AR that user's AR identity.
+"""A workflow runs as its runtime user; TAC must hand AR that user's AR identity.
 
 AR keys tenant users by email. `Administrator` is the one thinkNXG user whose
 docname is not its email, so every path that forwards a user id maps it.
@@ -52,7 +52,7 @@ class TestRuntimeUserIsMapped(BaseAssistantTest):
         frappe.set_user("Administrator")
         self.client = _RecordingClient()
         # Production reaches get_fac_cloud_client() only on a site connected to FAC Cloud, and
-        # _ar_user_id resolves the FAC user's AR identity from a registered tenant member; neither
+        # _ar_user_id resolves the TAC user's AR identity from a registered tenant member; neither
         # exists on a test site, so both are stood in for to observe what would be sent.
         for p in (
             patch(CLIENT, return_value=self.client),

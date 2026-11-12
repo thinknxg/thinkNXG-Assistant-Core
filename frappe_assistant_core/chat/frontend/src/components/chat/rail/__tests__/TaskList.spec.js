@@ -13,7 +13,7 @@ describe("TaskList", () => {
 
 	it("renders the title and note in separate elements (no overlap)", () => {
 		const wrapper = mountList([
-			{ id: "1", title: "Inspect required fields", status: "done", note: "found company 'FAC' (INR)" },
+			{ id: "1", title: "Inspect required fields", status: "done", note: "found company 'TAC' (INR)" },
 		]);
 		const row = wrapper.find(".task-row");
 		const title = row.find(".title");
@@ -190,7 +190,7 @@ describe("TaskList bare", () => {
 
 // Live-bug repro (FAC Chat Message MSG-2026-10828, aborted=1): Stop ends the
 // stream ~0.1 s after the click, but AR marks the delegated helpers skipped
-// ~0.8 s later — after FAC stopped listening. The persisted plan keeps three
+// ~0.8 s later — after TAC stopped listening. The persisted plan keeps three
 // rows `running` and two `pending`, so the rail read as unfinished/pending work
 // with no sign the user stopped it. AR never fakes a status; the client gives
 // the stopped turn its own terminal presentation.

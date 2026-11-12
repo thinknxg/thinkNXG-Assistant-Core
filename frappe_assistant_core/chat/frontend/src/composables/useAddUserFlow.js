@@ -202,7 +202,7 @@ export function useAddUserFlow({
 				{
 					// Who the seat is for, so AR can create the member itself
 					// when the payment settles. `invited_by` is stamped from
-					// the verified session on the FAC side (Task 2), never
+					// the verified session on the TAC side (Task 2), never
 					// sent from the browser.
 					user_id: seatPurchaseConfirm.value.user_id,
 					user_role: seatPurchaseConfirm.value.userRole,

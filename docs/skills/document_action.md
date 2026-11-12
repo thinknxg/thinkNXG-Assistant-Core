@@ -120,7 +120,7 @@ Cancel or amend on a non-submittable DocType:
 
 ## Cancel Rules
 
-1. **The reason is never skipped and never reworded** — `reason` is required and must not be blank. Copy it word for word from the user's message; do not summarize, shorten or rephrase it. If the user hasn't given a reason, ask them before calling this tool. Never invent one. It is added to the document's timeline as "Cancelled via FAC by <user>. Reason given by user: <reason>", and returned as `saved_reason`.
+1. **The reason is never skipped and never reworded** — `reason` is required and must not be blank. Copy it word for word from the user's message; do not summarize, shorten or rephrase it. If the user hasn't given a reason, ask them before calling this tool. Never invent one. It is added to the document's timeline as "Cancelled via TAC by <user>. Reason given by user: <reason>", and returned as `saved_reason`.
 2. **Only submitted documents** — drafts (`docstatus=0`) and already-cancelled documents (`docstatus=2`) are refused.
    - **Never submit a draft as a step toward cancelling it.** A draft has nothing to cancel. Tell the user it is a draft and offer to delete it (`delete_document`) or leave it as it is.
    - **Records of a non-submittable DocType** (Customer, Item, Supplier, ToDo, ...) have no submitted state, so there is nothing to cancel. **Do not offer to delete them.** Ask the user what they meant: usually they want the record out of use, which is a field such as `disabled` or `status`.

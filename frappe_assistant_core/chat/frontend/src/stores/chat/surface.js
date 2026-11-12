@@ -1,5 +1,5 @@
 /**
- * Which client the shared chat stores are running in. FAC Chat and the Desk
+ * Which client the shared chat stores are running in. TAC Chat and the Desk
  * widget use the same stores; the few wire-level differences live here so
  * neither surface forks store logic.
  *

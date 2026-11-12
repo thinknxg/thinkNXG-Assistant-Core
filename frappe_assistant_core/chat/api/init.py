@@ -221,7 +221,7 @@ def _fetch_sessions(limit: int = 30) -> list[dict] | None:
     try:
         return get_user_sessions(limit=limit)
     except Exception:
-        _log("FAC Chat boot: conversation list unavailable")
+        _log("TAC Chat boot: conversation list unavailable")
         return None
 
 
@@ -237,7 +237,7 @@ def _fetch_projects() -> list[dict] | None:
     try:
         return get_projects()
     except Exception:
-        _log("FAC Chat boot: project list unavailable")
+        _log("TAC Chat boot: project list unavailable")
         return None
 
 

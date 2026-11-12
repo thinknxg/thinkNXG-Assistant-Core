@@ -2,7 +2,7 @@ import { computed } from "vue";
 import { usePersonalLimitGate } from "@/composables/usePersonalLimitGate";
 
 /**
- * FAC Chat's composer at the user's personal monthly limit, held as the Desk widget's is.
+ * TAC Chat's composer at the user's personal monthly limit, held as the Desk widget's is.
  *
  * AR admits every stream, a new message, a continue and a card answer alike, before it looks at the
  * team's credits, so each would come back as user_limit_reached. Holding them keeps the text in the

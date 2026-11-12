@@ -27,8 +27,8 @@ import frappe
 from frappe_assistant_core.tests.base_test import BaseAssistantTest
 from frappe_assistant_core.utils.customisation import customisation_impact
 
-LIVE = "FAC Field Code Live"
-DORMANT = "FAC Field Code Dormant"
+LIVE = "TAC Field Code Live"
+DORMANT = "TAC Field Code Dormant"
 HTML_FIELD = "ToDo-fac_field_code_banner"
 DATA_FIELD = "ToDo-fac_field_code_email"
 OPEN = "eval:doc.status == 'Open'"

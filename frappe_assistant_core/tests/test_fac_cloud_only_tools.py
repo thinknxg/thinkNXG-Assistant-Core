@@ -15,10 +15,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """
-Tests for keeping FAC-Cloud-only tools away from other MCP clients.
+Tests for keeping TAC-Cloud-only tools away from other MCP clients.
 
 The faco plugin's tools cannot work for anyone but FAC Cloud: the browser tools
-run inside the FAC Chat page and talk to it over Socket.IO. Offered to Claude
+run inside the TAC Chat page and talk to it over Socket.IO. Offered to Claude
 Desktop they publish a realtime request nobody is listening for and then fail on
 the 30 second timeout — which is what a user would report as "the tool hangs".
 
@@ -52,7 +52,7 @@ MCP_PATH = "/api/method/frappe_assistant_core.api.fac_endpoint.handle_mcp"
 
 
 def _make_oauth_client(docname: str) -> str:
-    """An OAuth Client whose docname is pinned, the way FAC pins both of its own.
+    """An OAuth Client whose docname is pinned, the way TAC pins both of its own.
 
     The controller forces `client_id = name`, so pinning the docname is what makes
     `client_id` predictable — see `_get_or_create_ar_oauth_client`.
@@ -211,7 +211,7 @@ class TestFacCloudOnlyDeclaration(BaseAssistantTest):
             self.assertEqual(name in restricted, expected, f"{name} (plugin {tool_info.plugin_name})")
 
     def test_send_email_belongs_to_core_and_is_never_restricted(self):
-        """It has no FAC Chat dependency, so restricting faco must not remove it."""
+        """It has no TAC Chat dependency, so restricting faco must not remove it."""
         self.assertIn("send_email", CorePlugin().get_tools())
         self.assertNotIn("send_email", FacoPlugin().get_tools())
         self.assertNotIn("send_email", get_plugin_manager().get_fac_cloud_only_tools())

@@ -39,7 +39,7 @@
    "label": "Turn Sequence"
   },
   {
-   "description": "Opaque signed session blob from AR (zero-retention). FAC never parses it.",
+   "description": "Opaque signed session blob from AR (zero-retention). TAC never parses it.",
    "fieldname": "state_blob",
    "fieldtype": "Long Text",
    "label": "State Blob"

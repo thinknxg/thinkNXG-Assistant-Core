@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""thinkNXG Raven has no Stop button: deleting FAC Bot's streaming reply stops the turn. A sweep finishes
+"""thinkNXG Raven has no Stop button: deleting TAC Bot's streaming reply stops the turn. A sweep finishes
 replies whose worker died, so none is left streaming forever."""
 
 import time
@@ -89,5 +89,5 @@ class TestStopAndSweep(BaseAssistantTest):
         from frappe_assistant_core.integrations.raven.sink import RavenReplyWriter
 
         with patch("frappe.publish_realtime", autospec=True) as publish:
-            RavenReplyWriter("r1", self.dm, bot.BOT_NAME).status("FAC Bot is reading HD Ticket 1…")
+            RavenReplyWriter("r1", self.dm, bot.BOT_NAME).status("TAC Bot is reading HD Ticket 1…")
         self.assertFalse(publish.call_args.kwargs["after_commit"])

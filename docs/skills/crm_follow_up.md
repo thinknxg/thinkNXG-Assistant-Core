@@ -51,7 +51,7 @@ Link records to the CRM app: `/crm/leads/<name>`, `/crm/deals/<name>`, `/crm/con
 
 ## Without the CRM tools
 
-Outside FAC Chat (another MCP client), or with the FACO plugin off, `get_crm_activity`,
+Outside TAC Chat (another MCP client), or with the FACO plugin off, `get_crm_activity`,
 `send_crm_email`, `convert_crm_lead` and `add_crm_activity` do not exist:
 
 - Create notes, tasks and call logs with `create_document` on `FCRM Note` (`title`, `content`), `CRM Task`

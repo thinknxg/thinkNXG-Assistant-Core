@@ -51,7 +51,7 @@ def files_addendum(files: list) -> str:
     """The prompt section for these File rows (name, file_name, file_url, file_size), or "".
 
     The thinkNXG Raven bot passes the files of one message here: they belong to a thinkNXG Raven message, not to a
-    FAC Chat message, so they are read into the prompt rather than linked to the conversation.
+    TAC Chat message, so they are read into the prompt rather than linked to the conversation.
     """
     if not files:
         return ""
@@ -133,7 +133,7 @@ def _extract(file_info) -> str:
     try:
         result = ExtractFileContent().execute({"file_id": file_info.name, "operation": "extract"})
     except Exception:
-        frappe.log_error(title="FAC Chat file extraction", message=frappe.get_traceback())
+        frappe.log_error(title="TAC Chat file extraction", message=frappe.get_traceback())
         return ""
     return (result.get("content") or "") if result.get("success") else ""
 

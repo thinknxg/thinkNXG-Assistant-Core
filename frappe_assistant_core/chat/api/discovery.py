@@ -14,10 +14,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""FAC Chat discovery banner endpoints.
+"""TAC Chat discovery banner endpoints.
 
 The banner is shown once per eligible admin user immediately after the
-upgrade to FAC 3.0. Once dismissed it never reappears, even if chat is
+upgrade to TAC 3.0. Once dismissed it never reappears, even if chat is
 later toggled off and back on.
 
 Eligibility (all must hold):
@@ -36,13 +36,13 @@ from frappe_assistant_core.chat.gate import clear_chat_gate_cache, is_chat_enabl
 
 
 def _has_chat_admin_perm() -> bool:
-    """Return True when the current user can manage FAC Chat settings."""
+    """Return True when the current user can manage TAC Chat settings."""
     return bool(frappe.has_permission("Assistant Core Settings", "write"))
 
 
 @frappe.whitelist(methods=["GET"])
 def should_show_banner() -> bool:
-    """Return True if the FAC Chat discovery banner should display now."""
+    """Return True if the TAC Chat discovery banner should display now."""
     if is_chat_enabled():
         return False
     if not _has_chat_admin_perm():
@@ -54,13 +54,13 @@ def should_show_banner() -> bool:
 
 @frappe.whitelist(methods=["POST"])
 def dismiss_banner() -> dict:
-    """Record that the current user has dismissed the FAC Chat banner.
+    """Record that the current user has dismissed the TAC Chat banner.
 
     Idempotent: calling twice returns ``{"already_dismissed": True}`` instead
     of raising a uniqueness error.
     """
     if not _has_chat_admin_perm():
-        frappe.throw(_("You do not have permission to manage FAC Chat."), frappe.PermissionError)
+        frappe.throw(_("You do not have permission to manage TAC Chat."), frappe.PermissionError)
     user = frappe.session.user
     if frappe.db.exists("FAC Chat Banner Dismissal", {"user": user}):
         return {"already_dismissed": True}
@@ -70,9 +70,9 @@ def dismiss_banner() -> dict:
 
 @frappe.whitelist(methods=["GET"])
 def get_chat_status() -> dict:
-    """Return current FAC Chat enablement state for the FAC Admin card."""
+    """Return current TAC Chat enablement state for the TAC Admin card."""
     if not _has_chat_admin_perm():
-        frappe.throw(_("You do not have permission to manage FAC Chat."), frappe.PermissionError)
+        frappe.throw(_("You do not have permission to manage TAC Chat."), frappe.PermissionError)
     return {
         "enabled": is_chat_enabled(),
         "can_toggle": True,
@@ -81,7 +81,7 @@ def get_chat_status() -> dict:
 
 @frappe.whitelist(methods=["GET"])
 def get_chat_analytics() -> dict:
-    """Return chat-usage analytics for the FAC Admin right-column card.
+    """Return chat-usage analytics for the TAC Admin right-column card.
 
     Single round-trip replacement for the old FACO workspace number cards
     (Monthly Conversations, Total Messages, Active Users, Credit Usage)
@@ -90,7 +90,7 @@ def get_chat_analytics() -> dict:
     card entirely without a second call.
     """
     if not _has_chat_admin_perm():
-        frappe.throw(_("You do not have permission to manage FAC Chat."), frappe.PermissionError)
+        frappe.throw(_("You do not have permission to manage TAC Chat."), frappe.PermissionError)
 
     if not is_chat_enabled():
         return {"enabled": False}
@@ -169,7 +169,7 @@ def get_chat_analytics() -> dict:
 
 @frappe.whitelist(methods=["POST"])
 def toggle_chat(enabled: int | bool) -> dict:
-    """Toggle the FAC Chat module on or off.
+    """Toggle the TAC Chat module on or off.
 
     Updates ``Assistant Core Settings.enable_fac_chat`` and clears the
     per-request gate cache so the next page load on this Desk session
@@ -185,7 +185,7 @@ def toggle_chat(enabled: int | bool) -> dict:
     swallowed so they cannot block the chat toggle itself.
     """
     if not _has_chat_admin_perm():
-        frappe.throw(_("You do not have permission to manage FAC Chat."), frappe.PermissionError)
+        frappe.throw(_("You do not have permission to manage TAC Chat."), frappe.PermissionError)
 
     new_state = 1 if int(enabled) else 0
     settings = frappe.get_single("Assistant Core Settings")
@@ -227,7 +227,7 @@ def _sync_faco_plugin_state(should_be_enabled: bool) -> str:
         return "unchanged"
     except Exception:
         frappe.log_error(
-            title="FAC Chat: failed to sync FACO plugin state",
+            title="TAC Chat: failed to sync FACO plugin state",
             message=frappe.get_traceback(),
         )
         return "error"

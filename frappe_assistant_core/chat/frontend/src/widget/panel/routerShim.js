@@ -1,6 +1,6 @@
 import { createRouter, createMemoryHistory } from "vue-router";
 
-// FAC Chat's named routes (src/router/index.js). Importing that module would pull every view into
+// TAC Chat's named routes (src/router/index.js). Importing that module would pull every view into
 // the widget bundle, so the names live here; panel.spec.js fails when the two drift apart.
 const NAMED_ROUTES = [
 	["chat", "/chat"],
@@ -30,8 +30,8 @@ const NAMED_ROUTES = [
 const Blank = { render: () => null };
 
 /**
- * Shared components push FAC Chat routes (billing, workflow builder). In Desk
- * there is no FAC Chat router, so every navigation opens FAC Chat instead.
+ * Shared components push TAC Chat routes (billing, workflow builder). In Desk
+ * there is no TAC Chat router, so every navigation opens TAC Chat instead.
  */
 export function createRouterShim() {
 	const router = createRouter({

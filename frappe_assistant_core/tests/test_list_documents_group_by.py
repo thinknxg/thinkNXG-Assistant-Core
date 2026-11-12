@@ -30,7 +30,7 @@ from frappe_assistant_core.plugins.core.tools.list_documents import DocumentList
 from frappe_assistant_core.tests.base_test import BaseAssistantTest
 from frappe_assistant_core.tests.ddl_fixtures import committing_ddl
 
-SALE = "FAC Group Sale"
+SALE = "TAC Group Sale"
 REGION_ALLOWED = "India"
 REGION_OTHER = "Germany"
 
@@ -362,7 +362,7 @@ class TestListDocumentsGroupBy(BaseAssistantTest):
     def test_wholly_admin_only_doctype_is_refused_for_an_assistant_user(self):
         self._seed()
         user = self.make_throwaway_user("assistant", roles=("Assistant User",))
-        # nosemgrep: frappe-setuser — the refusal depends on the acting user's FAC role
+        # nosemgrep: frappe-setuser — the refusal depends on the acting user's TAC role
         frappe.set_user(user)
         self.addCleanup(frappe.set_user, "Administrator")
         aggregate = [{"function": "sum", "field": "amount"}]
@@ -370,7 +370,7 @@ class TestListDocumentsGroupBy(BaseAssistantTest):
         readable = self._run(group_by="category", aggregate=aggregate)
         self.assertTrue(readable["success"], readable)  # the role can otherwise read the DocType
 
-        # FAC ships ADMIN_ONLY_FIELDS entries of "*" (Email Domain, System Settings, ...); the fixture
+        # TAC ships ADMIN_ONLY_FIELDS entries of "*" (Email Domain, System Settings, ...); the fixture
         # is added to that same dict, so the Assistant User sees exactly what a shipped entry does.
         with patch.dict(ADMIN_ONLY_FIELDS, {SALE: "*"}):
             result = self._run(group_by="category", aggregate=aggregate)

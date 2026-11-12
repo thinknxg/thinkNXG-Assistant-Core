@@ -31,7 +31,7 @@ from frappe_assistant_core.tests.test_prepared_report_zero_rows import report_st
 
 class TestPreparedReportReuse(BaseAssistantTest):
     def test_retry_after_a_timeout_response_reuses_the_still_running_job(self):
-        # Production reaches this on the retry after a timeout response: FAC polled for
+        # Production reaches this on the retry after a timeout response: TAC polled for
         # min(timeout, PREPARED_REPORT_WAIT_SECONDS) seconds, gave up, and the RQ job
         # (lifetime Report.timeout or REPORT_TIMEOUT) is still Queued/Started and older
         # than the poll window.
@@ -79,7 +79,7 @@ class TestPreparedReportReuse(BaseAssistantTest):
 
     def test_new_prepared_report_returns_within_wait_cap(self):
         # Production reaches this whenever the RQ worker takes longer than the wait:
-        # the Prepared Report row stays Queued while FAC polls. A fake clock stands in
+        # the Prepared Report row stays Queued while TAC polls. A fake clock stands in
         # for real sleeping.
         slept = []
         with stub_frappe(prepared_status="Queued", report_timeout=300), patch("time.sleep", slept.append):
@@ -138,7 +138,7 @@ class TestTimeoutReachesTheCaller(BaseAssistantTest):
 
 def make_dated_query_report() -> str:
     """A UI-built Query Report whose SQL declares from_date and to_date, as Desk users write them."""
-    name = f"FAC Dated {frappe.generate_hash(length=8)}"
+    name = f"TAC Dated {frappe.generate_hash(length=8)}"
     frappe.get_doc(
         {
             "doctype": "Report",

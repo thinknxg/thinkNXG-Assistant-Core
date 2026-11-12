@@ -199,7 +199,7 @@ class AssistantCoreSettings(Document):
 
     @frappe.whitelist()
     def get_plugin_status(self):
-        """Get plugin status with a simplified view that links to FAC Admin for full control"""
+        """Get plugin status with a simplified view that links to TAC Admin for full control"""
         try:
             from frappe_assistant_core.core.tool_registry import get_tool_registry
             from frappe_assistant_core.utils.plugin_manager import get_plugin_manager
@@ -254,7 +254,7 @@ class AssistantCoreSettings(Document):
                     </div>
                     <div class="col-md-4 text-right">
                         <a href="/app/fac-admin" class="btn btn-primary btn-sm">
-                            {_icon("external-link", "fa-external-link")} Open FAC Admin
+                            {_icon("external-link", "fa-external-link")} Open TAC Admin
                         </a>
                     </div>
                 </div>
@@ -300,7 +300,7 @@ class AssistantCoreSettings(Document):
                     <small style="color: var(--text-muted);">
                         {_icon("info", "fa-info-circle")}
                         For individual tool management, role-based access control, and category filtering,
-                        use the <a href="/app/fac-admin">FAC Admin</a> page.
+                        use the <a href="/app/fac-admin">TAC Admin</a> page.
                     </small>
                 </div>
             </div>

@@ -17,7 +17,7 @@
 """Tests for FAC Chat Session State — the zero-retention session blob row.
 
 Uses plain ``unittest.TestCase`` (not ``FrappeTestCase``) to match the rest of
-the FAC suite: this is an thinkNXG ERP site and ``FrappeTestCase.setUpClass`` can
+the TAC suite: this is an thinkNXG ERP site and ``FrappeTestCase.setUpClass`` can
 crash on fiscal-year fixtures. Each test cleans up its own rows in tearDown.
 
 Lives here rather than beside the DocType for the same reason. thinkNXG's test
@@ -51,7 +51,7 @@ ARCHIVE_ALL_USER = "fac-archive-all-test@example.com"
 
 def _wire(blob="YmxvYg==", sig="deadbeef", format_version=1, turn_seq=None):
     """Build an AR-shaped wire form. The real wire is {blob, sig,
-    format_version}; turn_seq is optional (FAC computes one when absent)."""
+    format_version}; turn_seq is optional (TAC computes one when absent)."""
     w = {"blob": blob, "sig": sig, "format_version": format_version}
     if turn_seq is not None:
         w["turn_seq"] = turn_seq
@@ -100,7 +100,7 @@ class TestFACChatSessionState(unittest.TestCase):
         self.assertEqual(loaded["blob"], "Zmlyc3Q=")
         self.assertEqual(loaded["sig"], "sig1")
         self.assertEqual(loaded["format_version"], 1)
-        # No wire turn_seq → FAC assigns a monotonic 1 on first write.
+        # No wire turn_seq → TAC assigns a monotonic 1 on first write.
         self.assertEqual(loaded["turn_seq"], 1)
 
     def test_load_wire_missing_returns_none(self):

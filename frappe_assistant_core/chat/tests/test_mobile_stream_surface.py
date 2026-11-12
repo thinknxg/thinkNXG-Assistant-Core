@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""The FAC mobile app's server surface after the legacy SSE endpoints went (spec §8.2).
+"""The TAC mobile app's server surface after the legacy SSE endpoints went (spec §8.2).
 
 The app streams through ``send_message`` and the socket relay, like the SPA.
 The old SSE ``stream_chat`` skipped the session-owner and processing-restriction

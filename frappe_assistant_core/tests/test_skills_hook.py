@@ -393,7 +393,7 @@ class TestBeforeAppUninstall(BaseAssistantTest):
         self.assertTrue(frappe.db.exists("FAC Skill", {"skill_id": "uninstall_fac_skill"}))
 
     def test_fac_self_uninstall_is_noop_here(self):
-        """before_app_uninstall is a no-op when FAC itself is being uninstalled."""
+        """before_app_uninstall is a no-op when TAC itself is being uninstalled."""
         self._created_ids.append("self_uninstall_skill")
         _make_skill(
             "self_uninstall_skill",

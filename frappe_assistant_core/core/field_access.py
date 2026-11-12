@@ -19,7 +19,7 @@ Which fields a user may name in a query: as a filter, a sort key, or inside a se
 
 A field the user cannot read must not be usable to narrow a query either, or its value can be
 worked out one query at a time from which records match. thinkNXG v16 refuses such a filter, v15
-does not, and neither knows FAC's own SENSITIVE_FIELDS and ADMIN_ONLY_FIELDS. So every field a
+does not, and neither knows TAC's own SENSITIVE_FIELDS and ADMIN_ONLY_FIELDS. So every field a
 tool passes to frappe.get_list on the caller's behalf is checked here first.
 """
 
@@ -49,7 +49,7 @@ class FieldAccessError(ValueError):
 
 
 def query_restricted_fields(doctype: str, user_role: str) -> Set[str]:
-    """Fields of `doctype` whose values FAC withholds from `user_role`, so none may be queried either.
+    """Fields of `doctype` whose values TAC withholds from `user_role`, so none may be queried either.
 
     ADMIN_ONLY_FIELDS["all_doctypes"] is left out: owner, creation, docstatus, _assign and the rest
     are write-protected for an Assistant User, not secret. Every Desk list view filters on them,
@@ -68,7 +68,7 @@ def query_restricted_fields(doctype: str, user_role: str) -> Set[str]:
 
 
 def is_field_readable(meta, fieldname: str, user_role: str, parenttype: Optional[str] = None) -> bool:
-    """Whether `user_role`'s user may read `fieldname` of `meta`, by FAC's lists and by permlevel."""
+    """Whether `user_role`'s user may read `fieldname` of `meta`, by TAC's lists and by permlevel."""
     if fieldname in query_restricted_fields(meta.name, user_role):
         return False
 

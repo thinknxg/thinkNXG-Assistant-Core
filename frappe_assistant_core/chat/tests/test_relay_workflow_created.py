@@ -7,7 +7,7 @@ class TestRelayHandlesWorkflowCreated(unittest.TestCase):
     (main + resume) or it is silently dropped — never emitted to the
     browser and never persisted as a block. This is the exact class of
     bug that shipped: workflow_created was emitted by AR but unknown to
-    the FAC relay. These guard both loops against that drift.
+    the TAC relay. These guard both loops against that drift.
     """
 
     def test_main_loop_handles_workflow_created(self):

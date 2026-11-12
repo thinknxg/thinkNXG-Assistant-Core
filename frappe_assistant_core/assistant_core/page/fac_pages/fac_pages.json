@@ -1,7 +1,7 @@
 {
   "doctype": "Page",
   "name": "fac-pages",
-  "title": "FAC Pages",
+  "title": "TAC Pages",
   "icon": "octicon octicon-file",
   "page_name": "fac-pages",
   "description": "Shows a FAC Page record stored in the database at /app/fac-pages/<name>.",

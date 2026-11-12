@@ -112,7 +112,7 @@ class TestPromptCatalogCache(BaseAssistantTest):
         )
 
     def test_skill_writes_do_not_touch_the_prompt_catalog(self):
-        """FAC Skills reach the agent via resources/list, not this cache."""
+        """TAC Skills reach the agent via resources/list, not this cache."""
         skill = frappe.get_doc(
             {
                 "doctype": "FAC Skill",

@@ -64,7 +64,7 @@ const tooltip = computed(() => {
 	return `${prefix}${used} of ${total} credits used this month. Credits scale with reply length and model tier.`;
 });
 
-// In the Desk widget the router shim turns this push into opening FAC Chat.
+// In the Desk widget the router shim turns this push into opening TAC Chat.
 function openMyUsage() {
 	router.push({ path: "/analytics", query: { view: "me" } });
 }

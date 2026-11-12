@@ -6,7 +6,7 @@
 
 Mirrors the hardened extension -> MIME -> magic-byte logic of
 `chat/api/settings/uploads.py`, narrowed to the ticket allowlist so the
-FAC support proxy can validate before forwarding to the SDK.
+TAC support proxy can validate before forwarding to the SDK.
 """
 
 from __future__ import annotations

@@ -346,7 +346,7 @@ class DocumentAction(BaseTool):
             # No flags: thinkNXG's and thinkNXG ERP's own cancel validations must all run.
             doc.cancel()
             doc.add_comment(
-                "Comment", f"Cancelled via FAC by {frappe.session.user}. Reason given by user: {reason}"
+                "Comment", f"Cancelled via TAC by {frappe.session.user}. Reason given by user: {reason}"
             )
         except frappe.LinkExistsError as e:
             rollback_to_savepoint(_SAVEPOINT, marks, doctype, name)

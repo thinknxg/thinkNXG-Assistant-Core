@@ -14,7 +14,7 @@ from ..auth import _ar_user_id
 
 
 def _unavailable() -> dict:
-    """FAC could not ask AR, so "nothing pending" proves nothing (spec §8.7)."""
+    """TAC could not ask AR, so "nothing pending" proves nothing (spec §8.7)."""
     return {"pending": False, "unavailable": True}
 
 
@@ -24,7 +24,7 @@ def get_pending_interrupt(session_id: str) -> dict:
 
     Returns AR's answer: the pending pause, ``{pending: False}`` when AR says
     nothing is waiting, or ``{pending: False, unavailable: True}`` for a live
-    pause AR cannot rebuild (zero retention). When FAC could not ask AR (no AR client, a
+    pause AR cannot rebuild (zero retention). When TAC could not ask AR (no AR client, a
     transport or API error, or an empty reply) it returns
     ``{pending: False, unavailable: True}`` instead, so a client never reads
     an outage as "answered on another device". The SPA and the Desk widget
@@ -36,7 +36,7 @@ def get_pending_interrupt(session_id: str) -> dict:
 
     client = get_fac_cloud_client()
     if client is None:
-        # AR cloud not configured — FAC cannot ask.
+        # AR cloud not configured — TAC cannot ask.
         return _unavailable()
 
     try:

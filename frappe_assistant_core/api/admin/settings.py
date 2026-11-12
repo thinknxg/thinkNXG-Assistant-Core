@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Which DocType fields each group on the FAC Admin Settings tab shows.
+"""Which DocType fields each group on the TAC Admin Settings tab shows.
 
 A *unit* is the fieldname of the nearest preceding Tab Break or Section Break.
 Groups list units, so a field added to a section shows up without a page change.
@@ -121,10 +121,10 @@ def missing_names(settings_map: dict) -> list[str]:
 
 @frappe.whitelist(methods=["GET"])
 def get_settings_groups() -> dict:
-    """The FAC Admin Settings tab's groups the user can read, each with the fieldnames it renders.
+    """The TAC Admin Settings tab's groups the user can read, each with the fieldnames it renders.
 
     A group whose DocType the user cannot read is left out: the page would load it with
-    getdoc, whose 403 makes thinkNXG re-route the user away from FAC Admin.
+    getdoc, whose 403 makes thinkNXG re-route the user away from TAC Admin.
     """
     frappe.only_for(["System Manager", "Assistant Admin"])
     settings_map = load_settings_map()

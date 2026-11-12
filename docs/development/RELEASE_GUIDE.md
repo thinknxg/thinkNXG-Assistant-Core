@@ -139,7 +139,7 @@ fix: apply return_variables as a filter in run_python_code
 ## Publishing to the thinkNXG Marketplace
 
 [frappe/marketplace](https://github.com/frappe/marketplace) is the app registry behind
-`bench get-app` and the Marketplace page on thinkNXG Cloud v2. FAC is listed there as
+`bench get-app` and the Marketplace page on thinkNXG Cloud v2. TAC is listed there as
 `frappe_assistant_core`: metadata in `apps.json`, releases in
 `apps/frappe_assistant_core.json`.
 
@@ -187,7 +187,7 @@ entry always matches what the registry's CI checks it against.
 
 ### What the registry's CI checks
 
-The registry clones FAC at the advertised commit and fails the PR on:
+The registry clones TAC at the advertised commit and fails the PR on:
 
 1. **Mismatch** — commit not reachable from `branch`, or `version`/`frappe_core`
    disagreeing with that commit's `pyproject.toml`.
@@ -207,13 +207,13 @@ Suppress a reviewed finding with `# nosemgrep: <rule-id>` on the flagged line. B
 `# nosec` is ignored by semgrep — the v3.1.0 `subprocess.run` in
 `chat/api/support.py` was blocked for exactly that.
 
-After fixing a finding in FAC, comment `/rereview` on the registry PR to re-run its checks.
+After fixing a finding in TAC, comment `/rereview` on the registry PR to re-run its checks.
 
 ### Listing metadata
 
 `apps.json` holds the title, description, logo, website and documentation links. Edit it
 in the same registry PR when they change — the `documentation` link should point at
-<https://docs.assistantcore.cloud>.
+<https://docs.thinknxg.com/thinknxgassistantcore>.
 
 ## Change Log Files
 
@@ -280,7 +280,7 @@ For urgent fixes that can't wait for the next release:
 | Linters (`linter.yml`) | PRs | Pre-commit hooks + thinkNXG semgrep rules + thinkNXG Marketplace semgrep rules + pip-audit |
 | Commit Lint (`commitlint.yml`) | PRs | Validates conventional commit format |
 | Release (`release.yml`) | Push to `main` or `beta` | Semantic-release: auto-version, tag, GitHub Release (pre-release on `beta`) |
-| Pre-build assets (`assets.yml`) | Push to `main` | Builds the FAC Chat SPA and widget with Pilot and uploads them to the `assets-main` release, for the thinkNXG Marketplace |
+| Pre-build assets (`assets.yml`) | Push to `main` | Builds the TAC Chat SPA and widget with Pilot and uploads them to the `assets-main` release, for the thinkNXG Marketplace |
 | Stale (`stale.yml`) | Daily | Auto-closes issues after 30+7 days of inactivity |
 | Welcome (`welcome.yml`) | First issue/PR | Greets first-time contributors |
 

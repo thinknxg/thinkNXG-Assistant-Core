@@ -168,7 +168,7 @@ class TestCustomFieldLocationInResults(BaseAssistantTest):
         self.assertFalse(result["location"]["collapsed"])
 
     def test_other_doctypes_carry_no_location(self):
-        result = DocumentCreate().execute({"doctype": "ToDo", "data": {"description": "FAC location probe"}})
+        result = DocumentCreate().execute({"doctype": "ToDo", "data": {"description": "TAC location probe"}})
         try:
             self.assertTrue(result["success"], result)
             self.assertNotIn("location", result)

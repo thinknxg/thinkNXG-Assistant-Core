@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 """
-FAC Chat Settings - Global configuration for FAC Chat.
+FAC Chat Settings - Global configuration for TAC Chat.
 
 Note: Models are now fetched from Assistant Runtime via the api.py module.
 """

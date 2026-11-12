@@ -1,4 +1,4 @@
-/* Token colours for FAC Chat's code block. Scoped to `.text-block pre`, which
+/* Token colours for TAC Chat's code block. Scoped to `.text-block pre`, which
    is always dark (#1e293b, see MessageBlockRenderer) in both themes. highlight.js
    runs on the shared marked instance, so other surfaces with a LIGHT `pre`
    (ThinkingBlock, document preview, ...) must not pick up these pastel tokens. */

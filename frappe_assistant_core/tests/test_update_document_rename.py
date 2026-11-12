@@ -26,7 +26,7 @@ class TestUpdateDocumentRename(BaseAssistantTest):
     def setUp(self):
         super().setUp()
         # Production reaches a stored record the same way: create_document inserts it.
-        self.todo = frappe.get_doc({"doctype": "ToDo", "description": "FAC rename probe"}).insert()
+        self.todo = frappe.get_doc({"doctype": "ToDo", "description": "TAC rename probe"}).insert()
 
     def _update(self, data: dict, **top_level) -> dict:
         return DocumentUpdate().execute(
@@ -34,47 +34,47 @@ class TestUpdateDocumentRename(BaseAssistantTest):
         )
 
     def test_rename_in_data_is_skipped_and_other_changes_saved(self):
-        result = self._update({"description": "FAC rename probe 2", "name": "renamed-todo"})
+        result = self._update({"description": "TAC rename probe 2", "name": "renamed-todo"})
 
         self.assertTrue(result["success"], result)
-        self.assertEqual(frappe.db.get_value("ToDo", self.todo.name, "description"), "FAC rename probe 2")
+        self.assertEqual(frappe.db.get_value("ToDo", self.todo.name, "description"), "TAC rename probe 2")
         self.assertFalse(frappe.db.exists("ToDo", "renamed-todo"))
         self.assertEqual(result["updated_fields"], ["description"])
         self.assertIn("Rename", result["warning"])
         self.assertIn("Desk", result["warning"])
 
     def test_new_name_key_is_skipped_too(self):
-        result = self._update({"description": "FAC rename probe 3", "new_name": "renamed-todo"})
+        result = self._update({"description": "TAC rename probe 3", "new_name": "renamed-todo"})
 
         self.assertTrue(result["success"], result)
         self.assertEqual(result["updated_fields"], ["description"])
         self.assertIn("Desk", result["warning"])
 
     def test_top_level_new_name_is_skipped(self):
-        result = self._update({"description": "FAC rename probe 4"}, new_name="renamed-todo")
+        result = self._update({"description": "TAC rename probe 4"}, new_name="renamed-todo")
 
         self.assertTrue(result["success"], result)
         self.assertIn("Desk", result["warning"])
 
     def test_restating_the_same_name_is_not_a_rename(self):
-        result = self._update({"description": "FAC rename probe 5", "name": self.todo.name})
+        result = self._update({"description": "TAC rename probe 5", "name": self.todo.name})
 
         self.assertTrue(result["success"], result)
         self.assertNotIn("warning", result)
 
     def test_numeric_new_name_is_a_rename(self):
-        result = self._update({"description": "FAC rename probe 6", "new_name": 42})
+        result = self._update({"description": "TAC rename probe 6", "new_name": 42})
 
         self.assertTrue(result["success"], result)
         self.assertEqual(result["updated_fields"], ["description"])
         self.assertIn("Desk", result["warning"])
 
     def test_rename_true_and_blank_values(self):
-        result = self._update({"description": "FAC rename probe 7", "rename": True})
+        result = self._update({"description": "TAC rename probe 7", "rename": True})
         self.assertIn("Desk", result["warning"])
 
         for blank in (None, False, "", "   "):
-            result = self._update({"description": "FAC rename probe 8", "new_name": blank})
+            result = self._update({"description": "TAC rename probe 8", "new_name": blank})
             self.assertTrue(result["success"], result)
             self.assertNotIn("warning", result)
 

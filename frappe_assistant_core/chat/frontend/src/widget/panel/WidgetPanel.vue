@@ -43,7 +43,7 @@
 				</button>
 			</div>
 		</header>
-		<!-- FAC Chat's notification host: it polls notifications (Spotlight reads them too) and
+		<!-- TAC Chat's notification host: it polls notifications (Spotlight reads them too) and
 		     shows outage and high-priority banners inside the panel, never on the Desk page. -->
 		<NotificationHost />
 		<ConnectionBanners
@@ -162,7 +162,7 @@ useAutoScroll(
 	computed(() => chatStore.isStreaming)
 );
 
-// The plan strip follows the latest assistant turn, as FAC Chat's Context Rail does. It is keyed by
+// The plan strip follows the latest assistant turn, as TAC Chat's Context Rail does. It is keyed by
 // the turn's position so a new turn starts collapsed state afresh; a hydrated turn carries no
 // isStreaming flag and so reads as finished.
 const latestTurn = computed(() => {
@@ -362,7 +362,7 @@ onUnmounted(stopMic);
 	opacity: 0.4;
 	cursor: default;
 }
-/* FAC Chat's composer is laid out for the SPA's wide page: its 64px gutters and the keyboard
+/* TAC Chat's composer is laid out for the SPA's wide page: its 64px gutters and the keyboard
    hint squeeze the toolbar pills under the right-hand group at 400px. */
 :deep(.input-area-container) {
 	padding: 12px 12px 14px;

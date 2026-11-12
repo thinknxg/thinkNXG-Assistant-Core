@@ -16,9 +16,9 @@ const payload = {
 };
 
 /**
- * The Desk widget routes automatically. FAC Chat's saved choice belongs to FAC Chat: the widget must
+ * The Desk widget routes automatically. TAC Chat's saved choice belongs to TAC Chat: the widget must
  * neither be steered by it nor write to it. Production reaches this state when a person who picked a
- * model in FAC Chat opens the widget on Desk (same origin, same localStorage).
+ * model in TAC Chat opens the widget on Desk (same origin, same localStorage).
  */
 describe("modelStore pin (widget)", () => {
 	beforeEach(() => {
@@ -27,7 +27,7 @@ describe("modelStore pin (widget)", () => {
 		getAvailable.mockReset().mockResolvedValue(payload);
 	});
 
-	it("keeps the pinned model over FAC Chat's saved one after the catalogue loads", async () => {
+	it("keeps the pinned model over TAC Chat's saved one after the catalogue loads", async () => {
 		localStorage.setItem(KEY, "gpt-saved");
 		const store = useModelStore();
 		store.pinModel("auto");
@@ -37,7 +37,7 @@ describe("modelStore pin (widget)", () => {
 		expect(localStorage.getItem(KEY)).toBe("gpt-saved");
 	});
 
-	it("does not clear FAC Chat's key when the saved model has been retired", async () => {
+	it("does not clear TAC Chat's key when the saved model has been retired", async () => {
 		localStorage.setItem(KEY, "retired-model");
 		const store = useModelStore();
 		store.pinModel("auto");
@@ -63,7 +63,7 @@ describe("modelStore pin (widget)", () => {
 		expect(localStorage.getItem(KEY)).toBeNull();
 	});
 
-	it("is inert for FAC Chat, which never pins", async () => {
+	it("is inert for TAC Chat, which never pins", async () => {
 		localStorage.setItem(KEY, "gpt-saved");
 		const store = useModelStore();
 		await store.loadModels();

@@ -74,7 +74,7 @@ export function quotaContent(status, personalLimit = null) {
 		? "You've used all of this month's credits"
 		: `You've used ${percentUsed(status)}% of this month's credits`;
 	const body = threshold === 100
-		? `FAC Chat is paused for your workspace.${resetLine} Upgrade or buy credits to keep going now.`
+		? `TAC Chat is paused for your workspace.${resetLine} Upgrade or buy credits to keep going now.`
 		: `${fmt(status?.quota_remaining)} credits left on ${status?.plan || "your plan"}.${resetLine}`;
 
 	const topPlan = hasUpgradeKey && upgrade === null;

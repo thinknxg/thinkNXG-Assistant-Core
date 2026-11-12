@@ -54,9 +54,9 @@ export function createSendQueue({
 		// isStreaming/hasPendingInteraction have both already gone false but
 		// the resumed turn hasn't produced its first event yet — see the
 		// comment on isSubmittingInterrupts in chatStore's submitInterruptDecision.
-		// isCancelling holds a Stop's cancel_stream in flight: FAC clears the
+		// isCancelling holds a Stop's cancel_stream in flight: TAC clears the
 		// session's cancel flag when it accepts a turn, so the next message must
-		// not reach FAC before the Stop has (streamManager.abortStream).
+		// not reach TAC before the Stop has (streamManager.abortStream).
 		const held =
 			isStreaming.value ||
 			hasPendingInteraction.value ||

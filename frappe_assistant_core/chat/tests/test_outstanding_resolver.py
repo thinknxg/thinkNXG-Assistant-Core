@@ -72,7 +72,7 @@ class TestBothPayloadsUseTheOneResolver(unittest.TestCase):
     def test_the_boot_payload_never_omits_the_key(self):
         """The SPA must not have to tell "nothing owed" apart from "this
         payload predates the field", so EVERY return path carries the key —
-        including the early exit for a user who cannot use FAC yet.
+        including the early exit for a user who cannot use TAC yet.
 
         Read from the AST rather than by counting substrings: the docstring
         names the field too, and a test that breaks when a comment is reworded

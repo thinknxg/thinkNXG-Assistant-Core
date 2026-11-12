@@ -36,7 +36,7 @@ beforeEach(() => {
 	stubPrinting();
 	vi.useFakeTimers({ toFake: ["Date"] });
 	vi.setSystemTime(new Date(2026, 9, 5, 10, 0));
-	document.title = "FAC Chat";
+	document.title = "TAC Chat";
 });
 
 afterEach(() => {
@@ -91,11 +91,11 @@ describe("printPage", () => {
 		await loadFrame();
 		expect(document.title).toBe("Sales 2026-10-05");
 		printPage({ ...snapshot, title: "Costs" });
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 		const win = await loadFrame();
 		expect(document.title).toBe("Costs 2026-10-05");
 		win.dispatchEvent(new Event("afterprint"));
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 	});
 
 	it("prints landscape when the page is wide", () => {
@@ -121,7 +121,7 @@ describe("printPage", () => {
 		const win = await loadFrame();
 		expect(document.title).toBe("Sales 2026-10-05");
 		win.dispatchEvent(new Event("afterprint"));
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 	});
 
 	it("removes the frame after printing", async () => {

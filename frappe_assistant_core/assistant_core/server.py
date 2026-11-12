@@ -83,10 +83,10 @@ class assistantServer:
             # Mark as enabled (API endpoints are always available when enabled)
             self.running = True
 
-            frappe.logger().info("assistant FAC API endpoints enabled")
+            frappe.logger().info("assistant TAC API endpoints enabled")
             return {
                 "success": True,
-                "message": "FAC API enabled - available at /api/method/frappe_assistant_core.api.fac_endpoint.handle_mcp",
+                "message": "TAC API enabled - available at /api/method/frappe_assistant_core.api.fac_endpoint.handle_mcp",
             }
 
         except Exception as e:

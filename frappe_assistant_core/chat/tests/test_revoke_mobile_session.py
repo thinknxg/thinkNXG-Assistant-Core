@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""Signing out of the FAC mobile app ends its credentials on the server (spec §8.3, F13).
+"""Signing out of the TAC mobile app ends its credentials on the server (spec §8.3, F13).
 
 thinkNXG inserts a new OAuth Bearer Token row on every refresh and never revokes
 the previous one, so a refresh token captured before a rotation stays usable

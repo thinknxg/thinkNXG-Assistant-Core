@@ -50,7 +50,7 @@ def make_fixtures() -> None:
     frappe.set_user("Administrator")
     _user(AGENT, ["Agent"])
     if not frappe.db.exists("HD Agent", AGENT):
-        frappe.get_doc({"doctype": "HD Agent", "user": AGENT, "agent_name": "FAC Agent"}).insert(
+        frappe.get_doc({"doctype": "HD Agent", "user": AGENT, "agent_name": "TAC Agent"}).insert(
             ignore_permissions=True
         )
     _user(NON_AGENT, ["System Manager"])
@@ -58,7 +58,7 @@ def make_fixtures() -> None:
         frappe.get_doc(
             {
                 "doctype": "Email Account",
-                "email_account_name": "FAC HD Reply Test",
+                "email_account_name": "TAC HD Reply Test",
                 "email_id": "fac-hd-test@example.com",
                 "enable_outgoing": 1,
                 "default_outgoing": 1,

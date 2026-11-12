@@ -31,7 +31,7 @@ class TestRedactUpstreamInternals(unittest.TestCase):
     def test_renames_legacy_stream_error_title(self):
         out = _redact_upstream_internals("AR stream_error: LLM_UNAVAILABLE")
         self.assertNotIn("AR stream_error", out)
-        self.assertIn("FAC Chat stream error", out)
+        self.assertIn("TAC Chat stream error", out)
 
 
 class TestLogStreamErrorDetail(unittest.TestCase):
@@ -54,7 +54,7 @@ class TestLogStreamErrorDetail(unittest.TestCase):
             _log_stream_error_detail(data)
 
         self.assertNotIn("_detail", data)
-        self.assertEqual(logged["title"], "FAC Chat stream error: LLM_UNAVAILABLE")
+        self.assertEqual(logged["title"], "TAC Chat stream error: LLM_UNAVAILABLE")
         self.assertNotIn("tabAR", logged["detail"])
         self.assertNotIn("AR stream_error", logged["title"])
         self.assertIn("LLM_UNAVAILABLE", logged["detail"])

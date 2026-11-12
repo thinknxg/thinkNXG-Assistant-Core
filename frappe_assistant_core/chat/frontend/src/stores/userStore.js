@@ -19,7 +19,7 @@ export const useUserStore = defineStore("user", () => {
 	// Why no_role was answered: null for want of a seat, "assistant_disabled"
 	// when the user is seated but their Enable Assistant Access is off.
 	const accessReasonCode = ref(null);
-	// The FAC Connect endpoint URL, for pointing Claude Desktop/Cursor/other MCP
+	// The TAC Connect endpoint URL, for pointing Claude Desktop/Cursor/other MCP
 	// clients at this ERP. Sourced from initialize_spa's access payload.
 	const mcpEndpointUrl = ref("");
 
@@ -269,7 +269,7 @@ export const useUserStore = defineStore("user", () => {
 		try {
 			isLoading.value = true;
 
-			// Connect FAC MCP server (this also registers the user if needed)
+			// Connect TAC MCP server (this also registers the user if needed)
 			const result = await api.user.connectFACServer();
 
 			if (result.success) {

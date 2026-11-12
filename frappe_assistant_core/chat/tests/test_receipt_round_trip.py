@@ -236,7 +236,7 @@ class TestMergeRoutingReceipt(BaseAssistantTest):
         self.assertEqual(_merge_routing_receipt(None, RECEIPT), RECEIPT)
 
     def test_handles_json_string_inputs(self):
-        """FAC reads the stored value back as whatever thinkNXG's JSON field
+        """TAC reads the stored value back as whatever thinkNXG's JSON field
         returns, which may be a string depending on the DB driver."""
         import json
 

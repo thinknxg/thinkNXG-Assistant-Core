@@ -1,6 +1,6 @@
 {
-	"name": "FAC Chat",
-	"short_name": "FAC Chat",
+	"name": "TAC Chat",
+	"short_name": "TAC Chat",
 	"description": "Chat with your ERP assistant.",
 	"id": "/copilot/",
 	"start_url": "/copilot/",

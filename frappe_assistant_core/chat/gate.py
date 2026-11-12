@@ -18,13 +18,13 @@ import frappe
 
 
 def is_chat_enabled() -> bool:
-    """Return True when the FAC Chat module is enabled.
+    """Return True when the TAC Chat module is enabled.
 
     Reads `Assistant Core Settings.enable_fac_chat`. Cached for the
     duration of the request via `frappe.local`.
 
     Fail-safe: if the field/doctype isn't available yet — e.g. mid-migration,
-    when upgrading from a FAC build that predates `enable_fac_chat` — treat
+    when upgrading from a TAC build that predates `enable_fac_chat` — treat
     chat as OFF rather than raising. The transient result is NOT cached, so the
     real value is read once the schema is in place. This gate is a hot-path
     predicate (runs on every doc save via the wildcard dispatcher) and must

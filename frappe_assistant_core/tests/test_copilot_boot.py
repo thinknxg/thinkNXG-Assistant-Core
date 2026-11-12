@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""The FAC Chat page's boot data carries the site's own address for same-site links."""
+"""The TAC Chat page's boot data carries the site's own address for same-site links."""
 
 from unittest.mock import patch
 
@@ -22,7 +22,7 @@ class TestCopilotBoot(BaseAssistantTest):
 
     def test_signed_out_visitor_gets_a_temporary_redirect_to_login(self):
         # Redmine #34442: a permanent (301) redirect can be cached and keep bouncing after sign-in.
-        # Manufactured: production reaches this once an administrator switches FAC Chat on.
+        # Manufactured: production reaches this once an administrator switches TAC Chat on.
         previous = frappe.session.user
         self.addCleanup(frappe.set_user, previous)
         frappe.set_user("Guest")

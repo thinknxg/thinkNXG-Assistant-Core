@@ -22,7 +22,7 @@ function walk(dir) {
 
 /**
  * The billing Overview shipped unmounted: `OverviewTab` came across in the
- * FACO→FAC merge carrying the usage chart and the expiring-credit warning, and
+ * FACO→TAC merge carrying the usage chart and the expiring-credit warning, and
  * nothing ever rendered it. Both components kept being restyled, and the
  * backend rollup built to feed the chart kept being maintained, while the page
  * itself silently lost the feature. These guard the wiring, not the markup.

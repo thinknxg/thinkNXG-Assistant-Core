@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""Tests for _ar_user_id() — the email-keyed identity FAC sends to AR.
+"""Tests for _ar_user_id() — the email-keyed identity TAC sends to AR.
 
 AR keys AR Tenant Users by email. For ordinary staff the thinkNXG username IS
 their email, so normalization is a pass-through; the case that matters is the

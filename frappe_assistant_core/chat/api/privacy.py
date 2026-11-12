@@ -36,7 +36,7 @@ def _project_document_names(client, user: str, project: str) -> list[str] | None
         result = client.list_documents(user_id=_ar_user_id(user), project_id=project, limit=500)
         return [d["file_name"] for d in result.get("documents", [])]
     except Exception:
-        frappe.log_error(title="FAC project documents export failed", message=frappe.get_traceback())
+        frappe.log_error(title="TAC project documents export failed", message=frappe.get_traceback())
         return None
 
 
@@ -46,7 +46,7 @@ def _project_memory_count(client, user: str, project: str) -> int | None:
         result = client.list_memories(user_id=_ar_user_id(user), project_id=project, limit=1)
         return int(result["pagination"]["total"])
     except Exception:
-        frappe.log_error(title="FAC project memories export failed", message=frappe.get_traceback())
+        frappe.log_error(title="TAC project memories export failed", message=frappe.get_traceback())
         return None
 
 
@@ -209,7 +209,7 @@ def erase_my_data(password: str | None = None) -> dict:
         frappe.db.delete("FAC Chat Usage Log", {"user": user})
     except Exception as e:
         frappe.log_error(
-            title="FAC GDPR Erasure", message=f"FAC Chat Usage Log cleanup skipped for {user}: {e}"
+            title="TAC GDPR Erasure", message=f"FAC Chat Usage Log cleanup skipped for {user}: {e}"
         )
 
     # OAuth Bearer Token — invalidates any mobile / SDK session still

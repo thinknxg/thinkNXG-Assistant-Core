@@ -48,7 +48,7 @@ def _accepts_reasoning_effort(stream_chat) -> bool:
 def _sdk_composer_kwargs(stream_chat, web_search, thinking_enabled, reasoning_effort) -> dict:
     """Keyword args for the SDK's stream_chat, omitting reasoning_effort when
     the installed SDK predates it (it would raise TypeError on an unknown kwarg).
-    FAC pins the SDK exactly, so this only matters for editable / mispinned installs."""
+    TAC pins the SDK exactly, so this only matters for editable / mispinned installs."""
     global _reasoning_effort_drop_logged
     kwargs = {"web_search": web_search, "thinking_enabled": thinking_enabled}
     if reasoning_effort is None:
@@ -1584,7 +1584,7 @@ def _relay_ar_stream(
             elif event_type == "stream_start":
                 ar_message_id = data.get("message_id")
                 # Zero-retention capability is authoritative on the AR stream_start
-                # (not the global capabilities endpoint). FAC only stores the
+                # (not the global capabilities endpoint). TAC only stores the
                 # returned blob when this is true.
                 zero_retention = bool(data.get("zero_retention"))
                 if ar_message_id:
@@ -2082,7 +2082,7 @@ def _persist_partial_assistant_turn(
                     frappe.db.set_value("FAC Chat Message", assistant_row, "message_id", ar_message_id)
         except Exception as e:
             frappe.log_error(
-                title="FAC Stream Partial Persist",
+                title="TAC Stream Partial Persist",
                 message=f"Failed to create FAC Chat Message for {session_id}: {e!s}",
             )
 

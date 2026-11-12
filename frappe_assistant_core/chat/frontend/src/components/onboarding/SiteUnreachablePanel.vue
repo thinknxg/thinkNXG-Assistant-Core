@@ -14,12 +14,12 @@
 				bring your own LLM key and keep every tool this app exposes.
 			</p>
 			<p class="door-hint">
-				Start in <strong>Desk → FAC Admin</strong> and copy the MCP Endpoint URL.
+				Start in <strong>Desk → TAC Admin</strong> and copy the MCP Endpoint URL.
 			</p>
 			<a
 				class="door-cta"
 				data-test="unreachable-mcp-cta"
-				href="https://docs.assistantcore.cloud/getting-started/quick-start"
+				href="https://docs.thinknxg.com/thinknxgassistantcore/getting-started/quick-start"
 				target="_blank"
 				rel="noopener noreferrer"
 			>
@@ -67,7 +67,7 @@
 				<a
 					class="tunnel-docs"
 					data-test="unreachable-local-docs"
-					href="https://docs.assistantcore.cloud/fac-chat/local-sites"
+					href="https://docs.thinknxg.com/thinknxgassistantcore/fac-chat/local-sites"
 					target="_blank"
 					rel="noopener noreferrer"
 				>

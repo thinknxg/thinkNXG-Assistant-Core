@@ -6,7 +6,7 @@
 
 The owner must be able to self-connect before any seat exists (a chicken-and-egg
 otherwise: membership is created by the very call the guard blocks). AR is the
-source of truth for who the owner is; FAC learns it from get_tenant_info and
+source of truth for who the owner is; TAC learns it from get_tenant_info and
 compares against the user's AR identity (email).
 """
 

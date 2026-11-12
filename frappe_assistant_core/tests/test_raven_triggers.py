@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Every thinkNXG Raven message passes FAC Bot's trigger, so deciding must be cheap and exact."""
+"""Every thinkNXG Raven message passes TAC Bot's trigger, so deciding must be cheap and exact."""
 
 import unittest
 from unittest.mock import patch

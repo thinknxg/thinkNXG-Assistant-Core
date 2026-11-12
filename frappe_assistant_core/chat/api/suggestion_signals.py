@@ -1,6 +1,6 @@
 """Local usage-signal gathering for curated welcome suggestions.
 
-All reads are FAC-local (under ZDR the chat history lives here, not on AR).
+All reads are TAC-local (under ZDR the chat history lives here, not on AR).
 Only summarized signals leave this module — never raw transcripts.
 """
 

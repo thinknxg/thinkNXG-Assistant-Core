@@ -47,7 +47,7 @@ INTERNAL_LOOP_DOCTYPES = frozenset(
     }
 )
 
-#: FAC chat DocTypes that the chat pipeline writes on every user turn.
+#: TAC chat DocTypes that the chat pipeline writes on every user turn.
 #: Allowing triggers on these would fire a workflow on every chat message —
 #: almost always unintended. Users who genuinely want this can grant
 #: exceptions in future versions; default is to hide them.
@@ -101,7 +101,7 @@ class FACWorkflowTrigger(Document):
             try:
                 # NOTE (Task 3.6 forward-ref): Settings DocType was renamed from
                 # "FACO Settings" to "FAC Chat Settings" in Task 3.2. Using the
-                # FAC-canonical name here; FACO installs will still resolve via
+                # TAC-canonical name here; FACO installs will still resolve via
                 # their own Settings DocType.
                 settings = frappe.get_single("FAC Chat Settings")
                 tenant_id = getattr(settings, "tenant_id", None) or getattr(settings, "ar_tenant_id", None)

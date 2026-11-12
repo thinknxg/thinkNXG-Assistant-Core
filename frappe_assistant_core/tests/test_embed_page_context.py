@@ -175,7 +175,7 @@ class TestEmbedPageContext(BaseAssistantTest):
 
         if not frappe.db.exists("FAC Plugin Configuration", "faco"):
             self.skipTest("the plugin sync has not run on this site")
-        # Production: an administrator switches the faco plugin in FAC Admin; this write is rolled back.
+        # Production: an administrator switches the faco plugin in TAC Admin; this write is rolled back.
         frappe.db.set_value("FAC Plugin Configuration", "faco", "enabled", 0, update_modified=False)
         self.assertFalse(page_context.insights_tools_enabled())
         frappe.db.set_value("FAC Plugin Configuration", "faco", "enabled", 1, update_modified=False)

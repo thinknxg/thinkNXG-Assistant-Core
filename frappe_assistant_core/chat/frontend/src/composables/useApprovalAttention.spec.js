@@ -22,7 +22,7 @@ describe("useApprovalAttention", () => {
 
 	beforeEach(() => {
 		vi.useFakeTimers();
-		document.title = "FAC Chat";
+		document.title = "TAC Chat";
 		setHidden(true);
 		chatStore = reactive({ hasPendingInteraction: false });
 	});
@@ -30,7 +30,7 @@ describe("useApprovalAttention", () => {
 	afterEach(() => {
 		vi.useRealTimers();
 		delete document.hidden;
-		document.title = "FAC Chat";
+		document.title = "TAC Chat";
 	});
 
 	it("flashes the title while an approval waits in a hidden tab", async () => {
@@ -42,7 +42,7 @@ describe("useApprovalAttention", () => {
 		expect(document.title).toBe("● Approval needed");
 
 		vi.advanceTimersByTime(FLASH_INTERVAL_MS);
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 	});
 
 	it("restores the title once the approval is resolved", async () => {
@@ -54,9 +54,9 @@ describe("useApprovalAttention", () => {
 		chatStore.hasPendingInteraction = false;
 		await wrapper.vm.$nextTick();
 
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 		vi.advanceTimersByTime(FLASH_INTERVAL_MS * 3);
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 	});
 
 	it("stops flashing when the user comes back to the tab", async () => {
@@ -68,15 +68,15 @@ describe("useApprovalAttention", () => {
 		setHidden(false);
 		document.dispatchEvent(new Event("visibilitychange"));
 
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 		vi.advanceTimersByTime(FLASH_INTERVAL_MS * 3);
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 	});
 
 	it("does not touch the title when nothing is pending", async () => {
 		mountWith(chatStore);
 		vi.advanceTimersByTime(FLASH_INTERVAL_MS * 3);
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 	});
 
 	it("stops flashing when the view unmounts", async () => {
@@ -87,8 +87,8 @@ describe("useApprovalAttention", () => {
 
 		wrapper.unmount();
 
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 		vi.advanceTimersByTime(FLASH_INTERVAL_MS * 3);
-		expect(document.title).toBe("FAC Chat");
+		expect(document.title).toBe("TAC Chat");
 	});
 });

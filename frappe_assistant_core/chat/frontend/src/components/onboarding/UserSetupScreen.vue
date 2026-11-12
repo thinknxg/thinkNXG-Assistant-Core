@@ -15,7 +15,7 @@
 			<!-- Title -->
 			<h1 class="setup-title">Connect your account</h1>
 			<p class="setup-subtitle">
-				Your site is ready. Link your account so FAC can work with the
+				Your site is ready. Link your account so TAC can work with the
 				documents and permissions you already have.
 			</p>
 
@@ -115,7 +115,7 @@
 					/>
 				</svg>
 				<span
-					>Credentials stay on your site and are only used when you ask FAC to take an
+					>Credentials stay on your site and are only used when you ask TAC to take an
 					action.</span
 				>
 			</div>

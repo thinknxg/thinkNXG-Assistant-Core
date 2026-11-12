@@ -14,9 +14,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""FAC Bot's turn job on a real thinkNXG Raven install: who it answers, as whom, and where.
+"""TAC Bot's turn job on a real thinkNXG Raven install: who it answers, as whom, and where.
 
-Skipped where thinkNXG Raven is not installed. thinkNXG Raven rows are built as thinkNXG Raven's own tests build them; the FAC
+Skipped where thinkNXG Raven is not installed. thinkNXG Raven rows are built as thinkNXG Raven's own tests build them; the TAC
 Cloud boundary is a fake client, and the relay runs inline instead of on its thread pool.
 """
 
@@ -165,7 +165,7 @@ class TestRavenTurn(BaseAssistantTest):
         return doc.name
 
     def _mention(self, text):
-        return f'<p><span data-type="userMention" data-id="{bot.BOT_NAME}">@FAC Bot</span> {text}</p>'
+        return f'<p><span data-type="userMention" data-id="{bot.BOT_NAME}">@TAC Bot</span> {text}</p>'
 
     def _bot_replies(self, channel_id):
         return frappe.get_all(
@@ -237,7 +237,7 @@ class TestRavenTurn(BaseAssistantTest):
         frappe.set_user("Administrator")
         replies = self._bot_replies(msg)
         self.assertEqual(len(replies), 1)
-        # The reason, not a generic failure: the person learns why FAC Bot won't answer them.
+        # The reason, not a generic failure: the person learns why TAC Bot won't answer them.
         self.assertIn(frappe.utils.escape_html(reason), replies[0].text)
 
     def test_two_people_in_one_thread_get_separate_conversations(self):
@@ -365,7 +365,7 @@ class TestRavenTurn(BaseAssistantTest):
         self.assertIn(str(formatting.STILL_WORKING), self._bot_replies(dm)[0].text)
 
     def test_administrators_own_message_gets_an_answer(self):
-        # Live: Administrator's DMs to FAC Bot got no answer at all.
+        # Live: Administrator's DMs to TAC Bot got no answer at all.
         dm = self.raven_bot.create_direct_message_channel("Administrator")
         msg = frappe.get_doc(
             {"doctype": "Raven Message", "channel_id": dm, "message_type": "Text", "text": "<p>Hi</p>"}
@@ -381,7 +381,7 @@ class TestRavenTurn(BaseAssistantTest):
         self.assertIn("Hi there", self._bot_replies(dm)[-1].text)
 
     def test_a_mention_in_a_dm_between_two_people_is_answered_in_a_thread(self):
-        # Live: a DM holds exactly two people and thinkNXG Raven cannot add a third, so "add FAC Bot to this
+        # Live: a DM holds exactly two people and thinkNXG Raven cannot add a third, so "add TAC Bot to this
         # channel" was impossible advice there.
         from raven.api.raven_channel import create_direct_message_channel
 

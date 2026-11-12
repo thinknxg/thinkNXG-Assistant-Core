@@ -8,8 +8,8 @@ that have actually broken pull requests here.
 It deliberately says nothing about PEP 8, docstrings or writing tests. You already know
 that. What follows is what this codebase will punish you for not knowing.
 
-FAC is a thinkNXG app that exposes a thinkNXG/thinkNXG ERP site to AI assistants over MCP, plus
-an optional in-site chat experience (FAC Chat). It is AGPL-3.0.
+TAC is a thinkNXG app that exposes a thinkNXG/thinkNXG ERP site to AI assistants over MCP, plus
+an optional in-site chat experience (TAC Chat). It is AGPL-3.0.
 
 ---
 
@@ -152,13 +152,13 @@ def my_endpoint(doctype: str, filters: dict | None = None):
   `"default": "1"` reads back `0` on any site whose `tabSingles` row already existed.
   Probe the value; do not trust the schema JSON. New defaults need the schema default,
   an `after_install` seeder **and** a migration patch.
-- **FAC Chat is off on every fresh install.** `enable_fac_chat` defaults to `0` and
+- **TAC Chat is off on every fresh install.** `enable_fac_chat` defaults to `0` and
   nothing enables it during `after_install`; only the `toggle_chat` admin action does. So
   a code path gated on `is_chat_enabled()` never runs at install time, and `/copilot/`
   raises `PageDoesNotExistError` until an administrator switches chat on.
 - **Clear caches after changing a DocType**: `bench clear-cache && bench restart`.
 
-### Vue components (FAC Chat frontend)
+### Vue components (TAC Chat frontend)
 
 `frappe_assistant_core/chat/frontend/` is a Vue 3 app, and the Desk widget is built from the same components.
 
@@ -181,8 +181,8 @@ def my_endpoint(doctype: str, filters: dict | None = None):
 | `frappe_assistant_core/core/` | `BaseTool`, the tool registry, security config |
 | `frappe_assistant_core/mcp/` | the MCP server and the JSON-RPC request handling |
 | `frappe_assistant_core/api/` | whitelisted HTTP endpoints, including the MCP endpoint |
-| `frappe_assistant_core/chat/` | FAC Chat: backend APIs, DocTypes and the Vue frontend |
-| `frappe_assistant_core/assistant_core/` | DocTypes and the FAC Admin Desk page |
+| `frappe_assistant_core/chat/` | TAC Chat: backend APIs, DocTypes and the Vue frontend |
+| `frappe_assistant_core/assistant_core/` | DocTypes and the TAC Admin Desk page |
 | `frappe_assistant_core/patches/` | migration patches, registered in `patches.txt` |
 | `frappe_assistant_core/tests/` | tests, plus `base_test.py` |
 | `docs/skills/` | per-tool reference the assistant itself reads |
@@ -199,7 +199,7 @@ and fails for them; the faco plugin's browser tools used to hang for 30 seconds 
 A plugin keeps its tools to FAC Cloud by overriding `BasePlugin.is_fac_cloud_only()`, and
 `utils/mcp_caller.py` recognises FAC Cloud by the OAuth client its bearer token belongs
 to — never by anything the client says about itself. Put such a filter at the endpoint,
-not in the tool registry: the registry answers "what may this *user* access", which FAC
+not in the tool registry: the registry answers "what may this *user* access", which TAC
 Chat's own preferences UI asks over a session cookie.
 
 **Never enable or disable a plugin from a test.** `PluginPersistence.save_plugin_state`

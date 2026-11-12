@@ -67,7 +67,7 @@ class TestChatGateHelper(BaseAssistantTest):
         self.assertTrue(is_chat_enabled())
 
     def test_is_chat_enabled_fail_safe_when_field_missing(self):
-        # Mid-migration (upgrading from a FAC build that predates the
+        # Mid-migration (upgrading from a TAC build that predates the
         # `enable_fac_chat` field) get_single_value raises ValidationError.
         # The gate must treat that as OFF, not propagate — otherwise the
         # wildcard doc_events dispatcher crashes every doc save during migrate.

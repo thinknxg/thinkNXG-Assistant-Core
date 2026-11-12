@@ -30,11 +30,11 @@ from frappe_assistant_core.tests.base_test import BaseAssistantTest
 from frappe_assistant_core.utils.customisation import customisation_impact
 from frappe_assistant_core.utils.field_code import code_on_doctype
 
-WITH_CODE = "FAC Opening With Code"
-WITH_SETTER = "FAC Opening With Setter"
-PLAIN = "FAC Opening Plain"
-KIND_SET = "FAC Opening Kind Set"
-LIVE = "FAC Opening Live"
+WITH_CODE = "TAC Opening With Code"
+WITH_SETTER = "TAC Opening With Setter"
+PLAIN = "TAC Opening Plain"
+KIND_SET = "TAC Opening Kind Set"
+LIVE = "TAC Opening Live"
 OPEN = "eval:doc.status == 'Open'"
 BANNER = "<div>{{ doc.status }}</div>"
 DB_COUNT = "frappe.database.database.Database.count"

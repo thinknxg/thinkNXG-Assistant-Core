@@ -77,7 +77,7 @@ def _error_text(exc: Exception) -> str:
         return _("This chart's query timed out.")
     if getattr(exc, "http_status_code", None) == 503:
         return _("Insights is busy — try again in a moment.")
-    frappe.log_error(title="FAC Insights chart read failed", message=frappe.get_traceback())
+    frappe.log_error(title="TAC Insights chart read failed", message=frappe.get_traceback())
     return _("This chart could not be read.")
 
 

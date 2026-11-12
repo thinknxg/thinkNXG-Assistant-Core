@@ -247,7 +247,7 @@ describe("boot", () => {
 		});
 	});
 
-	describe("the FAC Admin toggle", () => {
+	describe("the TAC Admin toggle", () => {
 		it("denies a browser-tool confirmation after teardown without opening the panel, and removes the panel", async () => {
 			await bootAndGetBridge();
 			const { confirm } = startBrowserTools.mock.calls[0][0];
@@ -337,7 +337,7 @@ describe("boot", () => {
 			expect(bridge.state.micRequested).toBeFalsy();
 		});
 
-		it("stops opening the widget once FAC Admin has torn it down, for both shortcuts", async () => {
+		it("stops opening the widget once TAC Admin has torn it down, for both shortcuts", async () => {
 			access = { show_widget: true, can_use: false, preferences: { keyboard_shortcut: "ctrl+k" } };
 			const bridge = await bootAndGetBridge();
 			const open = vi.fn();

@@ -111,7 +111,7 @@ describe("createSendQueue", () => {
 
 	it("does not dispatch while a Stop's cancel_stream is in flight", async () => {
 		// streamManager.abortStream turns isStreaming off before its cancel is
-		// answered, and FAC clears the cancel flag when it accepts the next
+		// answered, and TAC clears the cancel flag when it accepts the next
 		// turn. isCancelling is the only thing still gating.
 		queue.queueMessage("after stop", [], null, "m1");
 		refs.isCancelling.value = true;

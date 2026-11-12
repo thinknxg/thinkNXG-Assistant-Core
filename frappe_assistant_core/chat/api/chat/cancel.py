@@ -138,7 +138,7 @@ def cancel_stream(session_id: str, message_id: str | None = None, client_turn_id
 
     ``client_turn_id`` names the request to stop, as the client sent it with
     ``send_message``, ``resume_interrupt`` or ``continue_response``. The flag
-    keeps it, so a Stop that reaches FAC before that request is accepted is
+    keeps it, so a Stop that reaches TAC before that request is accepted is
     not cleared by its accept (:func:`clear`).
 
     The ``stream_cancel_requested`` ping below names AR's own id for the

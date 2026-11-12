@@ -96,7 +96,7 @@ class ChatGPTFetch(BaseTool):
 
             # Layered permission check: role-based doctype gating + thinkNXG perms.
             # Mirrors the get_document tool so the ChatGPT fetch path doesn't
-            # bypass FAC's standard auth pipeline.
+            # bypass TAC's standard auth pipeline.
             validation_result = validate_document_access(
                 user=frappe.session.user, doctype=doctype, name=name, perm_type="read"
             )

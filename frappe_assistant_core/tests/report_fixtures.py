@@ -7,7 +7,7 @@
 import frappe
 
 PROBE_DESCRIPTION = "fac-report-rows-probe"
-REPORT_NAME = "FAC Row Cap Probe"
+REPORT_NAME = "TAC Row Cap Probe"
 
 
 def make_todo_query_report(rows: int) -> str:

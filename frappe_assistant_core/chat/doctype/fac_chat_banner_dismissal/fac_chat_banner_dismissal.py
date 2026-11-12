@@ -18,10 +18,10 @@ from frappe.model.document import Document
 
 
 class FACChatBannerDismissal(Document):
-    """Records that a user has dismissed the FAC Chat discovery banner.
+    """Records that a user has dismissed the TAC Chat discovery banner.
 
     One row per user (autoname = field:user). Once a row exists, the banner
-    is never re-shown to that user, even if FAC Chat is later toggled off
+    is never re-shown to that user, even if TAC Chat is later toggled off
     and back on. The `dismissed_on` field captures the timestamp for
     analytics / audit purposes.
     """

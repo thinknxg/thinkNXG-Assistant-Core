@@ -381,7 +381,7 @@ class PluginManager:
 
         Callers other than FAC Cloud must neither see nor be able to invoke these.
         Tools registered by other apps through the ``assistant_tools`` hook belong to
-        no FAC plugin, so they are never restricted by this.
+        no TAC plugin, so they are never restricted by this.
         """
         with self._lock:
             tools = self.get_all_tools()

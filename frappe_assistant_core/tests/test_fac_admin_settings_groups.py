@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""The FAC Admin Settings tab's group map stays in step with both settings DocTypes."""
+"""The TAC Admin Settings tab's group map stays in step with both settings DocTypes."""
 
 import copy
 import json
@@ -127,7 +127,7 @@ class TestFacAdminSettingsGroups(BaseAssistantTest):
             frappe.set_user("Administrator")
 
     def test_the_endpoint_serves_no_group_whose_doctype_the_user_cannot_read(self):
-        # Assistant Admin may open FAC Admin, but neither settings DocType grants it read; a
+        # Assistant Admin may open TAC Admin, but neither settings DocType grants it read; a
         # group it cannot read would make the page's getdoc 403 and thinkNXG re-route the user.
         if not frappe.db.exists("User", ASSISTANT_ADMIN_USER):
             frappe.get_doc(

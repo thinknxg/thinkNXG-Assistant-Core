@@ -88,7 +88,7 @@
 				:block="segment"
 			/>
 
-			<!-- FAC Pages this turn wrote; a chip opens one in the page panel. -->
+			<!-- TAC Pages this turn wrote; a chip opens one in the page panel. -->
 			<div v-else-if="segment.type === 'page_chips'" class="page-chips">
 				<FacPageChip v-for="chip in segment.chips" :key="chip.name" :chip="chip" />
 			</div>

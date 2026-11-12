@@ -4,10 +4,10 @@
 
 """_register_user_with_ar must send `managed=True` on its MCP server registration.
 
-FAC's connection is auto-provisioned and never user-removable. AR actually derives
-managed status server-side from the FAC registration shape (server_name/endpoint_url),
+TAC's connection is auto-provisioned and never user-removable. AR actually derives
+managed status server-side from the TAC registration shape (server_name/endpoint_url),
 NOT from this parameter — the parameter has no effect on AR's decision either way.
-This test exists purely for wire compatibility: it proves FAC sends the value the
+This test exists purely for wire compatibility: it proves TAC sends the value the
 SDK's `add_user_mcp_server(..., managed=...)` parameter expects, in case AR's
 enforcement mechanism ever changes to trust it. It cannot prove the SDK accepts it
 (client is a MagicMock here) — that is Task 8's job.

@@ -215,7 +215,7 @@ def archive_session(session_id: str) -> dict:
     """
     Archive a conversation locally and drop its zero-retention state blob.
 
-    The local FAC Chat Messages are preserved (marked is_archived=1) so the
+    The local TAC Chat Messages are preserved (marked is_archived=1) so the
     user retains their data on their own instance. Under the stateless default
     AR holds no conversation to delete, so cleanup is purely local: archive the
     rows and drop the session-state blob.
@@ -277,7 +277,7 @@ def archive_all_conversations() -> dict:
     """
     Archive all conversations for the current user.
 
-    Marks all local FAC Chat Messages as archived and drops each session's
+    Marks all local TAC Chat Messages as archived and drops each session's
     zero-retention state blob. Under the stateless default AR holds no
     conversation to delete, so cleanup is purely local.
 

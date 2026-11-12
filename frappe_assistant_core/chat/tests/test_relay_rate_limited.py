@@ -7,7 +7,7 @@
 AR refuses a turn it cannot route, because no model the plan reaches is
 available or the chosen model's provider is at its rate limit, with a lone
 ``rate_limited`` event instead of ``stream_error``. Neither relay loop had a
-branch for it, so FAC dropped it and the SPA and the mobile app waited out
+branch for it, so TAC dropped it and the SPA and the mobile app waited out
 their 180 s activity timeout before showing a generic timeout. Both loops now
 finish it as a ``stream_error`` coded ``RATE_LIMITED``, with ``retry_after``
 when AR gave one, through the branch that ends AR's other refusals before a

@@ -29,9 +29,9 @@ class TestFACWorkflowTriggerDoctypes(BaseAssistantTest):
     """The 3 FAC Workflow Trigger DocTypes live in the Chat module.
 
     When frappe_assistant_copilot is installed alongside frappe_assistant_core
-    on the same site, FACO's migrate sync runs after FAC's and wins the module
+    on the same site, FACO's migrate sync runs after TAC's and wins the module
     field (both apps declare the same DocType names). The module assertions are
-    skipped in that case; they will pass on a FAC-only site.
+    skipped in that case; they will pass on a TAC-only site.
     """
 
     def _faco_installed(self) -> bool:

@@ -1,5 +1,5 @@
 // fac_admin_prompts.js
-// Prompt template management for FAC Admin page.
+// Prompt template management for TAC Admin page.
 // Extracted from fac_admin.js lines 2001-2192
 
 (function() {

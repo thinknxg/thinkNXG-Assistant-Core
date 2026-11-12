@@ -9,7 +9,7 @@ import frappe
 @frappe.whitelist()
 def get_skills_list() -> dict:
     """
-    List all FAC Skills for the admin dashboard.
+    List all TAC Skills for the admin dashboard.
     """
     frappe.only_for(["System Manager", "Assistant Admin"])
     try:

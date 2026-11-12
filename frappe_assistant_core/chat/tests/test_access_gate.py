@@ -62,7 +62,7 @@ class TestAccessGate(BaseAssistantTest):
     def _reach_membership_check(self, is_member: bool, is_owner: bool = False):
         """Patch everything between the master gate and the membership check.
 
-        - is_chat_enabled -> True (skip the master FAC Chat gate)
+        - is_chat_enabled -> True (skip the master TAC Chat gate)
         - frappe.get_single("FAC Chat Settings") -> Registered stub
           (skip the registration / tenant-credential gates)
         - _is_faco_member -> the desired membership signal

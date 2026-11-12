@@ -1,6 +1,6 @@
 """The zero-retention blob must be stored on every terminal event, errors included.
 
-The blob is the only copy of conversation state. FAC used to store it in the two
+The blob is the only copy of conversation state. TAC used to store it in the two
 ``stream_complete`` branches only, so a turn that ended in ``stream_error`` left
 the stored state one turn behind — while the partial assistant reply WAS
 persisted to the transcript. The user then saw a message the model had never

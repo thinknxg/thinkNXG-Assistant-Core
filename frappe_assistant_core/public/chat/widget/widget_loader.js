@@ -22,7 +22,7 @@
 		if (!cfg || !cfg.entry) {
 			if (!loggedMissing) {
 				loggedMissing = true;
-				console.info("[FAC widget] no built entry in Desk boot info; the launcher is not loaded");
+				console.info("[TAC widget] no built entry in Desk boot info; the launcher is not loaded");
 			}
 			return;
 		}
@@ -31,10 +31,10 @@
 				return m.boot(cfg);
 			})
 			.catch(function (err) {
-				console.warn("[FAC widget] failed to start", err);
+				console.warn("[TAC widget] failed to start", err);
 			});
 	}
-	// FAC Admin's chat toggle calls this when chat was off at page load and the launcher never
+	// TAC Admin's chat toggle calls this when chat was off at page load and the launcher never
 	// loaded. Once the launcher boots it replaces this with its own teardown-then-boot.
 	if (!window.facoWidgetRemount) window.facoWidgetRemount = start;
 	if (document.readyState === "complete") start();

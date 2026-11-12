@@ -88,14 +88,14 @@ class TestReplySink(BaseAssistantTest):
                 "input": {"doctype": "Sales Order"},
             }
         )
-        self.assertIn("Review and approve in FAC Chat", self.writer.saves[-1])
+        self.assertIn("Review and approve in TAC Chat", self.writer.saves[-1])
         self.assertIn("Let me create it.", self.writer.saves[-1])
         self.assertTrue(self.sink.done)
 
     def test_events_after_the_hand_off_change_nothing(self):
         self.sink({"event": "approval_required", "tool_name": "create_document", "input": {}})
         saves = len(self.writer.saves)
-        self.sink({"event": "stream_chunk", "accumulated": "resumed in FAC Chat"})
+        self.sink({"event": "stream_chunk", "accumulated": "resumed in TAC Chat"})
         self.assertEqual(len(self.writer.saves), saves)
 
     def test_an_error_replaces_the_reply_with_a_plain_sentence(self):

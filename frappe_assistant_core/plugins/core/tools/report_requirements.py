@@ -32,7 +32,7 @@ from frappe_assistant_core.plugins.core.tools.report_access import can_run_repor
 # DocType. Everything else (Link, MultiSelectList) points at a DocType instead.
 VALUE_CONSTRAINED_FIELDTYPES = {"Select", "Autocomplete"}
 
-# Longest a single generate_report call waits on a prepared report. FAC tools run in their
+# Longest a single generate_report call waits on a prepared report. TAC tools run in their
 # own MCP HTTP request with no cancel signal, so this bound is what keeps a heavy report
 # from holding a chat turn; the caller retries and the retry reuses the same job.
 PREPARED_REPORT_WAIT_SECONDS = 15

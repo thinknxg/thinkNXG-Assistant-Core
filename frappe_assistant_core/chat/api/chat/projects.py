@@ -116,7 +116,7 @@ def _unlink_project_documents(project: str) -> None:
             raise RuntimeError("not connected")
         client.unlink_project_documents(user_id=_ar_user_id(frappe.session.user), project_id=project)
     except Exception:
-        frappe.log_error(title="FAC project documents unlink failed", message=frappe.get_traceback())
+        frappe.log_error(title="TAC project documents unlink failed", message=frappe.get_traceback())
         frappe.throw(_("Couldn't release this project's documents; try again"))
 
 
@@ -133,5 +133,5 @@ def _delete_project_memories(project: str) -> None:
             user_id=_ar_user_id(frappe.session.user), project_id=project, project_deleted=True
         )
     except Exception:
-        frappe.log_error(title="FAC project memories delete failed", message=frappe.get_traceback())
+        frappe.log_error(title="TAC project memories delete failed", message=frappe.get_traceback())
         frappe.throw(_("Couldn't delete this project's memories; try again"))

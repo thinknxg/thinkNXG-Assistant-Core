@@ -1,5 +1,5 @@
 // fac_admin_utils.js
-// Utility functions for FAC Admin page (renderMarkdown, etc.)
+// Utility functions for TAC Admin page (renderMarkdown, etc.)
 // Extracted from fac_admin.js lines 8-35
 
 (function() {

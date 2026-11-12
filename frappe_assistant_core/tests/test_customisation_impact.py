@@ -50,8 +50,8 @@ class TestCustomisationImpact(BaseAssistantTest):
         # Production reaches these rows when a user saves a Server Script switched off or on. A
         # direct insert is enough: the server-script guard is a tool-level check, not a doc hook.
         # Rolled back with the class-level transaction.
-        cls.off_script = cls._insert_script("FAC Impact Off Script", disabled=1)
-        cls.on_script = cls._insert_script("FAC Impact On Script", disabled=0)
+        cls.off_script = cls._insert_script("TAC Impact Off Script", disabled=1)
+        cls.on_script = cls._insert_script("TAC Impact On Script", disabled=0)
         # Production reaches these when a builder saves a FAC Page as a draft or publishes it.
         cls.draft_page = cls._insert_page("fac-impact-draft", published=0)
         cls.live_page = cls._insert_page("fac-impact-live", published=1)
@@ -304,7 +304,7 @@ class TestCustomisationImpact(BaseAssistantTest):
     def test_every_result_says_whether_it_switches_on(self):
         for result in (
             _impact("create_document", "Custom Field", {"dt": "Sales Invoice", "fieldname": "x"}),
-            _impact("update_document", "Server Script", {}, "FAC Impact Missing"),
+            _impact("update_document", "Server Script", {}, "TAC Impact Missing"),
             customisation_impact("send_email", {}),
             customisation_impact("create_document", {"doctype": "ToDo"}),
         ):
@@ -395,7 +395,7 @@ class TestCustomisationImpact(BaseAssistantTest):
         report = frappe.get_doc(
             {
                 "doctype": "Report",
-                "report_name": "FAC Impact Open Tasks",
+                "report_name": "TAC Impact Open Tasks",
                 "ref_doctype": "ToDo",
                 "report_type": "Report Builder",
                 "is_standard": "No",

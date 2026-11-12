@@ -36,7 +36,7 @@
 					Conditions for this site.
 				</p>
 				<p class="gate-hint">
-					Ask a <strong>System Manager</strong> to open FAC and accept them.
+					Ask a <strong>System Manager</strong> to open TAC and accept them.
 				</p>
 			</template>
 		</div>

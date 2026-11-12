@@ -4,7 +4,7 @@
 
 """Voice-to-text proxy. Forwards browser audio to AR via the SDK.
 
-Gates the call on FAC Chat being enabled and the caller being a FACO
+Gates the call on TAC Chat being enabled and the caller being a FACO
 member. Returns whatever AR returns (text, duration, credits).
 """
 
@@ -44,7 +44,7 @@ def transcribe(duration_ms: int = 0, language: str | None = None) -> dict:
         {"text": str, "duration_seconds": float, "credits_consumed": float}
     """
     if not is_chat_enabled():
-        frappe.throw(_("FAC Chat is disabled."), frappe.PermissionError)
+        frappe.throw(_("TAC Chat is disabled."), frappe.PermissionError)
     if not _user_can_use_faco():
         frappe.throw(_("You are not enabled for FACO."), frappe.PermissionError)
 

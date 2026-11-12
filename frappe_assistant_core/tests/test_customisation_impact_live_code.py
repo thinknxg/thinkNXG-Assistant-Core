@@ -26,10 +26,10 @@ from frappe_assistant_core.plugins.core.tools.create_document import DocumentCre
 from frappe_assistant_core.tests.base_test import BaseAssistantTest
 from frappe_assistant_core.utils.customisation import customisation_impact
 
-WORKFLOW = "FAC Live Code Workflow"
+WORKFLOW = "TAC Live Code Workflow"
 CUSTOM_FIELD = "ToDo-fac_live_code_note"
 PROPERTY_SETTER = "ToDo-description-depends_on-fac-live-code"
-NOTIFICATION = "FAC Live Code Notification"
+NOTIFICATION = "TAC Live Code Notification"
 OPEN = "eval:doc.status == 'Open'"
 
 
@@ -101,7 +101,7 @@ class TestLiveCodeInChildRowsAndConditions(BaseAssistantTest):
                 "name": CUSTOM_FIELD,
                 "dt": "ToDo",
                 "fieldname": "fac_live_code_note",
-                "label": "FAC Live Code Note",
+                "label": "TAC Live Code Note",
                 "fieldtype": "Data",
                 "depends_on": OPEN,
                 "mandatory_depends_on": "status",
@@ -301,7 +301,7 @@ class TestLiveCodeInChildRowsAndConditions(BaseAssistantTest):
         # Production reaches this report when FACO creates it on an approved build plan; AR's
         # create entry then covers the edit below, so this answer alone decides its card.
         data = {
-            "report_name": "FAC Live Code Report",
+            "report_name": "TAC Live Code Report",
             "ref_doctype": "ToDo",
             "report_type": "Script Report",
             "report_script": "data = [1]",

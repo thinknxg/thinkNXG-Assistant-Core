@@ -176,7 +176,7 @@ def _roles_by_page(names: list[str]) -> dict[str, list[str]]:
 
 @frappe.whitelist(methods=["GET"])
 def list_pages() -> list[dict]:
-    """The FAC Pages the session user may open, for the Pages menu.
+    """The TAC Pages the session user may open, for the Pages menu.
 
     The user's own personal pages come first, then shared pages, each newest first. Every page is
     kept only if ``_page_access`` opens it, the rule ``get_page`` applies, so the menu never lists

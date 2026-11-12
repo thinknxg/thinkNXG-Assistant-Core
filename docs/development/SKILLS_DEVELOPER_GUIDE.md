@@ -90,7 +90,7 @@ The manifest is a flat JSON array of skill objects. Canonical example: [`frappe_
 
 The markdown content is the actual teaching material. It is what gets loaded into the LLM's context when the client fetches `resources/read`. It should be dense — every line should teach something the LLM couldn't guess from the tool's JSON schema.
 
-Use the FAC-bundled skills as references: [`docs/skills/list_documents.md`](../skills/list_documents.md), [`docs/skills/create_document.md`](../skills/create_document.md), [`docs/skills/extract_file_content.md`](../skills/extract_file_content.md).
+Use the TAC-bundled skills as references: [`docs/skills/list_documents.md`](../skills/list_documents.md), [`docs/skills/create_document.md`](../skills/create_document.md), [`docs/skills/extract_file_content.md`](../skills/extract_file_content.md).
 
 Recommended structure for a Tool Usage skill:
 
@@ -308,7 +308,7 @@ In Claude Desktop (or MCP Inspector) the skill should appear in the resource lis
 
 ## Related documentation
 
-- [Skills User Guide](../guides/SKILLS_USER_GUIDE.md) — creating skills through the FAC Admin UI
+- [Skills User Guide](../guides/SKILLS_USER_GUIDE.md) — creating skills through the TAC Admin UI
 - [External App Tool Development](EXTERNAL_APP_DEVELOPMENT.md) — shipping MCP tools from your own app
 - [Technical Documentation](../architecture/TECHNICAL_DOCUMENTATION.md) — `SkillManager`, caching, MCP bindings
 - [Architecture](../internals/INTERNALS.md) — where the skills subsystem fits in the overall design

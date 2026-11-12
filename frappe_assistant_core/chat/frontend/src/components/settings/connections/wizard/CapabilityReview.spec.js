@@ -28,7 +28,7 @@ describe("CapabilityReview", () => {
 	});
 
 	it("never shows a raw token figure", () => {
-		// FAC prices everything to users in credits, and a token count is not a
+		// TAC prices everything to users in credits, and a token count is not a
 		// unit anyone choosing a connection reasons in. Tools are.
 		const w = mountReview();
 		expect(w.text()).not.toMatch(/token/i);

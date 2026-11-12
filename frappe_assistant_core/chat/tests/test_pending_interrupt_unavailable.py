@@ -5,8 +5,8 @@
 """``get_pending_interrupt`` tells "nothing pending" from "could not ask AR" (spec §8.7).
 
 Clients restore approval cards through this probe. ``{pending: False}`` is how
-AR says the pause is gone, so the FAC mobile app marks a card it still shows
-"Resolved on another device". The probe used to give that same answer when FAC
+AR says the pause is gone, so the TAC mobile app marks a card it still shows
+"Resolved on another device". The probe used to give that same answer when TAC
 had no AR client or AR was unreachable, so an AR outage flipped live approvals.
 Those branches now add ``unavailable: True``; the app keeps its cards and asks
 again on its next recovery.

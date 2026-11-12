@@ -13,7 +13,7 @@ export default defineConfig({
 	},
 	build: {
 		outDir: resolve(import.meta.dirname, "../../public/js"),
-		// public/js also holds FAC's hand-written Desk scripts.
+		// public/js also holds TAC's hand-written Desk scripts.
 		emptyOutDir: false,
 		sourcemap: false,
 		target: "es2019",

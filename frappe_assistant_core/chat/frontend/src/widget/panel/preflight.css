@@ -1,5 +1,5 @@
 /* Tailwind v3.4 preflight with its config lookups resolved against tailwind.config.js. The SPA gets this
-   from Tailwind; the widget ships no Tailwind, and FAC Chat's components assume it. */
+   from Tailwind; the widget ships no Tailwind, and TAC Chat's components assume it. */
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
 2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)

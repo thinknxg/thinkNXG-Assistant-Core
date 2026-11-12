@@ -4,7 +4,7 @@
 
 """Template variables are checked on this site, where Link values live.
 
-FAC Cloud cannot see the tenant's database, so only FAC can say whether
+FAC Cloud cannot see the tenant's database, so only TAC can say whether
 "Acme Ltd" is a real Company. Links use User here because it exists on every
 thinkNXG site; production templates link to Company, Warehouse and the like.
 """

@@ -32,14 +32,14 @@ async function loadWidgetSettings() {
 		const message = r.message;
 		widgetSettings = message && typeof message.privacy === "object" && message.privacy ? message : null;
 	} catch (err) {
-		logger.error("[FAC widget] settings", err);
+		logger.error("[TAC widget] settings", err);
 	}
 }
 
 let lastConfig = null;
 let teardownCurrent = () => {};
 
-/** Undo boot(): FAC Admin's chat toggle removes the widget without a page reload. */
+/** Undo boot(): TAC Admin's chat toggle removes the widget without a page reload. */
 function teardown() {
 	teardownCurrent();
 	teardownCurrent = () => {};
@@ -68,7 +68,7 @@ export async function boot(config) {
 			try {
 				fn();
 			} catch (err) {
-				logger.error("[FAC widget] teardown", err);
+				logger.error("[TAC widget] teardown", err);
 			}
 		});
 	};
@@ -131,7 +131,7 @@ export async function boot(config) {
 	};
 	// Desk must never see a rejection from a panel that failed to load.
 	const guarded = (fn) => () =>
-		fn().catch((err) => logger.error("[FAC widget] panel", err));
+		fn().catch((err) => logger.error("[TAC widget] panel", err));
 	const toggle = guarded(() => (bridge.state.open ? close() : open()));
 	view.button.addEventListener("click", () => {
 		if (consumeDrag()) return;
@@ -173,7 +173,7 @@ export async function boot(config) {
 					open()
 						.then(() => bridge.emit("confirm", { request, resolve }))
 						.catch((err) => {
-							logger.error("[FAC widget] confirm", err);
+							logger.error("[TAC widget] confirm", err);
 							resolve("deny");
 						});
 				}),
@@ -204,7 +204,7 @@ export async function boot(config) {
 			raiseAttention(view, {});
 		}
 	} catch (err) {
-		logger.error("[FAC widget] pending", err);
+		logger.error("[TAC widget] pending", err);
 	}
 }
 

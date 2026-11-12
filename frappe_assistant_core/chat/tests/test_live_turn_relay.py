@@ -218,7 +218,7 @@ class TestEndpointsMarkTheTurnStarted(BaseAssistantTest):
             )
         )
         # Production reaches this through the GDPR Article 18 processing-restriction
-        # flag on the user's FAC Chat preferences; the patch stands in for that flag.
+        # flag on the user's TAC Chat preferences; the patch stands in for that flag.
         stack.enter_context(patch.object(messages, "_is_processing_restricted", return_value=restricted))
         return stack
 

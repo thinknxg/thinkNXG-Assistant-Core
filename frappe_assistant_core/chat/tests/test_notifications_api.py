@@ -1,4 +1,4 @@
-"""FAC notification proxy: caching, fallback, honest dismiss status."""
+"""TAC notification proxy: caching, fallback, honest dismiss status."""
 
 import json
 from unittest.mock import MagicMock, patch

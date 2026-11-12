@@ -32,7 +32,7 @@ import frappe
 # theme.css imports Work Sans via @import from fonts.googleapis.com. Any
 # follow-up that self-hosts the font file can tighten this back to 'self'.
 #
-# No gateway is allow-listed here any more. Payments are collected on FAC
+# No gateway is allow-listed here any more. Payments are collected on TAC
 # Cloud's own site — a gateway is onboarded against one declared website and
 # this app runs on a different customer domain every time — so nothing here
 # loads a checkout script or iframes a card form. Leaving the hosts listed

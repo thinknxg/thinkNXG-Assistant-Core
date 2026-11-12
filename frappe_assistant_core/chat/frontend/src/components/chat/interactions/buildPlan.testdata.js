@@ -33,7 +33,7 @@ export function planReason(overrides = {}) {
 	};
 }
 
-// The approval_required event FAC's relay emits for that interrupt (chat/api/chat/relay.py).
+// The approval_required event TAC's relay emits for that interrupt (chat/api/chat/relay.py).
 export function planEvent(overrides = {}) {
 	return {
 		tool_id: "toolu_plan",

@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Serves FAC Chat's service worker at /copilot/sw.js.
+"""Serves TAC Chat's service worker at /copilot/sw.js.
 
 A service worker only controls pages under the path its script is served
 from, and the build lands in /assets/, so the script is served from within

@@ -128,7 +128,7 @@ jobs:
         env:
           TYPE: server
 
-  # FAC Bot in thinkNXG Raven: its tests skip where thinkNXG Raven is absent, so they get a site with thinkNXG Raven installed.
+  # TAC Bot in thinkNXG Raven: its tests skip where thinkNXG Raven is absent, so they get a site with thinkNXG Raven installed.
   raven:
     runs-on: ubuntu-latest
     name: thinkNXG Raven bot (version-16)

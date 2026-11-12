@@ -31,7 +31,7 @@ from frappe_assistant_core.tests.base_test import BaseAssistantTest
 
 
 def tag():
-    return f"FAC bulk {frappe.generate_hash(length=8)}"
+    return f"TAC bulk {frappe.generate_hash(length=8)}"
 
 
 def todo(description, **extra):
@@ -110,7 +110,7 @@ class TestBulkCreate(BaseAssistantTest):
     def test_each_record_goes_through_the_single_create_path(self):
         # A Table MultiSelect given as plain link values only works through the single path's
         # child-row normalisation (#291); a batch that skipped it would fail on .is_new().
-        group = f"FAC bulk {frappe.generate_hash(length=8)}"
+        group = f"TAC bulk {frappe.generate_hash(length=8)}"
         result = DocumentCreate().execute(
             {"doctype": "User Group", "records": [{"name": group, "user_group_members": ["Administrator"]}]}
         )
@@ -186,11 +186,11 @@ class TestBulkUpdate(BaseAssistantTest):
     def test_all_or_nothing_undoes_the_records_already_updated(self):
         first, second = make_todos(2)
         result = DocumentUpdate().execute(
-            {"doctype": "ToDo", "names": [first, "FAC-missing-todo", second], "data": {"status": "Closed"}}
+            {"doctype": "ToDo", "names": [first, "TAC-missing-todo", second], "data": {"status": "Closed"}}
         )
 
         self.assertFalse(result["success"], result)
-        self.assertEqual(result["failed_record"]["record"], "FAC-missing-todo")
+        self.assertEqual(result["failed_record"]["record"], "TAC-missing-todo")
         self.assertEqual((self.status(first), self.status(second)), ("Open", "Open"))
 
     def test_continue_updates_the_records_that_pass(self):
@@ -199,7 +199,7 @@ class TestBulkUpdate(BaseAssistantTest):
             {
                 "doctype": "ToDo",
                 "mode": "continue",
-                "names": [first, "FAC-missing-todo", second],
+                "names": [first, "TAC-missing-todo", second],
                 "data": {"status": "Closed"},
             }
         )
@@ -227,7 +227,7 @@ class TestBulkUpdate(BaseAssistantTest):
                 "records": [
                     {"name": first, "data": {"status": "Closed"}},
                     {"name": second, "data": {"allocated_to": "fac-nobody@example.com"}},
-                    {"name": "FAC-missing-todo", "data": {"status": "Closed"}},
+                    {"name": "TAC-missing-todo", "data": {"status": "Closed"}},
                 ],
             }
         )
@@ -257,7 +257,7 @@ class TestBulkDelete(BaseAssistantTest):
 
     def test_all_or_nothing_restores_the_records_already_deleted(self):
         first, second = make_todos(2)
-        result = DocumentDelete().execute({"doctype": "ToDo", "names": [first, "FAC-missing-todo", second]})
+        result = DocumentDelete().execute({"doctype": "ToDo", "names": [first, "TAC-missing-todo", second]})
 
         self.assertFalse(result["success"], result)
         self.assertTrue(frappe.db.exists("ToDo", first))
@@ -266,7 +266,7 @@ class TestBulkDelete(BaseAssistantTest):
     def test_continue_deletes_the_records_that_pass(self):
         first, second = make_todos(2)
         result = DocumentDelete().execute(
-            {"doctype": "ToDo", "mode": "continue", "names": [first, "FAC-missing-todo", second]}
+            {"doctype": "ToDo", "mode": "continue", "names": [first, "TAC-missing-todo", second]}
         )
 
         self.assertEqual((result["succeeded"], result["failed"]), (2, 1))

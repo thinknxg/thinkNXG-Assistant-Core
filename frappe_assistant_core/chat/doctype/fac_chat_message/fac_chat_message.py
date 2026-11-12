@@ -191,7 +191,7 @@ class FACChatMessage(Document):
             doc.context_name = context.get("name")
             doc.context_url = context.get("url")
 
-        # Add LLM metadata if provided (for assistant messages). FAC surfaces
+        # Add LLM metadata if provided (for assistant messages). TAC surfaces
         # credits only — token counts are recorded by AR (AR Message), not here.
         if llm_metadata:
             for key in PERSISTED_LLM_KEYS:

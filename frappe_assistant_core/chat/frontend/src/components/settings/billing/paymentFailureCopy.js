@@ -10,7 +10,7 @@ export function shortDate(value) {
 	return month ? `${Number(match[3])} ${month}` : "";
 }
 
-/** The sentences FAC shows for AR's `payment_failure` block, or null. */
+/** The sentences TAC shows for AR's `payment_failure` block, or null. */
 export function paymentFailureLines(failure) {
 	if (!failure) return null;
 	const pastDue = !!failure.past_due;

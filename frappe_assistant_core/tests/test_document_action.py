@@ -51,7 +51,7 @@ class DocumentActionTestCase(BaseAssistantTest):
 
     def make_doc(self, docstatus=0):
         doc = frappe.get_doc(
-            {"doctype": TEST_DOCTYPE, "call_type": f"_Test FAC {frappe.generate_hash(length=8)}"}
+            {"doctype": TEST_DOCTYPE, "call_type": f"_Test TAC {frappe.generate_hash(length=8)}"}
         )
         doc.insert()
         if docstatus >= 1:
@@ -70,7 +70,7 @@ class DocumentActionTestCase(BaseAssistantTest):
                 "reference_doctype": TEST_DOCTYPE,
                 "reference_name": name,
                 "comment_type": "Comment",
-                "content": ("like", "Cancelled via FAC%"),
+                "content": ("like", "Cancelled via TAC%"),
             },
             pluck="content",
         )
@@ -187,7 +187,7 @@ class TestCancelAction(DocumentActionTestCase):
         self.assertEqual(self.db_docstatus(doc.name), 2)
         self.assertEqual(
             self.fac_comments(doc.name),
-            [f"Cancelled via FAC by Administrator. Reason given by user: {reason}"],
+            [f"Cancelled via TAC by Administrator. Reason given by user: {reason}"],
         )
 
     def test_action_matching_ignores_case(self):
@@ -331,8 +331,8 @@ class TestCancelAction(DocumentActionTestCase):
         workflow = frappe.get_doc(
             {
                 "doctype": "Workflow",
-                "name": "FAC Test Workflow",
-                "workflow_name": "FAC Test Workflow",
+                "name": "TAC Test Workflow",
+                "workflow_name": "TAC Test Workflow",
                 "document_type": TEST_DOCTYPE,
                 "is_active": 1,
                 "workflow_state_field": "call_type",
@@ -347,11 +347,11 @@ class TestCancelAction(DocumentActionTestCase):
         real_get_doc = frappe.get_doc
 
         def get_doc(*args, **kwargs):
-            if args == ("Workflow", "FAC Test Workflow"):
+            if args == ("Workflow", "TAC Test Workflow"):
                 return workflow
             return real_get_doc(*args, **kwargs)
 
-        with patch("frappe.model.workflow.get_workflow_name", return_value="FAC Test Workflow"), patch(
+        with patch("frappe.model.workflow.get_workflow_name", return_value="TAC Test Workflow"), patch(
             "frappe.get_doc", side_effect=get_doc
         ):
             yield
@@ -794,7 +794,7 @@ class TestNonSubmittableDocTypes(DocumentActionTestCase):
     """
 
     def make_todo(self):
-        return frappe.get_doc({"doctype": "ToDo", "description": "FAC test"}).insert()
+        return frappe.get_doc({"doctype": "ToDo", "description": "TAC test"}).insert()
 
     def test_cancel_says_the_doctype_is_not_submittable_and_never_offers_deletion(self):
         todo = self.make_todo()
@@ -852,7 +852,7 @@ class TestSubmitIsAllOrNothing(DocumentActionTestCase):
     def test_create_document_submit_refused_in_on_submit_leaves_the_draft(self):
         from frappe_assistant_core.plugins.core.tools.create_document import DocumentCreate
 
-        call_type = f"_Test FAC {frappe.generate_hash(length=8)}"
+        call_type = f"_Test TAC {frappe.generate_hash(length=8)}"
 
         with self.refusing_on_submit():
             result = DocumentCreate().execute(

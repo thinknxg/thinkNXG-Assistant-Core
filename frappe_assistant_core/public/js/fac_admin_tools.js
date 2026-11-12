@@ -1,6 +1,6 @@
 // fac_admin_tools.js
 // Tool registry, plugin management, server status, stats, and bulk actions
-// for FAC Admin page.
+// for TAC Admin page.
 // Extracted from fac_admin.js lines 1096-1957
 
 (function() {
@@ -26,7 +26,7 @@
                     const toggleText = $('#toggle-server-text');
 
                     const statusPill = $('#server-status-pill');
-                    statusText.text('FAC');
+                    statusText.text('TAC');
                     if (isEnabled) {
                         statusIcon.removeClass('inactive').addClass('active');
                         statusPill
@@ -80,7 +80,7 @@
                         callback: function(result) {
                             if (result.message) {
                                 frappe.show_alert({
-                                    message: newState ? 'FAC Server Enabled' : 'FAC Server Disabled',
+                                    message: newState ? 'TAC Server Enabled' : 'TAC Server Disabled',
                                     indicator: newState ? 'green' : 'orange'
                                 });
                                 setTimeout(function() { ns.loadServerStatus(); }, 300);
@@ -91,7 +91,7 @@
 
                 if (newState === 0) {
                     frappe.confirm(
-                        'Disable the FAC server? All MCP clients will lose access until it is re-enabled.',
+                        'Disable the TAC server? All MCP clients will lose access until it is re-enabled.',
                         doToggle
                     );
                 } else {
@@ -101,7 +101,7 @@
         });
     };
 
-    // ── FAC Chat enablement ────────────────────────────────────────────
+    // ── TAC Chat enablement ────────────────────────────────────────────
     // Reads current state from chat.api.get_chat_status and renders the
     // pill + button. Enabling hot-mounts the widget through the launcher's
     // window.facoWidgetRemount (disabling calls window.facoWidgetTeardown), so no
@@ -173,7 +173,7 @@
                             window.facoWidgetRemount();
                         }
                         frappe.show_alert({
-                            message: 'FAC Chat enabled.',
+                            message: 'TAC Chat enabled.',
                             indicator: 'green'
                         });
                     } else {
@@ -182,7 +182,7 @@
                             window.facoWidgetTeardown();
                         }
                         frappe.show_alert({
-                            message: 'FAC Chat disabled.',
+                            message: 'TAC Chat disabled.',
                             indicator: 'orange'
                         });
                     }
@@ -207,7 +207,7 @@
 
         if (newState === 0) {
             frappe.confirm(
-                'Disable FAC Chat? The in-thinkNXG chat widget and /copilot SPA will become unavailable to users.',
+                'Disable TAC Chat? The in-thinkNXG chat widget and /copilot SPA will become unavailable to users.',
                 doToggle
             );
         } else {

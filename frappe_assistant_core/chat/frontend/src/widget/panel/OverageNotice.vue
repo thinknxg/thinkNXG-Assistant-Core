@@ -26,7 +26,7 @@ function formatBalance(num) {
 }
 
 const text = computed(() =>
-	t("Your monthly credits are used up — FAC Chat is now drawing on your prepaid credits ({0} left).", [
+	t("Your monthly credits are used up — TAC Chat is now drawing on your prepaid credits ({0} left).", [
 		formatBalance(props.creditBalance),
 	])
 );

@@ -301,7 +301,7 @@ class TestSystemSkillManifest(BaseAssistantTest):
                 {
                     "doctype": "Prompt Template",
                     "prompt_id": RETIRED_TEMPLATE,
-                    "title": "Export FAC Skills as Claude Skills",
+                    "title": "Export TAC Skills as Claude Skills",
                     "status": "Published",
                     "description": "Retired system template.",
                     "template_content": "Export the skills.",

@@ -1,5 +1,5 @@
 /**
- * Retarget FAC Chat's page-level CSS for a shadow root (widget build only).
+ * Retarget TAC Chat's page-level CSS for a shadow root (widget build only).
  * Inside a shadow root :root and html/body match nothing, so tokens would
  * never apply and theme switches would never land.
  */

@@ -140,7 +140,7 @@ function isUser(m) {
 }
 
 // Ticket files live on AR, so the URLs AR writes into the content point at a
-// host this site is not. Rewrite them to the FAC proxy, which fetches over the
+// host this site is not. Rewrite them to the TAC proxy, which fetches over the
 // signed channel and serves from this origin, where the session already is.
 const AR_FILE_PREFIX = "/private/files/";
 const PROXY = "/api/method/frappe_assistant_core.chat.api.support.download_ticket_attachment";

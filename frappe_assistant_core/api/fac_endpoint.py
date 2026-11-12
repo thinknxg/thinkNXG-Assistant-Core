@@ -68,15 +68,15 @@ def _build_tool_registry():
     executing against (issue #197). The set is also genuinely per-user, since
     ``get_available_tools`` filters by the requesting user's permissions.
 
-    Each tool dict carries MCP annotation hints derived from its FAC tool
+    Each tool dict carries MCP annotation hints derived from its TAC tool
     category, so MCP clients (e.g. Claude Desktop) can group tools into
     Read-only vs Write/delete instead of an undifferentiated "Other tools"
-    bucket. The category is the same one shown/overridable on the FAC admin
+    bucket. The category is the same one shown/overridable on the TAC admin
     page (FAC Tool Configuration.tool_category) — single source of truth.
 
-    Tools from FAC-Cloud-only plugins are dropped unless FAC Cloud is the caller.
+    Tools from TAC-Cloud-only plugins are dropped unless FAC Cloud is the caller.
     The filter belongs here and not in the registry: the registry answers "what
-    may this *user* access", which FAC Chat's own tool-preferences UI asks over a
+    may this *user* access", which TAC Chat's own tool-preferences UI asks over a
     session cookie, while this answers "what may this *caller* see". Dropping a
     tool here also makes it uninvokable, because ``_handle_tools_call`` refuses
     any name absent from the registry it was handed — one gate, not two.
@@ -125,7 +125,7 @@ def _build_tool_registry():
 
 def _resolve_tool_categories(tool_names: list, registry, tool_instances=None) -> dict:
     """
-    Resolve the FAC tool category for each tool name.
+    Resolve the TAC tool category for each tool name.
 
     Resolution order per tool:
       1. Stored ``FAC Tool Configuration.tool_category`` (honors admin override).

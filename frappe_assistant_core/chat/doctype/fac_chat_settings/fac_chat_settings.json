@@ -122,10 +122,10 @@
   },
   {
    "default": "0",
-   "description": "Let people DM or @mention FAC Bot in thinkNXG Raven. Each answer uses the asker's FACO credits.",
+   "description": "Let people DM or @mention TAC Bot in thinkNXG Raven. Each answer uses the asker's FACO credits.",
    "fieldname": "enable_raven_bot",
    "fieldtype": "Check",
-   "label": "FAC Bot in thinkNXG Raven"
+   "label": "TAC Bot in thinkNXG Raven"
   },
   {
    "fieldname": "retention_tab",

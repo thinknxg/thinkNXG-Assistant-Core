@@ -1,4 +1,4 @@
-// FAC Chat service worker: makes the SPA installable, opens it fast, and shows
+// TAC Chat service worker: makes the SPA installable, opens it fast, and shows
 // an offline page when there is no connection. It never caches anything
 // user-specific: the rendered /copilot page carries the user's boot data and
 // CSRF token, so navigations always go to the network.

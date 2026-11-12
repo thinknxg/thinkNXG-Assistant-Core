@@ -89,7 +89,7 @@ class TestVerifyCheckoutReturn(BaseAssistantTest):
         self.assertEqual(result["outcome"], "cancelled")
 
     def test_an_sdk_without_the_method_falls_back_to_a_plain_refresh(self):
-        """FAC can run against an SDK release that predates the method."""
+        """TAC can run against an SDK release that predates the method."""
         client = MagicMock(spec=["create_hosted_checkout", "get_tenant_info"])
 
         result, refresh = self._call(client)

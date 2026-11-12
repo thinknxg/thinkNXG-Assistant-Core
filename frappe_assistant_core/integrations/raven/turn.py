@@ -34,9 +34,9 @@ from frappe_assistant_core.integrations.raven.sink import RavenReplyWriter, Repl
 REPLIES_KEY = "fac_raven_replies"
 TURN_TIMEOUT = 1100
 IMAGE_LIMIT = 5 * 1024 * 1024
-DM_LINE = _lt("You are answering as FAC Bot in a private thinkNXG Raven conversation. thinkNXG Raven cannot draw charts.")
+DM_LINE = _lt("You are answering as TAC Bot in a private thinkNXG Raven conversation. thinkNXG Raven cannot draw charts.")
 CHANNEL_LINE = _lt(
-    "You are answering as FAC Bot in a shared thinkNXG Raven conversation (a channel, or a chat between "
+    "You are answering as TAC Bot in a shared thinkNXG Raven conversation (a channel, or a chat between "
     "people); everyone in it can read your answer. "
     "Avoid sensitive figures unless the user asks for them explicitly. thinkNXG Raven cannot draw charts."
 )
@@ -200,7 +200,7 @@ def _run_turn(msg, kind: str, raven_bot, reply_channel: str, session_id: str) ->
         # A stream can end with no final event (FAC Cloud's worker died); never leave "…".
         sink.interrupted()
     except Exception:
-        frappe.log_error(title="FAC Bot turn failed", message=frappe.get_traceback())
+        frappe.log_error(title="TAC Bot turn failed", message=frappe.get_traceback())
         if not sink.done:
             sink({"event": "stream_error"})
     finally:

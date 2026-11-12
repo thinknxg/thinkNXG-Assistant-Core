@@ -21,7 +21,7 @@ import frappe
 from frappe_assistant_core.tests.base_test import BaseAssistantTest
 from frappe_assistant_core.utils.customisation import check_plan_changes
 
-UNKNOWN_DOCTYPE = "FAC Plan Check Missing Doctype"
+UNKNOWN_DOCTYPE = "TAC Plan Check Missing Doctype"
 
 
 def _change(doctype: str, action: str = "create", goes_live: bool = False, **extra) -> dict:
@@ -35,8 +35,8 @@ class TestCheckPlanChanges(BaseAssistantTest):
         # Production reaches these rows when a builder saves a Server Script switched on or off.
         # A direct insert is enough: the server-script guard is a tool-level check, not a doc hook.
         # Rolled back with the class-level transaction.
-        cls.on_script = cls._insert_script("FAC Plan Check On Script", disabled=0)
-        cls.off_script = cls._insert_script("FAC Plan Check Off Script", disabled=1)
+        cls.on_script = cls._insert_script("TAC Plan Check On Script", disabled=0)
+        cls.off_script = cls._insert_script("TAC Plan Check Off Script", disabled=1)
 
     @staticmethod
     def _insert_script(name: str, disabled: int) -> str:
@@ -106,7 +106,7 @@ class TestCheckPlanChanges(BaseAssistantTest):
         self.assertEqual([r["goes_live"] for r in results], [False, False])
 
     def test_update_of_a_missing_script_is_unchanged(self):
-        [result] = check_plan_changes([_change("Server Script", "update", name="FAC Plan Check Nowhere")])
+        [result] = check_plan_changes([_change("Server Script", "update", name="TAC Plan Check Nowhere")])
         self.assertFalse(result["goes_live"])
 
     def test_goes_live_true_is_never_turned_false(self):

@@ -58,7 +58,7 @@ repos:
     hooks:
       - id: commitlint
         stages: [commit-msg]
-        # Pinned to v19 for older local tooling (v20 needs Node >=20). Building FAC's
+        # Pinned to v19 for older local tooling (v20 needs Node >=20). Building TAC's
         # frontend on a v15 bench needs Node >= 22; CI installs that.
         additional_dependencies: ["@commitlint/config-conventional@19"]
 

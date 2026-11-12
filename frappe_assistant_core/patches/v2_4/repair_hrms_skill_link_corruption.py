@@ -20,7 +20,7 @@ frappe.rename_doc("DocType", "Skill", "FAC Skill") on sites where HRMS's own
   2. Renamed the physical table tabSkill -> tabFAC Skill. HRMS skill records
      got stranded inside tabFAC Skill. A later bench migrate reloaded HRMS's
      Skill doctype fixture which recreated tabSkill empty, leaving the old
-     HRMS rows mixed in with FAC's SK-##### rows.
+     HRMS rows mixed in with TAC's SK-##### rows.
 
 This patch undoes both effects on sites that already ran the broken patch.
 It is a no-op on sites that never ran it.
@@ -37,11 +37,11 @@ def execute():
 
 
 def _repair_link_references():
-    """Revert options='FAC Skill' back to 'Skill' on non-FAC parents.
+    """Revert options='FAC Skill' back to 'Skill' on non-TAC parents.
 
-    Scoped to non-Assistant Core DocTypes because FAC does not ship any
+    Scoped to non-Assistant Core DocTypes because TAC does not ship any
     Link field pointing at its own FAC Skill DocType, so every row we see
-    with options='FAC Skill' on a non-FAC parent is corruption from the
+    with options='FAC Skill' on a non-TAC parent is corruption from the
     removed rename patch.
     """
 
@@ -85,7 +85,7 @@ def _repair_link_references():
 def _recover_stranded_hrms_records():
     """Move HRMS skill rows out of tabFAC Skill back into tabSkill.
 
-    FAC's autoname is format:SK-{#####}, so any tabFAC Skill row whose name
+    TAC's autoname is format:SK-{#####}, so any tabFAC Skill row whose name
     does not match ^SK-[0-9]+$ is a stranded HRMS record from step 2 of the
     corruption. Pull the HRMS-relevant columns, INSERT into tabSkill via
     frappe.db.bulk_insert, and delete the stranded rows from tabFAC Skill.
@@ -166,7 +166,7 @@ def _recover_stranded_hrms_records():
 
     if to_insert:
         frappe.logger().info(
-            "FAC issue #153 repair: recovered %s HRMS Skill records from "
+            "TAC issue #153 repair: recovered %s HRMS Skill records from "
             "tabFAC Skill, deleted %s stranded rows.",
             len(to_insert),
             len(stranded),

@@ -14,11 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Tests for the FAC get_registration_state proxy endpoint.
+"""Tests for the TAC get_registration_state proxy endpoint.
 
 Pure unittest.TestCase with mocking — no DB access. FrappeTestCase is not
 used here because it crashes setUpClass on fiscal-year fixtures on
-thinkNXG ERP-integrated sites; the FAC test suite convention is mocked
+thinkNXG ERP-integrated sites; the TAC test suite convention is mocked
 unittest.TestCase (see test_oauth_cors.py).
 """
 

@@ -1,4 +1,4 @@
-// thinkNXG Assistant Core - FAC Chat discovery banner
+// thinkNXG Assistant Core - TAC Chat discovery banner
 // Copyright (C) 2025 Paul Clinton
 //
 // This program is free software: you can redistribute it and/or modify it under
@@ -8,7 +8,7 @@
 //
 // Loads on every thinkNXG Desk page. The server-side endpoint
 // frappe_assistant_core.chat.api.should_show_banner enforces all eligibility
-// rules: user must have write permission on Assistant Core Settings, FAC Chat
+// rules: user must have write permission on Assistant Core Settings, TAC Chat
 // must be currently disabled, and the user must not have previously dismissed
 // the banner. Once dismissed, the banner never reappears for that user.
 
@@ -18,7 +18,7 @@ frappe_assistant_core.chat._render_banner = function () {
 	const banner_html = `
 		<div class="fac-chat-banner alert alert-info" style="margin: 10px 20px; display: flex; align-items: center; gap: 12px;">
 			<div style="flex: 1;">
-				<strong>New in FAC 3.0: FAC Chat</strong> — an in-thinkNXG AI chat assistant.
+				<strong>New in TAC 3.0: TAC Chat</strong> — an in-thinkNXG AI chat assistant.
 			</div>
 			<a href="/app/fac-admin" class="btn btn-primary btn-xs">Enable it</a>
 			<button type="button" class="btn btn-default btn-xs fac-chat-banner-dismiss">Dismiss</button>

@@ -74,7 +74,7 @@ export const useChatStore = defineStore("chat", () => {
 	// approval UI to disable buttons so a second click can't race the first.
 	const isSubmittingInterrupts = ref(false);
 	// True while a Stop's cancel_stream call is in flight (streamManager.abortStream).
-	// It holds the send queue, and queues a new send, until the Stop reaches FAC.
+	// It holds the send queue, and queues a new send, until the Stop reaches TAC.
 	const isCancelling = ref(false);
 	const streamingMessage = ref("");
 	const { error, errorCode: errorCodeRef, setError, clearError } = createErrorState();
@@ -537,7 +537,7 @@ export const useChatStore = defineStore("chat", () => {
 		// (abort-then-send) must pass skipQueue explicitly; ambient state alone
 		// can't tell that case apart from a plain queue candidate.
 		// A Stop's cancel still in flight queues the send too: the Stop button
-		// is gone, but this turn must not reach FAC before the Stop has.
+		// is gone, but this turn must not reach TAC before the Stop has.
 		if (!skipQueue && (isStreaming.value || isCancelling.value)) {
 			sendQueue.queueMessage(message, uploadedFiles, context, modelId);
 			return;

@@ -763,7 +763,7 @@ class TestDocumentToolsAsNonAdminUser(BaseAssistantTest):
         return bool(frappe.db.exists("ToDo", {"description": ["like", f"%{self.tag}%"]}))
 
     def _precheck_passes(self):
-        """Let the FAC pre-check pass, so the refusal has to come from thinkNXG itself."""
+        """Let the TAC pre-check pass, so the refusal has to come from thinkNXG itself."""
         return patch(
             "frappe_assistant_core.core.security_config.validate_document_access",
             return_value={"success": True, "role": "Default"},

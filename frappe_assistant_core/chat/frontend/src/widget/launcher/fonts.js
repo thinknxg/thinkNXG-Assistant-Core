@@ -8,12 +8,12 @@ import serif600 from "@/assets/fonts/source-serif-4-600.woff2?url";
 // Fonts declared inside a shadow root are ignored, so the widget's faces are
 // declared on the page under names no Desk rule uses.
 const FACES = [
-	["FAC Inter", inter400, 400],
-	["FAC Inter", inter500, 500],
-	["FAC Inter", inter600, 600],
-	["FAC Inter", inter700, 700],
-	["FAC Source Serif 4", serif500, 500],
-	["FAC Source Serif 4", serif600, 600],
+	["TAC Inter", inter400, 400],
+	["TAC Inter", inter500, 500],
+	["TAC Inter", inter600, 600],
+	["TAC Inter", inter700, 700],
+	["TAC Source Serif 4", serif500, 500],
+	["TAC Source Serif 4", serif600, 600],
 ];
 
 export function installFontFaces() {

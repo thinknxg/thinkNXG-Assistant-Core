@@ -45,7 +45,7 @@ yarn install
 
 This pulls the versions pinned in [package.json](../../package.json) — same versions CI installs in `commitlint.yml`. **Use yarn, not npm.** Bench runs `yarn install` against every app it installs, so a stray `package-lock.json` triggers warnings and resolution drift; we ship a `yarn.lock` instead.
 
-> **Why commitlint v19 (not v20)?** v20's transitive deps require Node ≥ 20, so the v19 pin is kept for older local tooling that still runs an older Node. Note that a thinkNXG v15 bench needs Node ≥ 22 to build FAC's frontend.
+> **Why commitlint v19 (not v20)?** v20's transitive deps require Node ≥ 20, so the v19 pin is kept for older local tooling that still runs an older Node. Note that a thinkNXG v15 bench needs Node ≥ 22 to build TAC's frontend.
 
 ### 4. (Optional) Migrate config if you see warnings
 

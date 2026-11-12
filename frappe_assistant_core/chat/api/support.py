@@ -5,7 +5,7 @@
 
 """Proxy endpoints for raising support tickets and product feedback.
 
-Bridges the FAC user session to HMAC-signed AR calls via the SDK, mirroring
+Bridges the TAC user session to HMAC-signed AR calls via the SDK, mirroring
 chat/api/privacy.py. Tickets return a tokenized thinkDesk portal link; feedback
 is fire-and-forget.
 """

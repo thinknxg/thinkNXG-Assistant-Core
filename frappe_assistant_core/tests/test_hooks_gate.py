@@ -14,9 +14,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""Tests for the FAC Chat runtime gate.
+"""Tests for the TAC Chat runtime gate.
 
-FAC Chat hooks are now registered unconditionally in hooks.py — there is no
+TAC Chat hooks are now registered unconditionally in hooks.py — there is no
 boot-time gate. Each consumer (widget init, /copilot controller, dispatcher,
 scheduler handlers) checks the gate at request time so toggling the chat
 module on or off takes effect across all workers without `bench restart`.

@@ -65,13 +65,13 @@ List each change the way thinkNXG saves it:
   asks once, with the final code, even when it is on the plan: the code was written after the plan
   was approved.
 - **Mark `goes_live` honestly.** Mark a new Role, DocType, Custom Field, permission and anything else
-  without an on/off switch as going live. A plan entry carries no field values, so FAC cannot prove such
+  without an on/off switch as going live. A plan entry carries no field values, so TAC cannot prove such
   a record is dormant and shows it under Goes live to be safe. Only a Server Script, Client Script,
   Notification or FAC Page created switched off (or unpublished, or personal) can stay dormant, and an update of one
   that is on now goes live.
 
-FAC checks the plan before the card shows. An entry it cannot match to a save comes back to you with
-the reason: fix the entry and propose again. A dormant claim FAC cannot prove is shown as going live.
+TAC checks the plan before the card shows. An entry it cannot match to a save comes back to you with
+the reason: fix the entry and propose again. A dormant claim TAC cannot prove is shown as going live.
 
 ## Building and checking without probe scripts
 

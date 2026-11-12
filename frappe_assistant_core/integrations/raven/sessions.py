@@ -16,7 +16,7 @@
 
 """Session ids for thinkNXG Raven conversations: stable per (place, asker), never shared between askers.
 
-The id is keyed by the site's encryption key. A session with no saved messages passes FAC Chat's
+The id is keyed by the site's encryption key. A session with no saved messages passes TAC Chat's
 owner check, so an id anyone could compute would let them claim another person's conversation.
 """
 
@@ -33,7 +33,7 @@ def _secret() -> str:
 
 
 def session_id_for(place: str, user: str) -> str:
-    """One FAC Chat session per thinkNXG Raven place (DM or thread channel) and asker."""
+    """One TAC Chat session per thinkNXG Raven place (DM or thread channel) and asker."""
     digest = hmac.new(_secret().encode(), f"raven:{place}:{user}".encode(), hashlib.sha256).digest()
     return str(uuid.UUID(bytes=digest[:16], version=4))
 

@@ -154,7 +154,7 @@ class BaseBrowserTool(BaseTool):
                 "If capturing a screenshot, retry with full_page=false or a narrower selector."
             )
         return _(
-            "The FAC widget did not respond. It may be closed, on a page where it "
+            "The TAC widget did not respond. It may be closed, on a page where it "
             "is not mounted, or the user navigated away. Continue without browser data."
         )
 

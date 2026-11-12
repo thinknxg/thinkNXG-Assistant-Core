@@ -263,7 +263,7 @@ class ReportTools:
 
     @staticmethod
     def _defaulted_filters(final_filters: dict, supplied: dict | None, definitions: dict | None):
-        """The filters FAC filled in that the report itself declares, so the model can name them.
+        """The filters TAC filled in that the report itself declares, so the model can name them.
 
         None when the report's filter contract is unknown: nothing can be claimed as used.
         A filter the report never declares is not reported, because the report ignored it.
@@ -927,7 +927,7 @@ class ReportTools:
 
     @staticmethod
     def _without_undeclared_defaults(filters: dict, supplied_keys: set, definitions: dict | None) -> dict:
-        """Drop FAC's period/company defaults that the report does not declare.
+        """Drop TAC's period/company defaults that the report does not declare.
 
         A filter the report never reads must not reach it, nor be reported as the
         period or company the answer used. Caller-supplied keys always stay, and an

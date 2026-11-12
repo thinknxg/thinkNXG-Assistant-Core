@@ -30,7 +30,7 @@ tool there makes it reachable on sites where it was not. A site that disabled th
 faco plugin had no send_email; after the move it would gain the ability to send
 mail from its own Email Account without anyone asking for it. Where faco is
 disabled, the tool is therefore disabled at the tool level, which preserves what
-the site had and leaves an administrator free to turn it on from FAC Admin.
+the site had and leaves an administrator free to turn it on from TAC Admin.
 
 Establishing "was faco disabled?" is the delicate part, because patches run before
 after_migrate and it is after_migrate that writes the plugin rows this would like to
@@ -84,7 +84,7 @@ def _faco_was_disabled() -> bool:
     while an empty or absent list means a fresh install, which is enabled.
 
     If neither source can be read, the conservative answer wins. Disabling a tool
-    an administrator can switch back on in FAC Admin is recoverable; silently
+    an administrator can switch back on in TAC Admin is recoverable; silently
     granting the ability to send mail from their domain is not.
     """
     if frappe.db.table_exists(PLUGIN_DOCTYPE):

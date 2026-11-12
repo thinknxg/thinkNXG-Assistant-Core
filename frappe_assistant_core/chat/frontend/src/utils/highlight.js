@@ -1,7 +1,7 @@
 /**
  * highlight.js with only the languages an ERP assistant actually emits.
  * The full build registers ~190 languages (~1.6 MB unminified); this is the
- * set FAC Chat and the Desk widget render.
+ * set TAC Chat and the Desk widget render.
  */
 import hljs from "highlight.js/lib/core";
 import bash from "highlight.js/lib/languages/bash";

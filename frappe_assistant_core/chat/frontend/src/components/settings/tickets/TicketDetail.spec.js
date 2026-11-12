@@ -92,7 +92,7 @@ describe("TicketDetail attachment URL rewriting", () => {
 			global: { stubs: { TicketStatusPill: true, AttachmentPicker: true } },
 		});
 
-	it("points AR file URLs at the FAC proxy, not this site's root", () => {
+	it("points AR file URLs at the TAC proxy, not this site's root", () => {
 		const html = mountIt().vm.renderContent('<img src="/private/files/a.png">');
 		expect(html).toContain("download_ticket_attachment");
 		expect(html).toContain("ticket_id=58");

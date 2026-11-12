@@ -41,7 +41,7 @@ describe("surface config", () => {
 	});
 	afterEach(() => resetSurface());
 
-	it("FAC Chat keeps sending as spa", async () => {
+	it("TAC Chat keeps sending as spa", async () => {
 		await store.sendMessage("hi", [], null, "m1");
 		expect(sentOptions().client_type).toBe("spa");
 		expect(sentModel()).toBe("m1");
@@ -85,7 +85,7 @@ describe("surface config", () => {
 		expect(resumePayload().client_type).toBe("widget");
 	});
 
-	it("a resume from FAC Chat stays spa", async () => {
+	it("a resume from TAC Chat stays spa", async () => {
 		store.messages = [{ role: "assistant", isStreaming: true, message_id: "m-1", blocks: [pendingCard()] }];
 		await store.submitInterruptDecision({
 			blockId: "blk1",

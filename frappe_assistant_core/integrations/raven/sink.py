@@ -92,7 +92,7 @@ class ReplySink:
         elif kind == "tool_call_start":
             self.writer.status(_describe_tool(event.get("input") or {}))
         elif kind == "thinking":
-            self.writer.status(_("FAC Bot is thinking…"))
+            self.writer.status(_("TAC Bot is thinking…"))
         elif kind in TERMINAL:
             self._finish(kind, event)
 
@@ -127,4 +127,4 @@ class ReplySink:
 
 def _describe_tool(tool_input: dict) -> str:
     target = " ".join(str(v) for v in (tool_input.get("doctype"), tool_input.get("name")) if v)
-    return _("FAC Bot is reading {0}…").format(target) if target else _("FAC Bot is working…")
+    return _("TAC Bot is reading {0}…").format(target) if target else _("TAC Bot is working…")

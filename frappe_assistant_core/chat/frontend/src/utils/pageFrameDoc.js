@@ -26,7 +26,7 @@ export const pageFrameChartsUrl = (origin, version = "") => `${origin}${ASSETS}f
 
 /**
  * Both frames' policy. The inner frame inherits the outer one's and adds its own copy, so each
- * directive here is the most either may do: scripts only with this render's nonce or from FAC's
+ * directive here is the most either may do: scripts only with this render's nonce or from TAC's
  * own built bundles, images and fonts from the site's public paths, and no fetch, socket or frame.
  */
 export function pageFrameCsp(origin, nonce) {

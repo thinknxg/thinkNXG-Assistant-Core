@@ -82,7 +82,7 @@ def _log_stream_error_detail(data: dict) -> None:
     from .._helpers import _log, _summarize_stream_error_for_log
 
     _log(
-        title=f"FAC Chat stream error: {code}",
+        title=f"TAC Chat stream error: {code}",
         detail=_summarize_stream_error_for_log(code),
     )
 

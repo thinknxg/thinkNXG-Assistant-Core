@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""Signals for the FAC Chat home "Needs you" list.
+"""Signals for the TAC Chat home "Needs you" list.
 
 A signal is a cheap, permission-aware count of something that needs the user's
 attention. Signals live in ``CATALOGUE``; ``compute_home_signals`` evaluates the

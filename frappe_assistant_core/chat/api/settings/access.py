@@ -109,7 +109,7 @@ def can_use_faco() -> dict:
     cannot chat until seated.
 
     Checks in order:
-    1. Master FAC Chat gate (Assistant Core Settings.enable_fac_chat)
+    1. Master TAC Chat gate (Assistant Core Settings.enable_fac_chat)
     2. AR registration status
     3. User is a FACO member (_is_faco_member) or an admin
 
@@ -129,7 +129,7 @@ def can_use_faco() -> dict:
             }
     """
     try:
-        # Master gate: FAC-level enable_fac_chat (Assistant Core Settings).
+        # Master gate: TAC-level enable_fac_chat (Assistant Core Settings).
         # When off, the widget is fully hidden and no further checks run.
         # This is what allows runtime toggling without a worker restart.
         #

@@ -22,7 +22,7 @@ create_document and update_document decided which fields were child tables with
 `Table MultiSelect` (`frappe.model.table_fields`) — so every Table MultiSelect
 value was assigned raw with setattr, and the insert died on `.is_new()`. That
 blocked any doctype with a required Table MultiSelect (LMS Course.instructors in
-the report; User Group.user_group_members here), and FAC's own FAC Skill and
+the report; User Group.user_group_members here), and TAC's own FAC Skill and
 Prompt Template, whose `shared_with_roles` is one too.
 
 Around that, three neighbouring defects in the same code:
@@ -44,7 +44,7 @@ depend on LMS: User Group (required Table MultiSelect -> User Group Member.user)
 and Event (plain Table -> Event Participants). Event rather than Note because a
 Desk User can create an Event and all its tables sit at permlevel 0; Note's
 `seen_by` is permlevel 1, so thinkNXG strips it from a Desk User's insert and a
-screening test on it would pass whether or not FAC screened anything.
+screening test on it would pass whether or not TAC screened anything.
 """
 
 import frappe
@@ -57,7 +57,7 @@ from frappe_assistant_core.tests.base_test import BaseAssistantTest
 
 
 def group_name():
-    return f"FAC 291 {frappe.generate_hash(length=8)}"
+    return f"TAC 291 {frappe.generate_hash(length=8)}"
 
 
 def members(group):
@@ -66,7 +66,7 @@ def members(group):
 
 def event(**extra):
     """The minimum an Event needs, plus whatever the test is about."""
-    return {"subject": "FAC 291", "event_type": "Private", "starts_on": "2026-10-09 10:00:00", **extra}
+    return {"subject": "TAC 291", "event_type": "Private", "starts_on": "2026-10-09 10:00:00", **extra}
 
 
 def participant(user, **extra):
@@ -190,7 +190,7 @@ class TestCreateScreensChildRows(BaseAssistantTest):
                 {
                     "doctype": "Event",
                     "data": event(
-                        subject="FAC 291 forged row",
+                        subject="TAC 291 forged row",
                         event_participants=[
                             participant(user, owner="Administrator", creation="2001-01-01 00:00:00")
                         ],
@@ -203,7 +203,7 @@ class TestCreateScreensChildRows(BaseAssistantTest):
         self.assertFalse(result.get("success"), result)
         self.assertIn("owner", result.get("error", ""))
         self.assertIn("creation", result.get("error", ""))
-        self.assertFalse(frappe.db.exists("Event", {"subject": "FAC 291 forged row"}))
+        self.assertFalse(frappe.db.exists("Event", {"subject": "TAC 291 forged row"}))
 
     def test_sensitive_field_in_a_row_is_rejected_for_every_role(self):
         result = DocumentCreate().execute(

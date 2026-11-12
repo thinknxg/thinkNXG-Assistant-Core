@@ -1,8 +1,8 @@
-# thinkNXG Assistant Core - FAC Chat service worker renderer tests
+# thinkNXG Assistant Core - TAC Chat service worker renderer tests
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""Tests for serving FAC Chat's service worker at /copilot/sw.js."""
+"""Tests for serving TAC Chat's service worker at /copilot/sw.js."""
 
 import os
 import tempfile

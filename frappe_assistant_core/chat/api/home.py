@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""FAC Chat home: the cached "Needs you" signals endpoint."""
+"""TAC Chat home: the cached "Needs you" signals endpoint."""
 
 import json
 import time

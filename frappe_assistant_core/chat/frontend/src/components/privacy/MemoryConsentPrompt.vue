@@ -11,7 +11,7 @@
 
 			<div id="memory-consent-body" class="body">
 				<p>
-					When you set up FAC Chat, AI memory was switched on for you instead of
+					When you set up TAC Chat, AI memory was switched on for you instead of
 					asking first. We've paused it until you decide.
 				</p>
 				<p>

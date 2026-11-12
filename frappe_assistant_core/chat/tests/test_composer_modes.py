@@ -39,7 +39,7 @@ class TestReasoningEffort(unittest.TestCase):
 
 
 class TestSdkCompat(unittest.TestCase):
-    """An older SDK has no reasoning_effort parameter; FAC must not pass it one."""
+    """An older SDK has no reasoning_effort parameter; TAC must not pass it one."""
 
     def test_new_sdk_gets_both(self):
         def new_stream_chat(*a, web_search=None, thinking_enabled=None, reasoning_effort=None): ...

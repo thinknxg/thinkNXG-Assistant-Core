@@ -2,7 +2,7 @@
 # Copyright (C) 2025 Paul Clinton
 # AGPL-3.0 License
 
-"""FAC's proxy endpoints for the self-serve payment-method flow."""
+"""TAC's proxy endpoints for the self-serve payment-method flow."""
 
 from unittest.mock import MagicMock, patch
 

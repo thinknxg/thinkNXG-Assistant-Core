@@ -18,7 +18,7 @@ frappe.ui.form.on("FAC Chat Settings", {
 	refresh(frm) {
 		if (frm.doc.registration_status !== "Registered") {
 			frm.add_custom_button(
-				__("Register in FAC Chat"),
+				__("Register in TAC Chat"),
 				() => frm.trigger("start_registration"),
 				__("Actions")
 			);
@@ -48,7 +48,7 @@ frappe.ui.form.on("FAC Chat Settings", {
 
 	start_registration(frm) {
 		/**
-		 * Registration happens in the FAC Chat onboarding screen, not here.
+		 * Registration happens in the TAC Chat onboarding screen, not here.
 		 *
 		 * Registering means accepting a specific Terms and Conditions version,
 		 * and AR rejects any registration whose terms_version it did not just
@@ -70,7 +70,7 @@ frappe.ui.form.on("FAC Chat Settings", {
 		frappe.warn(
 			__("Reset FAC Cloud registration?"),
 			__(
-				"This clears the tenant credentials this site signs its requests with. FAC Chat stops working until the site is registered again.<br><br>Re-registration goes to <b>{0}</b> and creates a <b>new tenant</b> there. Any subscription, credits and history belonging to the current tenant stay where they are and are not carried over.",
+				"This clears the tenant credentials this site signs its requests with. TAC Chat stops working until the site is registered again.<br><br>Re-registration goes to <b>{0}</b> and creates a <b>new tenant</b> there. Any subscription, credits and history belonging to the current tenant stay where they are and are not carried over.",
 				[frappe.utils.escape_html(fac_cloud_url)]
 			),
 			() => {

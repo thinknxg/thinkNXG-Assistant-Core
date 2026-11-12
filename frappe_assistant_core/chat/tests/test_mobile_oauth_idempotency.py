@@ -89,7 +89,7 @@ class TestMobileOAuthIdempotency(BaseAssistantTest):
         # the field does not exist, so the value _register_mobile_oauth_client
         # passes is dropped on insert and there is nothing to read back. The
         # rest of the client is identical on both, and PKCE is enforced by
-        # FAC's own get_token override rather than by this field, so this is
+        # TAC's own get_token override rather than by this field, so this is
         # asserted where the field exists rather than skipped outright.
         if frappe.get_meta("OAuth Client").get_field("token_endpoint_auth_method"):
             self.assertEqual(c.token_endpoint_auth_method, "None")

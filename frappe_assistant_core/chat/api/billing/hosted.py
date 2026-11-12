@@ -80,9 +80,9 @@ def create_hosted_checkout(
     except ARBillingUnavailableError:
         frappe.throw(_("Billing is not available on this server"))
     except ARError as e:
-        frappe.throw(_safe_error(e, "FAC Hosted Checkout Error"))
+        frappe.throw(_safe_error(e, "TAC Hosted Checkout Error"))
     except Exception as e:
-        frappe.throw(_safe_error(e, "FAC Hosted Checkout Error"))
+        frappe.throw(_safe_error(e, "TAC Hosted Checkout Error"))
 
 
 @frappe.whitelist(methods=["POST"])

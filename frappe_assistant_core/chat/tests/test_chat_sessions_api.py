@@ -141,7 +141,7 @@ class TestSessionsApi(BaseAssistantTest):
     def test_non_system_manager_sees_only_their_own_conversations(self):
         # Real chat users are plain System Users, not System Managers, so the "All"/if_owner
         # permission row applies; every other test here runs as Administrator and skips it.
-        # OTHER_USER is created by ensure_user as a System User with no extra roles, as FAC seats are.
+        # OTHER_USER is created by ensure_user as a System User with no extra roles, as TAC seats are.
         chat("admin-own", "steel from admin")
         mine = chat("mine", "steel from other", user=OTHER_USER)
         gone = chat("mine-old", "old steel from other", user=OTHER_USER)

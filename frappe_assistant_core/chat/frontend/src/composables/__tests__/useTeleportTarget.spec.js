@@ -11,7 +11,7 @@ const Probe = defineComponent({
 });
 
 describe("useTeleportTarget", () => {
-	it("is body in FAC Chat", () => {
+	it("is body in TAC Chat", () => {
 		expect(mount(Probe).text()).toBe("body");
 	});
 

@@ -14,14 +14,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-"""FAC Bot: the thinkNXG Raven bot FACO answers through. thinkNXG Raven's own AI stays off for it (is_ai_bot=0),
+"""TAC Bot: the thinkNXG Raven bot FACO answers through. thinkNXG Raven's own AI stays off for it (is_ai_bot=0),
 so thinkNXG Raven never calls OpenAI for it and FACO is the only thing that answers."""
 
 from typing import Literal
 
 import frappe
 
-BOT_NAME = "FAC Bot"
+BOT_NAME = "TAC Bot"
 BOT_IMAGE = "/assets/frappe_assistant_core/images/FAC_mark.svg"
 _STATE_KEY = "fac_raven_bot_state"
 
@@ -42,7 +42,7 @@ def clear_state_cache(doc=None, method=None) -> None:
 
 
 def ensure_bot() -> str:
-    """Create FAC Bot if missing. Callers check the admin permission first."""
+    """Create TAC Bot if missing. Callers check the admin permission first."""
     if not frappe.db.exists("Raven Bot", BOT_NAME):
         frappe.get_doc(
             {

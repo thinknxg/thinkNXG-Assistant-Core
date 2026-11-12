@@ -122,7 +122,7 @@ By contributing to thinkNXG Assistant Core, you agree that your contributions wi
 
 ## 🏷️ Before Tagging a Release
 
-Run the release check before tagging: it asks business questions with known answers through FAC
+Run the release check before tagging: it asks business questions with known answers through TAC
 Chat on two test sites and fails on any question that used to be answered correctly. See
 [scripts/release_check/README.md](scripts/release_check/README.md).
 

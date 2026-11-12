@@ -91,7 +91,7 @@
   {
    "fieldname": "fac_chat_tab",
    "fieldtype": "Tab Break",
-   "label": "FAC Chat"
+   "label": "TAC Chat"
   },
   {
    "fieldname": "fac_chat_description",
@@ -103,7 +103,7 @@
    "description": "Toggles on/off immediately — no restart needed.",
    "fieldname": "enable_fac_chat",
    "fieldtype": "Check",
-   "label": "Enable FAC Chat"
+   "label": "Enable TAC Chat"
   },
   {
    "fieldname": "plugins_tab",

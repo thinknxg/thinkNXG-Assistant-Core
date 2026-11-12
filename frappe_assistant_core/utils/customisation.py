@@ -392,7 +392,7 @@ def _personal_page_impact(
 def customisation_impact(tool_name: str, tool_input: Any) -> Dict[str, Any]:
     """Whether a customisation write changes nothing anyone but its builder can feel yet.
 
-    Dormant: a switched-off script or notification, an unpublished shared FAC Page, a personal FAC
+    Dormant: a switched-off script or notification, an unpublished shared FAC Page, a personal TAC
     Page its owner changes and keeps personal, or anything that only touches a custom DocType that
     nobody outside the system roles can reach, that holds no records and that is not a child table
     or used by another form. A write is dormant only when

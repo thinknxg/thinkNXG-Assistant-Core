@@ -5,7 +5,7 @@
 """Users whose memory consent came from a pre-ticked switch are asked to confirm it.
 
 AR withdraws that consent and reports ``memory_consent_pending`` (from its
-reset_pre_ticked_memory_consent patch) on get_user_auth_status and get_user. FAC passes
+reset_pre_ticked_memory_consent patch) on get_user_auth_status and get_user. TAC passes
 the flag to the SPA and records the answer: keep turns consent back on; turn off keeps it
 off and deletes the user's memories. The SDK client is autospecced so a call to a method
 the pinned SDK lacks fails here instead of in production.
