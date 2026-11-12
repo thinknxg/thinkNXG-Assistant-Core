@@ -1,0 +1,650 @@
+# thinkNXG Assistant Core - AI Assistant integration for thinkNXG Framework
+# Copyright (C) 2025 Paul Clinton
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+"""
+Document Update Tool for Core Plugin.
+Updates existing thinkNXG documents.
+"""
+
+import copy
+from typing import Any, Dict, List, Optional, Set, Tuple
+
+import frappe
+from frappe import _
+
+from frappe_assistant_core.core.base_tool import BaseTool, exception_message, permission_error_result
+from frappe_assistant_core.core.security_config import get_restricted_fields
+from frappe_assistant_core.utils.customisation import (
+    customisation_result,
+    desk_url,
+    script_report_warning,
+    server_script_guard,
+)
+from frappe_assistant_core.utils.savepoint import open_savepoint, rollback_to_savepoint
+
+from .batch import MODE_SCHEMA, batch_refusal, run_batch, run_validation
+from .child_tables import ChildRowError, child_table_fields, normalize_child_rows
+
+# A validate_only dry run is rolled back to this savepoint.
+_VALIDATE_SAVEPOINT = "fac_update_document_validate"
+
+# The rules Document.save runs before it writes, by the action check_if_latest settles on:
+# what Before Validate, Before Save and Before Save (Submitted Document) scripts hook. A dry
+# run leaves out before_save and before_submit, as create_document's does; cancel runs none.
+_RULES_BEFORE_WRITE = {
+    "save": ("before_validate", "validate"),
+    "submit": ("before_validate", "validate"),
+    "update_after_submit": ("before_update_after_submit",),
+}
+
+
+def _check_update(doc: Any) -> None:
+    """Run what ``Document.save`` runs on an existing record before it writes, without the write.
+
+    The steps follow ``Document._save`` in its order, on thinkNXG v15 and v16: the lock, write
+    and permlevel checks, the docstatus transition (a submitted record may change only its
+    allow-on-submit fields), link validation and the rules above. thinkNXG's own field checks
+    (mandatory, Select options, length) are left out, as in create_document's dry run, except
+    set-only-once, which only an update can break. The caller rolls back.
+    """
+    doc.check_if_locked()
+    doc._set_defaults()
+    # thinkNXG v16 puts back masked values before the permission check; v15 has no masking.
+    restore_masked = getattr(doc, "_restore_masked_fields_from_db", None)
+    if restore_masked:
+        restore_masked()
+    doc.check_permission("write", "save")
+    doc.set_user_and_timestamp()
+    doc.set_docstatus()
+    doc.check_if_latest()
+    doc.set_parent_in_children()
+    doc.set_name_in_children()
+    doc.validate_higher_perm_levels()
+    doc._validate_links()
+    for method in _RULES_BEFORE_WRITE.get(doc._action, ()):
+        doc.run_method(method)
+    if doc._action != "cancel":
+        doc.validate_set_only_once()
+    if doc._action == "update_after_submit":
+        doc.validate_update_after_submit()
+
+
+def _apply_child_table_update(
+    doc: Any,
+    field: str,
+    child_doctype: str,
+    rows: Any,
+    restricted_child_fields: Set[str],
+) -> Optional[Dict[str, Any]]:
+    """Apply patch- or replace-mode updates to a child table on `doc`.
+
+    Mode is decided per call: if any input row has a `name`, patch mode (match by name,
+    update matched, append unmatched, delete on `_delete: True`). Otherwise replace mode
+    (clear table and re-append).
+
+    Returns None on success, or a structured error dict on failure.
+    """
+    if not isinstance(rows, list):
+        return {
+            "success": False,
+            "error": f"Child table '{field}' requires a list of dictionaries, got: {type(rows).__name__}",
+            "error_type": "child_table_handling_error",
+            "field": field,
+        }
+
+    for row in rows:
+        if not isinstance(row, dict):
+            return {
+                "success": False,
+                "error": f"Child table '{field}' rows must be dictionaries, got: {type(row).__name__}",
+                "error_type": "child_table_handling_error",
+                "field": field,
+            }
+
+    has_named_row = any("name" in row and row["name"] for row in rows)
+
+    # Reject restricted fields up-front, regardless of mode.
+    for row in rows:
+        violating = [k for k in row.keys() if k in restricted_child_fields]
+        if violating:
+            row_id = row.get("name", "<new row>")
+            return {
+                "success": False,
+                "error": (
+                    f"Cannot update restricted child-table fields: "
+                    f"{', '.join(violating)} in {child_doctype} (row {row_id}). "
+                    f"These fields require higher privileges."
+                ),
+            }
+
+    if not has_named_row:
+        # Replace mode: matches create_document semantics for first-time population.
+        if any("_delete" in row for row in rows):
+            return {
+                "success": False,
+                "error": (
+                    f"'_delete' marker on child table '{field}' requires a 'name' to identify "
+                    f"the row to remove."
+                ),
+                "error_type": "child_row_not_found",
+                "field": field,
+            }
+        doc.set(field, [])
+        for row in rows:
+            doc.append(field, row)
+        return None
+
+    # Patch mode: match input rows to existing rows by `name`.
+    existing_rows = doc.get(field) or []
+    existing_by_name = {r.name: r for r in existing_rows if getattr(r, "name", None)}
+
+    for row in rows:
+        row_name = row.get("name")
+        delete_marker = bool(row.get("_delete"))
+
+        if not row_name:
+            if delete_marker:
+                return {
+                    "success": False,
+                    "error": (
+                        f"'_delete' marker on child table '{field}' requires a 'name' to identify "
+                        f"the row to remove."
+                    ),
+                    "error_type": "child_row_not_found",
+                    "field": field,
+                }
+            # New row in patch mode → append.
+            # Coerce date strings to datetime.date to avoid comparison errors in validate()
+            from frappe.utils import getdate
+
+            meta = frappe.get_meta(child_doctype)
+            coerced_row = {}
+            for k, v in row.items():
+                field_meta = meta.get_field(k)
+                if field_meta and field_meta.fieldtype == "Date" and isinstance(v, str) and v:
+                    coerced_row[k] = getdate(v)
+                else:
+                    coerced_row[k] = v
+            doc.append(field, coerced_row)
+            continue
+
+        target = existing_by_name.get(row_name)
+        if target is None:
+            return {
+                "success": False,
+                "error": f"Row '{row_name}' not found in {child_doctype} table '{field}'.",
+                "error_type": "child_row_not_found",
+                "field": field,
+            }
+
+        if delete_marker:
+            doc.remove(target)
+            continue
+
+        for k, v in row.items():
+            if k in ("name", "_delete"):
+                continue
+            target.set(k, v)
+
+    return None
+
+
+RENAME_KEYS = ("new_name", "rename")
+
+
+def _has_rename_value(value: Any) -> bool:
+    """A value names a rename unless it is None, False or blank once stringified.
+
+    Numbers and True count; the chat card's `hasRenameValue` applies the same rule.
+    """
+    return value is not None and value is not False and str(value).strip() != ""
+
+
+def _split_rename(name: str, data: Dict[str, Any], arguments: Dict[str, Any]) -> Tuple[Dict[str, Any], bool]:
+    """Separate a rename from the field changes in an update.
+
+    A rename is `new_name` or `rename` (in `data` or beside it), or a `data["name"]` that
+    differs from the record being updated. Returns the data without those keys and whether
+    any was present. Restating the record's own name is not a rename.
+    """
+    fields = {k: v for k, v in data.items() if k not in RENAME_KEYS and k != "name"}
+    requested = any(_has_rename_value(v) for k in RENAME_KEYS for v in (data.get(k), arguments.get(k)))
+    if "name" in data and _has_rename_value(data["name"]):
+        requested = requested or str(data["name"]).strip() != str(name).strip()
+    return fields, requested
+
+
+class DocumentUpdate(BaseTool):
+    """
+    Tool for updating existing thinkNXG documents.
+
+    Provides capabilities for:
+    - Updating document field values
+    - Updating child-table rows (replace, append, patch, delete)
+    - Checking permissions
+    - Handling validation errors
+    """
+
+    def __init__(self):
+        super().__init__()
+        self.name = "update_document"
+        self.description = (
+            "Update/modify an existing thinkNXG document. Use when users want to change field values "
+            "in an existing record. Always fetch the document first to understand current values. "
+            "Supports child tables: send a list of row dicts under the table fieldname. If any row "
+            "has a 'name' key, patch mode is used (rows matched by 'name' are updated, rows without "
+            "'name' are appended, rows with '_delete': true are removed). If no row has a 'name', "
+            "the entire child table is replaced. "
+            "IMPORTANT: do NOT call this tool with a child-table doctype (e.g. 'Sales Order Item', "
+            "'Purchase Order Item') directly — that bypasses the parent's recalculation and leaves "
+            "totals stale. Always call it on the parent doctype (e.g. 'Sales Order') and pass the "
+            "child row updates under the table fieldname (e.g. 'items'). "
+            "To update many records of one DocType, pass 'names' with one 'data' for all of them, "
+            "or 'records' ([{'name': ..., 'data': {...}}], at most 100) for different changes. "
+            "To test a rule that runs when a record is edited, pass validate_only: true; nothing is saved."
+        )
+        self.requires_permission = None  # Permission checked dynamically per DocType
+
+        self.inputSchema = {
+            "type": "object",
+            "properties": {
+                "doctype": {
+                    "type": "string",
+                    "description": "The thinkNXG DocType name (e.g., 'Customer', 'Sales Invoice', 'Item')",
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The document name/ID to update (e.g., 'CUST-00001', 'SINV-00001')",
+                },
+                "data": {
+                    "type": "object",
+                    "description": (
+                        "Field updates as key-value pairs. Only include fields that need to be changed. "
+                        "For top-level scalar fields: {'customer_name': 'Updated Corp Name'}. "
+                        "For child tables, pass a list of row dicts under the table fieldname. "
+                        "Patch mode (any row has 'name'): matched rows are updated, unmatched rows are "
+                        "appended, rows with '_delete': true are removed; existing rows not mentioned "
+                        "are left untouched. Replace mode (no row has 'name'): the table is cleared and "
+                        "refilled. Example patch: {'items': [{'name': 'abc-123', 'qty': 5}, "
+                        "{'item_code': 'NEW', 'qty': 1}, {'name': 'old-1', '_delete': true}]}."
+                    ),
+                },
+                "names": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Instead of 'name': several records that all get the same 'data'.",
+                },
+                "records": {
+                    "type": "array",
+                    "items": {"type": "object"},
+                    "description": "Instead of 'name' and 'data': several records, each {'name': ..., 'data': {...}}.",
+                },
+                "mode": MODE_SCHEMA,
+                "validate_only": {
+                    "type": "boolean",
+                    "default": False,
+                    "description": (
+                        "Check the change without saving it. Applies it to the stored record and runs "
+                        "the permission checks, the submitted-record rules and the validation rules "
+                        "(Before Save server scripts and validate hooks), then undoes everything. It "
+                        "does not check mandatory fields."
+                    ),
+                },
+            },
+            "required": ["doctype"],
+        }
+
+    def execute(self, arguments: Dict[str, Any]) -> Dict[str, Any]:
+        """Update one document, or several from ``names`` or ``records``"""
+        doctype = arguments.get("doctype")
+        validate_only = arguments.get("validate_only", False)
+        forms = [key for key in ("name", "names", "records") if key in arguments]
+        if len(forms) != 1:
+            return {
+                "success": False,
+                "error": _("Pass exactly one of 'name', 'names' or 'records'."),
+                "doctype": doctype,
+            }
+
+        if forms == ["name"]:
+            if "data" not in arguments:
+                return {"success": False, "error": _("Pass the changes in 'data'."), "doctype": doctype}
+            return self._update_one(doctype, arguments["name"], arguments["data"], arguments, validate_only)
+
+        mode = arguments.get("mode", "all_or_nothing")
+        if forms == ["names"]:
+            if "data" not in arguments:
+                return {"success": False, "error": _("Pass the changes in 'data'."), "doctype": doctype}
+            items = arguments["names"]
+            refusal = batch_refusal(doctype, items, "names", mode)
+            if refusal:
+                return refusal
+            data = arguments["data"]
+            items = [{"name": name, "data": data} for name in items]
+        else:
+            if "data" in arguments:
+                return {
+                    "success": False,
+                    "error": _("With 'records', put each record's changes in its own 'data'."),
+                    "doctype": doctype,
+                }
+            items = arguments["records"]
+            refusal = batch_refusal(doctype, items, "records", mode)
+            if refusal:
+                return refusal
+
+        if not all(
+            isinstance(item, dict) and item.get("name") and isinstance(item.get("data"), dict)
+            for item in items
+        ):
+            return {
+                "success": False,
+                "error": _("Each record needs a 'name' and a 'data' dict of changes."),
+                "doctype": doctype,
+            }
+
+        # A copy per record: doc.append writes into the child-row dicts it is given, and
+        # with 'names' every record shares one 'data'.
+        def update_item(item: Dict[str, Any]) -> Dict[str, Any]:
+            return self._update_one(doctype, item["name"], copy.deepcopy(item["data"]), {}, validate_only)
+
+        def label(index: int, item: Dict[str, Any]) -> str:
+            return str(item["name"])
+
+        if validate_only:
+            return run_validation(doctype, items, update_item, label)
+        return run_batch(doctype, items, update_item, label, mode)
+
+    def _update_one(
+        self,
+        doctype: str,
+        name: str,
+        data: Dict[str, Any],
+        arguments: Dict[str, Any],
+        validate_only: bool = False,
+    ) -> Dict[str, Any]:
+        """Update an existing document, or with ``validate_only`` check the update and undo it"""
+        data, rename_requested = _split_rename(name, data, arguments)
+        if rename_requested and not data:
+            return {
+                "success": False,
+                "error": _(
+                    "The update tool can't rename a record, and there is nothing else to change. "
+                    "Rename it in Desk: open the record and choose Rename from its menu."
+                ),
+                "error_type": "rename_not_supported",
+                "doctype": doctype,
+                "name": name,
+            }
+
+        # Reject direct updates to child-table doctypes. Saving a child row in isolation
+        # bypasses the parent's validate() pipeline, so derived fields (e.g. thinkNXG ERP's
+        # row `amount` and parent `total`/`total_qty`/`grand_total`) never recompute.
+        # The caller must update the parent doc and pass the child rows through `data`.
+        try:
+            child_meta = frappe.get_meta(doctype)
+        except Exception:
+            child_meta = None
+
+        if child_meta is not None and getattr(child_meta, "istable", 0):
+            parent_info: Dict[str, Any] = {
+                "success": False,
+                "error": (
+                    f"'{doctype}' is a child-table doctype and cannot be updated directly. "
+                    f"Updating a child row in isolation skips the parent doc's validate() "
+                    f"pipeline, leaving derived fields (row totals, parent grand_total, "
+                    f"total_qty, etc.) stale. Update the parent document instead and pass "
+                    f"the child rows under the table fieldname in `data`."
+                ),
+                "error_type": "child_doctype_direct_update",
+                "child_doctype": doctype,
+            }
+
+            # Try to resolve the parent doc + table fieldname so the model can fix its call.
+            # Only for a caller who may read that parent: this runs before any other
+            # permission check, and would otherwise name the document any row belongs to.
+            # thinkNXG resolves a child row's read permission through its parent (#291).
+            if name and frappe.has_permission(doctype, "read", doc=name):
+                try:
+                    parent_name, parent_type, parent_field = frappe.db.get_value(
+                        doctype, name, ["parent", "parenttype", "parentfield"]
+                    ) or (None, None, None)
+                    if parent_name and parent_type and parent_field:
+                        parent_info["parent_doctype"] = parent_type
+                        parent_info["parent_name"] = parent_name
+                        parent_info["parent_table_fieldname"] = parent_field
+                        parent_info["suggestion"] = (
+                            f"Call update_document with doctype='{parent_type}', "
+                            f"name='{parent_name}', and data={{'{parent_field}': "
+                            f"[{{'name': '{name}', ...fields to change...}}]}}. "
+                            f"Patch mode will update only the named row; other rows are untouched."
+                        )
+                except Exception:
+                    pass
+
+            return parent_info
+
+        # Import security validation
+        from frappe_assistant_core.core.security_config import (
+            validate_document_access,
+        )
+
+        # Validate document access with comprehensive permission checking
+        validation_result = validate_document_access(
+            user=frappe.session.user, doctype=doctype, name=name, perm_type="write", data=data
+        )
+
+        if not validation_result["success"]:
+            return validation_result
+
+        user_role = validation_result["role"]
+
+        try:
+            # Check if document exists
+            if not frappe.db.exists(doctype, name):
+                result = {"success": False, "error": f"{doctype} '{name}' not found"}
+                return result
+
+            # Get document
+            doc = frappe.get_doc(doctype, name)
+
+            # Enhanced document state validation
+            current_docstatus = getattr(doc, "docstatus", 0)
+            current_workflow_state = getattr(doc, "workflow_state", None)
+
+            # Check if document is cancelled
+            if current_docstatus == 2:
+                result = {
+                    "success": False,
+                    "error": f"Cannot modify cancelled document {doctype} '{name}'. Cancelled documents are read-only.",
+                    "docstatus": current_docstatus,
+                    "workflow_state": current_workflow_state,
+                    "suggestion": "To correct it, use document_action with action 'amend' to create a new draft copy, then update that draft.",
+                }
+                return result
+
+            # Resolve restricted fields for the parent doctype.
+            parent_restricted = get_restricted_fields(doctype, user_role)
+
+            # Get DocType metadata for proper child-table handling. Table and Table
+            # MultiSelect are both child tables (#291).
+            meta = frappe.get_meta(doctype)
+            table_fields = child_table_fields(meta)
+
+            # Top-level restricted-field check (excludes child-table fields, which are checked
+            # separately against the child doctype's restricted set).
+            restricted_top_level = [
+                field for field in data.keys() if field in parent_restricted and field not in table_fields
+            ]
+            if restricted_top_level:
+                return {
+                    "success": False,
+                    "error": (
+                        f"Cannot update restricted fields: {', '.join(restricted_top_level)}. "
+                        f"These fields require higher privileges."
+                    ),
+                }
+
+            refusal = server_script_guard(
+                doctype,
+                data,
+                current_disabled=doc.get("disabled"),
+                current_reference_doctype=doc.get("reference_doctype"),
+                current_script_type=doc.get("script_type"),
+            )
+            if refusal:
+                return refusal
+
+            # Read before the setattr loop below, which overwrites the stored values
+            warning = script_report_warning(doctype, data, current=doc)
+            if rename_requested:
+                if validate_only:
+                    skipped = _(
+                        "The rename was not checked: the update tool can't rename a record. To "
+                        "rename it, open the record in Desk and choose Rename from its menu."
+                    )
+                else:
+                    skipped = _(
+                        "The rename was skipped: the update tool can't rename a record. The other "
+                        "changes were saved. To rename it, open the record in Desk and choose Rename "
+                        "from its menu."
+                    )
+                warning = f"{warning} {skipped}" if warning else skipped
+
+            # Apply updates: child tables go through helper, scalars use setattr.
+            for field, value in data.items():
+                if field in table_fields:
+                    child_doctype = table_fields[field].options
+                    child_restricted = get_restricted_fields(child_doctype, user_role)
+                    try:
+                        rows = normalize_child_rows(table_fields[field], value)
+                    except ChildRowError as e:
+                        return e.as_result()
+                    err = _apply_child_table_update(doc, field, child_doctype, rows, child_restricted)
+                    if err is not None:
+                        return err
+                else:
+                    setattr(doc, field, value)
+
+            if validate_only:
+                # Validation can write (a Before Save script, an app hook), so the dry run is
+                # undone whatever the outcome, with the commit work it queued.
+                marks = open_savepoint(_VALIDATE_SAVEPOINT)
+                try:
+                    _check_update(doc)
+                finally:
+                    rollback_to_savepoint(_VALIDATE_SAVEPOINT, marks, doctype, name)
+
+                result = {
+                    "success": True,
+                    "validation_passed": True,
+                    "doctype": doctype,
+                    "name": name,
+                    "url": desk_url(doctype, name),
+                    "fields_validated": list(data.keys()),
+                    "message": _("The change to {0} '{1}' passed validation. Nothing was saved.").format(
+                        doctype, name
+                    ),
+                    "next_step": _("Call update_document without validate_only to save the change."),
+                }
+                if warning:
+                    result["warning"] = warning
+                return result
+
+            # Save document
+            doc.save()
+
+            # Get updated document state
+            doc.reload()
+            updated_docstatus = getattr(doc, "docstatus", 0)
+            updated_workflow_state = getattr(doc, "workflow_state", None)
+
+            result = {
+                "success": True,
+                "name": doc.name,
+                "doctype": doctype,
+                "url": desk_url(doctype, doc.name),
+                "updated_fields": list(data.keys()),
+                "docstatus": updated_docstatus,
+                "state_description": "Draft" if updated_docstatus == 0 else "Unknown",
+                "workflow_state": updated_workflow_state,
+                "owner": doc.owner,
+                "modified": str(doc.modified),
+                "modified_by": doc.modified_by,
+                "message": f"{doctype} '{doc.name}' updated successfully",
+            }
+
+            result.update(customisation_result(doctype, doc, warning))
+
+            # Check if user can submit this document
+            if updated_docstatus == 0:  # Only for draft documents
+                try:
+                    result["can_submit"] = frappe.has_permission(doctype, "submit", doc=doc.name)
+                except Exception:
+                    result["can_submit"] = False
+            else:
+                result["can_submit"] = False
+
+            # Add useful next steps information
+            if updated_docstatus == 0:
+                result["next_steps"] = [
+                    "Document remains in draft state",
+                    "You can continue updating this document",
+                    f"Submit permission: {'Available' if result['can_submit'] else 'Not available'}",
+                ]
+
+                # Add workflow actions if available
+                if updated_workflow_state:
+                    result["next_steps"].append(f"Current workflow state: {updated_workflow_state}")
+            else:
+                result["next_steps"] = [
+                    f"Document state: {result['state_description']}",
+                    "Further modifications may be restricted",
+                ]
+
+            # Log successful update
+            return result
+
+        except frappe.PermissionError as e:
+            # doc.save() refuses a document this user may not write and raises with no
+            # message; exception_message() recovers thinkNXG's reason.
+            error_msg = exception_message(
+                e, _("Insufficient permission to update {0} '{1}'").format(doctype, name)
+            )
+            if not validate_only:
+                frappe.log_error(
+                    title=_("Document Update Error"),
+                    message=f"Error updating {doctype} '{name}': {error_msg}",
+                )
+
+            return permission_error_result(doctype, error_msg, name)
+        except Exception as e:
+            error_msg = exception_message(e)
+            # A dry run refused by validation is the answer the caller asked for, not a fault.
+            if not (validate_only and isinstance(e, frappe.ValidationError)):
+                frappe.log_error(
+                    title=_("Document Update Error"),
+                    message=f"Error updating {doctype} '{name}': {error_msg}",
+                )
+
+            result = {"success": False, "error": error_msg, "doctype": doctype, "name": name}
+
+            # Log failed update
+            return result
+
+
+# Make sure class name matches file name for discovery
+document_update = DocumentUpdate
